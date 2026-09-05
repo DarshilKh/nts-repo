@@ -29,6 +29,45 @@ export const fontSize = {
   footerLink: 14,
 } as const;
 
+/**
+ * Mobile-first fluid sizing for the large display/heading tier. Every size
+ * above was a flat px value fixed to its exact measurement at the 1440px
+ * reference frame (DESIGN_SYSTEM.md §1.3) — correct on desktop, but nothing
+ * ever scaled it down below that. A phrase like "Ready to Automate" set at
+ * displayXl's flat 72px doesn't fit a 375px mobile column and pushes the
+ * *entire page* into horizontal scroll (confirmed on Home/Solution/About,
+ * which all share CTASection). `fluidMin` gives each role prone to this a
+ * mobile-width floor; `headingFontSize` linearly interpolates between that
+ * floor at a 375px viewport and the full measured value at 1440px via
+ * `clamp()`, so it's pixel-identical to before at the measured 1440px
+ * frame and never exceeds either bound outside it. Sizes not listed here
+ * (button/subhead and below) are short enough in practice that this isn't
+ * needed — left as flat px to avoid touching layouts that already work.
+ */
+const fluidMin: Partial<Record<keyof typeof fontSize, number>> = {
+  displayXl: 36,
+  displayLg: 34,
+  displayMd: 32,
+  h2Xl: 30,
+  statNumber: 30,
+  h2: 28,
+  h2Alt: 28,
+  h3Lg: 24,
+  h3: 24,
+};
+
+const FLUID_MIN_VW = 375;
+const FLUID_MAX_VW = 1440;
+
+export function headingFontSize(size: keyof typeof fontSize): string {
+  const max = fontSize[size];
+  const min = fluidMin[size];
+  if (min === undefined) return `${max}px`;
+  const slope = (max - min) / (FLUID_MAX_VW - FLUID_MIN_VW);
+  const intercept = min - slope * FLUID_MIN_VW;
+  return `clamp(${min}px, ${intercept.toFixed(3)}px + ${(slope * 100).toFixed(4)}vw, ${max}px)`;
+}
+
 /** §3.3 — measured card geometry. Radius is 0 on every card checked. */
 export const card = {
   radius: 0,

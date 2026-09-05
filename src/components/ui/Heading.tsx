@@ -1,5 +1,5 @@
 import { ReactNode, ElementType } from "react";
-import { fontSize } from "@/lib/tokens";
+import { fontSize, headingFontSize } from "@/lib/tokens";
 
 type SizeKey = keyof typeof fontSize;
 
@@ -29,7 +29,7 @@ export default function Heading({
     <Tag
       className={className}
       style={{
-        fontSize: `${fontSize[size]}px`,
+        fontSize: headingFontSize(size),
         fontWeight: weight,
         color,
         lineHeight: "var(--lh-display)",
