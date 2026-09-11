@@ -7,49 +7,65 @@ import Logo from "./Logo";
 import Frame from "./ui/Frame";
 import { navLinks } from "@/lib/data";
 import { PRODUCT_GROUPS, productGroupSectionId } from "@/lib/catalog";
+import { solutionPages } from "@/lib/solutions";
 
 /**
- * §4.1 — logo at x=122, nav links span x=729–1318 (right edge inset 122,
- * mirroring the logo's left inset). Reproduced as symmetric 122px
- * left/right padding at the PDF's native frame width; §5 open item notes
- * there's no boxed header-height measurement in the source, so vertical
- * padding here is a reasonable value sized around the 45px logo mark.
+ * §4.1 — logo at x=122, nav links span x=729–1318, mirrored insets. Nav
+ * labels are bold; the active item is marked by colour, not weight.
  *
- * Nav labels are bold across the board. The active item is still
- * distinguished, but by colour (brand red) rather than by weight — weight was
- * doing double duty as both "this is a nav item" and "this is the current
- * page", which left the inactive links looking washed out.
- *
- * "Products" additionally opens a categorised dropdown (Tags, Readers,
- * Cameras, Radar, …) on hover or click, rather than only linking to the
- * flat /products page — with 29 SKUs across seven groups, letting a
- * visitor jump straight to the section they want from the nav is a real
- * navigation aid, not just decoration.
+ * "Products" and "Solutions" both open a dropdown, sharing one hover/
+ * escape/outside-click implementation (`DROPDOWNS` + `openDropdown`
+ * below) instead of two copies of the same logic.
  */
+
+type DropdownItem = { label: string; href: string; blurb?: string };
+type DropdownConfig = {
+  href: string;
+  items: DropdownItem[];
+  viewAllHref: string;
+  viewAllLabel: string;
+};
+
+const DROPDOWNS: Record<string, DropdownConfig> = {
+  "/products": {
+    href: "/products",
+    items: PRODUCT_GROUPS.map((g) => ({
+      label: g.label,
+      href: `/products#${productGroupSectionId(g.id)}`,
+      blurb: g.blurb,
+    })),
+    viewAllHref: "/products",
+    viewAllLabel: "View all products →",
+  },
+  "/solution": {
+    href: "/solution",
+    items: solutionPages.map((s) => ({
+      label: s.name,
+      href: `/solution/${s.slug}`,
+    })),
+    viewAllHref: "/solution",
+    viewAllLabel: "View all solutions →",
+  },
+};
+
 export default function Header() {
   const pathname = usePathname();
   const [open, setOpen] = useState(false);
-  const [productsOpen, setProductsOpen] = useState(false);
-  const [mobileProductsOpen, setMobileProductsOpen] = useState(false);
-  const productsRef = useRef<HTMLDivElement>(null);
+  const [openDropdown, setOpenDropdown] = useState<string | null>(null);
+  const [mobileOpenDropdown, setMobileOpenDropdown] = useState<string | null>(null);
+  const dropdownRefs = useRef<Record<string, HTMLDivElement | null>>({});
   const closeTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
-  // Header isn't remounted by App Router navigation (same component at the
-  // same tree position across pages), so its open/dropdown state would
-  // otherwise survive a route change. Reset it here rather than in a
-  // useEffect: this is React's documented "adjusting state when a prop
-  // changes" pattern — https://react.dev/reference/react/useState#storing-information-from-previous-renders
-  // — a conditional setState call during render, guarded by comparing
-  // against the last-seen pathname (itself kept in state, not a ref —
-  // refs can't be read or written during render). Avoids the extra
-  // commit-then-effect-then-re-render cascade a useEffect with the same
-  // body would trigger on every navigation.
+  // Header isn't remounted on navigation, so dropdown state would survive
+  // a route change. Reset it during render (React's "adjusting state from
+  // props" pattern, comparing against the last-seen pathname) rather than
+  // in a useEffect, avoiding an extra render cascade on every navigation.
   const [prevPathname, setPrevPathname] = useState(pathname);
   if (prevPathname !== pathname) {
     setPrevPathname(pathname);
     setOpen(false);
-    setProductsOpen(false);
-    setMobileProductsOpen(false);
+    setOpenDropdown(null);
+    setMobileOpenDropdown(null);
   }
 
   const cancelClose = () => {
@@ -60,7 +76,7 @@ export default function Header() {
   };
   // A short delay rather than closing immediately: onMouseLeave fires the
   // instant the pointer leaves the trigger/panel's painted box, and real
-  // mouse movement from the "Products" link down into the panel is rarely
+  // mouse movement from the nav link down into the panel is rarely
   // perfectly vertical — a fast or diagonal move can clip outside that box
   // for a frame or two even with zero visual gap between them. Closing on
   // a timer (cancelled by the next onMouseEnter, which fires the instant
@@ -68,20 +84,19 @@ export default function Header() {
   // an intentional exit.
   const scheduleClose = () => {
     cancelClose();
-    closeTimerRef.current = setTimeout(() => setProductsOpen(false), 200);
+    closeTimerRef.current = setTimeout(() => setOpenDropdown(null), 200);
   };
 
   useEffect(() => cancelClose, []);
 
   useEffect(() => {
-    if (!productsOpen) return;
+    if (!openDropdown) return;
     const onKeyDown = (e: KeyboardEvent) => {
-      if (e.key === "Escape") setProductsOpen(false);
+      if (e.key === "Escape") setOpenDropdown(null);
     };
     const onPointerDown = (e: PointerEvent) => {
-      if (productsRef.current && !productsRef.current.contains(e.target as Node)) {
-        setProductsOpen(false);
-      }
+      const el = dropdownRefs.current[openDropdown];
+      if (el && !el.contains(e.target as Node)) setOpenDropdown(null);
     };
     document.addEventListener("keydown", onKeyDown);
     document.addEventListener("pointerdown", onPointerDown);
@@ -89,7 +104,7 @@ export default function Header() {
       document.removeEventListener("keydown", onKeyDown);
       document.removeEventListener("pointerdown", onPointerDown);
     };
-  }, [productsOpen]);
+  }, [openDropdown]);
 
   return (
     <header className="sticky top-0 z-50" style={{ background: "var(--bg)" }}>
@@ -106,7 +121,8 @@ export default function Header() {
                 fontWeight: 700,
               } as const;
 
-              if (link.href !== "/products") {
+              const dropdown = DROPDOWNS[link.href];
+              if (!dropdown) {
                 return (
                   <Link key={link.href} href={link.href} style={linkStyle}>
                     {link.label}
@@ -114,14 +130,17 @@ export default function Header() {
                 );
               }
 
+              const isOpen = openDropdown === link.href;
               return (
                 <div
                   key={link.href}
-                  ref={productsRef}
+                  ref={(el) => {
+                    dropdownRefs.current[link.href] = el;
+                  }}
                   className="relative"
                   onMouseEnter={() => {
                     cancelClose();
-                    setProductsOpen(true);
+                    setOpenDropdown(link.href);
                   }}
                   onMouseLeave={scheduleClose}
                 >
@@ -130,7 +149,7 @@ export default function Header() {
                     style={linkStyle}
                     className="flex items-center gap-1.5"
                     aria-haspopup="true"
-                    aria-expanded={productsOpen}
+                    aria-expanded={isOpen}
                     onClick={(e) => {
                       // Not a toggle: a real mouse hovers this link (opening
                       // the dropdown via onMouseEnter) a moment before the
@@ -141,7 +160,7 @@ export default function Header() {
                       // works for both mouse and touch.
                       e.preventDefault();
                       cancelClose();
-                      setProductsOpen(true);
+                      setOpenDropdown(link.href);
                     }}
                   >
                     {link.label}
@@ -151,21 +170,17 @@ export default function Header() {
                       viewBox="0 0 10 6"
                       fill="none"
                       aria-hidden="true"
-                      style={{ transition: "transform 0.15s ease", transform: productsOpen ? "rotate(180deg)" : "none" }}
+                      style={{ transition: "transform 0.15s ease", transform: isOpen ? "rotate(180deg)" : "none" }}
                     >
                       <path d="M1 1l4 4 4-4" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" />
                     </svg>
                   </Link>
 
-                  {productsOpen && (
-                    // Outer box starts flush at top:100% (touching the
-                    // trigger's bottom edge, zero gap) so the pointer never
-                    // crosses empty page background between link and panel
-                    // — the old `mt-3` margin left exactly that dead zone,
-                    // which is what was closing the menu the instant the
-                    // pointer moved down off the "Products" text. The
-                    // 12px visual gap now lives as padding-top *inside*
-                    // this hoverable box instead.
+                  {isOpen && (
+                    // Flush at top:100% so the pointer never crosses empty
+                    // background between link and panel — a margin here
+                    // was a dead zone that closed the menu on the way down.
+                    // The 12px gap is padding *inside* this box instead.
                     <div
                       className="absolute left-1/2 -translate-x-1/2"
                       style={{ top: "100%", width: 300, paddingTop: 12 }}
@@ -179,27 +194,31 @@ export default function Header() {
                         }}
                       >
                         <ul className="py-2">
-                          {PRODUCT_GROUPS.map((g) => (
-                            <li key={g.id}>
+                          {dropdown.items.map((item) => (
+                            <li key={item.href}>
                               <Link
-                                href={`/products#${productGroupSectionId(g.id)}`}
+                                href={item.href}
                                 className="block px-5 py-2.5 hover:bg-black/[0.04]"
-                                onClick={() => setProductsOpen(false)}
+                                onClick={() => setOpenDropdown(null)}
                               >
-                                <span style={{ fontWeight: 700, fontSize: "var(--fs-footer-link)" }}>{g.label}</span>
-                                <span
-                                  className="block mt-0.5"
-                                  style={{ fontSize: "12px", color: "var(--text-muted)" }}
-                                >
-                                  {g.blurb}
+                                <span style={{ fontWeight: 700, fontSize: "var(--fs-footer-link)" }}>
+                                  {item.label}
                                 </span>
+                                {item.blurb && (
+                                  <span
+                                    className="block mt-0.5"
+                                    style={{ fontSize: "12px", color: "var(--text-muted)" }}
+                                  >
+                                    {item.blurb}
+                                  </span>
+                                )}
                               </Link>
                             </li>
                           ))}
                         </ul>
                         <Link
-                          href="/products"
-                          onClick={() => setProductsOpen(false)}
+                          href={dropdown.viewAllHref}
+                          onClick={() => setOpenDropdown(null)}
                           className="block px-5 py-3 hover:underline"
                           style={{
                             fontWeight: 700,
@@ -208,7 +227,7 @@ export default function Header() {
                             borderTop: "1px solid rgba(0,0,0,0.06)",
                           }}
                         >
-                          View all products →
+                          {dropdown.viewAllLabel}
                         </Link>
                       </div>
                     </div>
@@ -240,7 +259,8 @@ export default function Header() {
                   fontWeight: 700,
                 } as const;
 
-                if (link.href !== "/products") {
+                const dropdown = DROPDOWNS[link.href];
+                if (!dropdown) {
                   return (
                     <Link key={link.href} href={link.href} className="py-2.5" style={linkStyle}>
                       {link.label}
@@ -248,14 +268,15 @@ export default function Header() {
                   );
                 }
 
+                const isOpen = mobileOpenDropdown === link.href;
                 return (
                   <div key={link.href}>
                     <button
                       type="button"
                       className="flex items-center justify-between w-full py-2.5"
                       style={linkStyle}
-                      aria-expanded={mobileProductsOpen}
-                      onClick={() => setMobileProductsOpen((o) => !o)}
+                      aria-expanded={isOpen}
+                      onClick={() => setMobileOpenDropdown((cur) => (cur === link.href ? null : link.href))}
                     >
                       {link.label}
                       <svg
@@ -266,32 +287,32 @@ export default function Header() {
                         aria-hidden="true"
                         style={{
                           transition: "transform 0.15s ease",
-                          transform: mobileProductsOpen ? "rotate(180deg)" : "none",
+                          transform: isOpen ? "rotate(180deg)" : "none",
                         }}
                       >
                         <path d="M1 1l4 4 4-4" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" />
                       </svg>
                     </button>
-                    {mobileProductsOpen && (
+                    {isOpen && (
                       <div className="flex flex-col gap-0.5 pb-2 pl-3" style={{ borderLeft: "2px solid var(--brand-red)" }}>
-                        {PRODUCT_GROUPS.map((g) => (
+                        {dropdown.items.map((item) => (
                           <Link
-                            key={g.id}
-                            href={`/products#${productGroupSectionId(g.id)}`}
+                            key={item.href}
+                            href={item.href}
                             onClick={() => setOpen(false)}
                             className="py-2 pl-3"
                             style={{ fontSize: "var(--fs-footer-link)", color: "var(--nav-text)" }}
                           >
-                            {g.label}
+                            {item.label}
                           </Link>
                         ))}
                         <Link
-                          href="/products"
+                          href={dropdown.viewAllHref}
                           onClick={() => setOpen(false)}
                           className="py-2 pl-3"
                           style={{ fontSize: "var(--fs-footer-link)", fontWeight: 700, color: "var(--brand-red)" }}
                         >
-                          View all products →
+                          {dropdown.viewAllLabel}
                         </Link>
                       </div>
                     )}
