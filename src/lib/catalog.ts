@@ -532,29 +532,36 @@ export const products: Product[] = [
   },
   {
     slug: "rfid-uhf-reader-antenna",
-    name: "RFID UHF Reader\nand Antenna",
+    name: "Zebra FX9600 RFID\nReader & Antenna",
     category: "toll",
     group: "reader",
     desc: "Zebra FX9600 fixed UHF reader paired with 8 dBi or 12 dBi circular antennas for long-range, high-density reading.",
     bullets: ["Up to 8 monostatic RF ports", "+33 dBm RF power", "Up to 15m with 12 dBi antenna"],
     image: {
-      src: `${IMG}/rfid-antenna-12dbi.jpg`,
-      remote: `${WP}/2025/05/12-dBi-Antenna.jpg`,
-      alt: "12 dBi circular polarized RFID antenna for the RFID UHF reader and antenna system",
-      width: 1024,
-      height: 1024,
+      src: `${IMG}/zebra-fx9600-front.jpg`,
+      remote: "",
+      alt: "Zebra FX9600 fixed UHF RFID reader, front view",
+      width: 1920,
+      height: 1280,
     },
-    heading: "RFID UHF Reader & Antenna",
+    heading: "Zebra FX9600 RFID Reader & Antenna",
     models: [
       {
-        // Swapped from the Impinj R2000 4-Port Reader (NWS-4P 01) per client
-        // request. Specs are real, sourced from Zebra's own spec sheet
+        // Real Zebra FX9600 photos, supplied directly by the client.
+        // Specs are real too, sourced from Zebra's own spec sheet
         // (zebra.com/us/en/products/spec-sheets/rfid/rfid-readers/fx9600.html)
-        // and reseller listings, not invented. No product photo: per the
-        // client, the FX9600's own photo should not be used here since NTS
-        // is not Zebra and doesn't want to present a competitor's product
-        // shot as its own catalog image. Antennas below are unchanged.
+        // and reseller listings, not invented. This is Zebra's own branded
+        // hardware, not NTS's — worth confirming NTS has the right to use
+        // Zebra's product photography commercially (most authorised
+        // resellers do) before this goes live.
         name: "Zebra FX9600 Fixed UHF Reader",
+        image: {
+          src: `${IMG}/zebra-fx9600-front.jpg`,
+          remote: "",
+          alt: "Zebra FX9600 fixed UHF RFID reader, front view",
+          width: 1920,
+          height: 1280,
+        },
         specs: [
           { label: "Ports", value: "4-port or 8-port monostatic RF ports (model dependent)" },
           { label: "RF Power", value: "Up to +33 dBm transmit power" },
@@ -570,6 +577,20 @@ export const products: Product[] = [
             label: "Application",
             value: "Warehouse and dock-door portals, logistics, inventory management, RFID gates",
           },
+        ],
+      },
+      {
+        name: "Zebra FX9600 — Angle View",
+        image: {
+          src: `${IMG}/zebra-fx9600-angle.jpg`,
+          remote: "",
+          alt: "Zebra FX9600 fixed UHF RFID reader, angled view showing antenna ports",
+          width: 1920,
+          height: 1280,
+        },
+        specs: [
+          { value: "8 antenna ports (RP-TNC connectors) shown on the 8-port variant" },
+          { value: "DIN-rail or wall mountable" },
         ],
       },
       {
@@ -1214,55 +1235,6 @@ export const products: Product[] = [
         "Bending plate and hybrid weigh-in-motion systems for Indian toll plazas — OIML Class 5 accuracy up to 60 km/h, IP68 plate, BIS certified, 6-hour installation.",
     },
     source: "https://networktoll.com/ms-weigh-in-motion/",
-  },
-  {
-    // Sourced from Eco Track Systems (ETS), a separate Delhi RFID
-    // manufacturer, to fill a genuine gap: pedestrian access control at a
-    // plaza's staff/visitor entrance, distinct from the vehicle boom barrier
-    // above. ETS's own site (etsrfid.com) has since been taken over by an
-    // unrelated third party, so no photo could be sourced from it — this
-    // entry is text-only until a real photo is available. Content reflects
-    // what was actually described, not invented specifications.
-    slug: "flap-barrier-turnstile",
-    name: "Flap Barrier &\nTurnstile",
-    category: "toll",
-    group: "toll-plaza-equipment",
-    desc: "Pedestrian access control for plaza and campus entrances — motorised flap barrier or tripod turnstile, both RFID-gated.",
-    bullets: ["Bi-directional, self-service entry", "TCP/IP or RS-485 controller", "Sliding, swinging or rotating-arm options"],
-    image: {
-      // No photo exists for this product on networktoll.com (it has no page
-      // for it at all) or on etsrfid.com (site no longer belongs to the RFID
-      // company — see the note above). Branded placeholder used so the grid
-      // has no visible hole; swap this line when a real photo is supplied.
-      src: "/images/placeholders/product-generic-placeholder.webp",
-      remote: "",
-      alt: "Flap barrier and tripod turnstile pedestrian access gate",
-      width: 870,
-      height: 860,
-    },
-    heading: "Flap Barrier & Tripod Turnstile",
-    intro: [
-      "Pedestrian entry control for staff and visitor lanes at a toll plaza office, depot or corporate campus — complementing the vehicle boom barrier rather than replacing it. Both gate types are RFID-credentialed, so the same card or tag used for vehicle access can also clear the pedestrian lane.",
-    ],
-    models: [
-      {
-        name: "Flap Barrier",
-        body: [
-          "Motorised sliding or swinging barrier panels built around optical sensing for self-service, bi-directional entry control. Designed to blend into a lobby or prominent entryway while still enforcing controlled access at high throughput.",
-        ],
-      },
-      {
-        name: "Tripod Turnstile",
-        body: [
-          "A rotating three-arm barrier for lower-traffic or cost-sensitive entrances. Controller supports both TCP/IP and RS-485 communication, with an auto-discovery tool for setting network parameters during installation.",
-        ],
-      },
-    ],
-    seo: {
-      title: "Flap Barrier & Tripod Turnstile",
-      description:
-        "RFID-gated flap barrier and tripod turnstile for pedestrian access control at toll plaza offices, depots and campuses — bi-directional, self-service entry.",
-    },
   },
   {
     slug: "uhf-mobile-device",
@@ -3220,8 +3192,8 @@ export const products: Product[] = [
     // includes a waste-bin tag as one model (NTS-RT 62); this is a dedicated
     // product for the same application, kept separate at the client's
     // request rather than merged into that entry. ETS's own site
-    // (etsrfid.com) has since been taken over by an unrelated third party,
-    // so no photo could be sourced from it — text-only until one exists.
+    // (etsrfid.com) has since been taken over by an unrelated third party;
+    // photo supplied directly by the client.
     slug: "waste-tag",
     name: "Waste Tag",
     category: "tags",
@@ -3229,16 +3201,23 @@ export const products: Product[] = [
     desc: "IP67 outdoor tag for household and municipal waste bin tracking, scanned by collection vehicles or handheld readers.",
     bullets: ["IP67, outdoor rated", "Vehicle or handheld scanning", "Made in India"],
     image: {
-      src: "/images/placeholders/product-generic-placeholder.webp",
+      src: `${IMG}/waste-tag.jpg`,
       remote: "",
       alt: "RFID waste bin tracking tag",
-      width: 870,
-      height: 860,
+      width: 500,
+      height: 500,
     },
     heading: "Waste Management Tag",
     models: [
       {
         name: "Waste Management Tag (Model: ETS-RT 14)",
+        image: {
+          src: `${IMG}/waste-tag.jpg`,
+          remote: "",
+          alt: "RFID waste bin tracking tag, model ETS-RT 14",
+          width: 500,
+          height: 500,
+        },
         body: [
           "Fitted outside houses or bins for household waste management, this tag is automatically scanned by readers mounted on the waste collection vehicle or carried by collectors on a handheld device. Each scan marks the collection of waste from that location and sends the data in real time to municipal or government servers for monitoring and analysis — which agencies then use to optimise collection routes and track bin locations. Made in India and IP67 rated to withstand rain, dust, heat and cold.",
         ],
