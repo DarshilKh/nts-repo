@@ -1,6 +1,7 @@
 import Link from "next/link";
 import Logo from "./Logo";
 import Frame from "./ui/Frame";
+import ObfuscatedEmail from "./ObfuscatedEmail";
 import {
   solutionLinks,
   solutionLinkSlugs,
@@ -87,12 +88,14 @@ export default function Footer({
               </p>
               <p style={rowPitch}>
                 <span style={labelStyle}>Email:</span>{" "}
-                <a href={`mailto:${companyInfo.email}`} className="hover:underline">
-                  {companyInfo.email}
-                </a>
+                <ObfuscatedEmail
+                  user={companyInfo.email.split("@")[0]}
+                  domain={companyInfo.email.split("@")[1]}
+                  className="hover:underline"
+                />
               </p>
               <p style={rowPitch}>
-                <span style={labelStyle}>Address:</span>{" "}
+                <span style={labelStyle}>Branch Office:</span>{" "}
                 {companyInfo.addressLine1}
                 <br />
                 {companyInfo.addressLine2}
