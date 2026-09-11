@@ -695,6 +695,82 @@ export const solutions: Solution[] = [
     },
     source: "https://networktoll.com/number-plate-detection/",
   },
+  {
+    // No live-site page for this — content written for the client per their
+    // request, not transcribed. Combines RFID card and face-recognition
+    // access control with attendance logging, an extension of the personnel-
+    // tracking use case already mentioned on the RFID Software System page.
+    slug: "face-attendance-system",
+    rowId: "attendance",
+    name: "Face Attendance\nSystem",
+    desc: "RFID card and face-recognition attendance at the office entrance — one tap or one glance logs the visit, no separate biometric device or manual register.",
+    detail: true,
+    heading: "Face & RFID Attendance System",
+    tagline: "One credential at the door, one clean attendance record.",
+    intro: [
+      "A combined RFID card and face-recognition terminal at the entrance replaces the punch machine, the manual register and the separate access-control reader with one device. Staff tap a card or look at the camera, the door unlocks, and the attendance record is written at the same moment — no second step, no separate system to reconcile at month end.",
+      "Built on the same RFID backbone as the rest of our toll and access-control range, it extends naturally to canteen billing, visitor logging and restricted-zone access using the same card a staff member already carries.",
+    ],
+    gallery: [
+      {
+        src: "/images/real/solution-attendance.jpg",
+        remote: "",
+        alt: "Employee tapping an RFID card at an office access terminal",
+        width: 1774,
+        height: 887,
+      },
+    ],
+    sections: [
+      {
+        title: "How it works",
+        list: [
+          "Staff present an RFID card or look at the terminal's camera at the entrance.",
+          "The terminal matches the card or face against the enrolled staff list and unlocks the door.",
+          "The event — who, where, and at what time — is logged automatically to the attendance system.",
+          "Reports (daily attendance, late arrivals, hours worked) are generated without manual entry.",
+        ],
+      },
+      {
+        title: "Key Features",
+        list: [
+          "Dual credential: RFID card for speed, face recognition as a fallback or for higher-security doors.",
+          "Real-time attendance log, viewable from a web dashboard rather than downloaded from the machine.",
+          "One card doubles as building access, canteen payment and attendance credential.",
+          "Works offline at the door if the network drops, syncing the log once connectivity returns.",
+          "Exportable reports for payroll — no manual transcription from a punch machine.",
+        ],
+      },
+      {
+        title: "Applications",
+        list: [
+          "Corporate offices and factories",
+          "Toll plaza and back-office staff attendance",
+          "Canteen access and payment",
+          "Visitor and contractor logging",
+          "Restricted server rooms and stores",
+        ],
+      },
+    ],
+    faqs: [
+      {
+        q: "Does this replace our existing biometric attendance machine?",
+        a: "Yes — the terminal handles both the door lock and the attendance log in one device, so a separate punch machine isn't needed. Existing RFID cards can usually be reused; new staff are enrolled directly on the terminal.",
+      },
+      {
+        q: "What happens if the internet connection drops?",
+        a: "The terminal keeps working offline using its local list of enrolled cards and faces, and queues the attendance log until the connection returns — no attendance is lost.",
+      },
+      {
+        q: "Can one card be used for attendance, canteen and door access together?",
+        a: "Yes. The same RFID card can be configured across all three, so staff carry one credential instead of separate cards for each system.",
+      },
+    ],
+    seo: {
+      title: "Face & RFID Attendance System",
+      description:
+        "Combined RFID card and face-recognition attendance system for offices and factories — one credential for door access, attendance logging and canteen payment.",
+    },
+  },
 ];
 
 const bySlug = new Map(solutions.map((s) => [s.slug, s]));
