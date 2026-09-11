@@ -127,6 +127,20 @@ export default function SolutionPage() {
           cornerMarkSide="right"
         />
 
+        {/* row 8 (added — client request) — text left x=85, image right 921px */}
+        <SolutionRow
+          styleId="attendance"
+          learnMore={Boolean(solutionHref("attendance"))}
+          learnMoreHref={solutionHref("attendance")}
+          title={"Face Attendance\nSystem"}
+          body="RFID card and face-recognition attendance at the office entrance — one tap or one glance logs the visit, no separate biometric device or manual register."
+          image={solutionAssets.attendance}
+          imageSide="right"
+          imageWidthPx={921}
+          textInsetPx={85}
+          cornerMarkSide="left"
+        />
+
         <CTASection />
       </main>
       <Footer />
