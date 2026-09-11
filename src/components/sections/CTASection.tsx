@@ -1,10 +1,12 @@
 "use client";
 
+import { useState } from "react";
 import Link from "next/link";
 import Heading from "@/components/ui/Heading";
 import Text from "@/components/ui/Text";
 import Frame from "@/components/ui/Frame";
 import { button, parallelogramClipPath } from "@/lib/tokens";
+import { useBotGuard } from "@/lib/useBotGuard";
 
 /**
  * §4.1 — the PDF measured this section's heading at x=189 with the form
@@ -20,6 +22,9 @@ import { button, parallelogramClipPath } from "@/lib/tokens";
  * had lost its rule. All four now match.
  */
 export default function CTASection() {
+  const { honeypotProps, isLikelyBot } = useBotGuard();
+  const [blocked, setBlocked] = useState(false);
+
   return (
     <Frame>
       <style>{`
@@ -49,7 +54,24 @@ export default function CTASection() {
             </div>
           </div>
 
-          <form className="flex flex-col gap-10 pt-2" onSubmit={(e) => e.preventDefault()}>
+          <form
+            className="flex flex-col gap-10 pt-2"
+            onSubmit={(e) => {
+              e.preventDefault();
+              // See lib/useBotGuard.ts. No backend wired up yet — a real
+              // submit call belongs here, guarded by the same check.
+              if (isLikelyBot(e.currentTarget)) {
+                setBlocked(true);
+                return;
+              }
+            }}
+          >
+            <input type="text" {...honeypotProps} />
+            {blocked && (
+              <p role="alert" className="sr-only">
+                This submission looked automated and was not sent.
+              </p>
+            )}
             {["Name", "Mail", "Phone", "Comment"].map((field) => (
               <label key={field} className="flex flex-col">
                 <span className="sr-only">{field}</span>
