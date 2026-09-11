@@ -273,3 +273,37 @@ idioms, `useState`'s lazy initializer and `useSyncExternalStore`
 respectively). `npx tsc --noEmit` clean. `next build` succeeds — **31**
 product pages and **8** solution pages prerendered, **44** URLs in the
 sitemap.
+
+---
+
+## 9. Follow-up fixes (this patch)
+
+Three corrections from your review of the last round:
+
+**Flap Barrier & Turnstile — removed entirely.** You didn't ask for it; I'd
+added it as my own guess at what "Toll Plaza Equipment... from ETS" meant.
+Gone from the catalog, the footer, and the sitemap.
+
+**Zebra reader — now visible on the card, with real photos.** Previously it
+was a model buried inside the "RFID UHF Reader and Antenna" product — the
+card itself never said "Zebra" anywhere, so it was easy to miss. Renamed the
+product to **"Zebra FX9600 RFID Reader & Antenna"** so it's unmistakable on
+the grid, and swapped in your two real Zebra FX9600 photos (front + angle)
+as the product image and as its own model entries. The antenna models (8dBi/
+12dBi) are unchanged.
+
+One honest flag, not a blocker: these are Zebra's own product photos, with
+their logo visible. That's completely normal for a reseller/integrator page
+— worth just confirming NTS has the right to use Zebra's photography
+commercially (most authorised resellers do, sometimes via a partner
+portal), same as any other manufacturer's branded hardware you display.
+
+**Waste Tag — real photo added.** Your 3rd photo is now the product and
+model image, replacing the placeholder that was there because etsrfid.com
+had nothing to pull from.
+
+## 10. Verified (this patch)
+
+`npx tsc --noEmit` clean. `next build` succeeds — **30** product pages (was
+31, minus Flap Barrier) and 8 solution pages prerendered, **43** URLs in the
+sitemap (was 44).
