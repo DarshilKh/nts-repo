@@ -128,10 +128,10 @@ export const solutionAssets = {
     height: 896,
   },
   anpr: {
-    src: "/images/real/solution-anpr.webp",
-    alt: "Automatic number plate recognition",
-    width: 1600,
-    height: 746,
+    src: "/images/real/solution-anpr.jpg",
+    alt: "Automatic number plate recognition camera pole",
+    width: 834,
+    height: 556,
   },
   plaza: {
     src: "/images/real/solution-plaza.webp",
@@ -140,16 +140,22 @@ export const solutionAssets = {
     height: 900,
   },
   rfidSoftware: {
-    src: "/images/real/solution-rfid-software.jpg",
-    alt: "RFID software system dashboard for gate access and reporting",
-    width: 520,
-    height: 300,
+    src: "/images/real/solution-rfid-software-new.jpg",
+    alt: "RFID reader mounted at a toll plaza lane, reading a vehicle tag",
+    width: 1774,
+    height: 887,
   },
   numberPlateDetection: {
-    src: "/images/real/solution-numberplate-detection.png",
-    alt: "Automatic number plate detection process: capture, recognition, and gate access",
-    width: 1116,
-    height: 580,
+    src: "/images/real/solution-numberplate-detection-new.jpg",
+    alt: "ANPR camera reading a vehicle's number plate at a gate",
+    width: 1774,
+    height: 887,
+  },
+  attendance: {
+    src: "/images/real/solution-attendance.jpg",
+    alt: "Employee tapping an RFID card at an office access turnstile",
+    width: 1774,
+    height: 887,
   },
 } as const;
 
