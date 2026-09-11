@@ -6,6 +6,7 @@ export const solutionLinks = [
   "Plaza Center & Database Server",
   "RFID Software System",
   "Number Plate Detection",
+  "Face Attendance System",
 ];
 
 // Maps each footer label (kept verbatim, typos and all, per the PDF source)
@@ -22,6 +23,7 @@ export const solutionLinkSlugs: Record<string, string> = {
   "Plaza Center & Database Server": "plaza",
   "RFID Software System": "rfid-software",
   "Number Plate Detection": "number-plate-detection",
+  "Face Attendance System": "attendance",
 };
 
 export const productLinksCol1 = [
@@ -37,6 +39,7 @@ export const productLinksCol1 = [
   "Jewellery Tag",
   "File Tag",
   "Racing Tag",
+  "Waste Tag",
 ];
 
 export const productLinksCol2 = [
@@ -53,6 +56,7 @@ export const productLinksCol2 = [
   "Overhead Lane Status Signal (OHLS)",
   "Automatic Vehicle Classifier",
   "MS Weigh in Motion",
+  "Flap Barrier & Turnstile",
   "ANPR Camera",
   "PTZ Camera",
   "NT-Pulse Reader",
@@ -85,6 +89,7 @@ export const productLinkSlugs: Record<string, string> = {
   "Jewellery Tag": "jewellery-tag",
   "File Tag": "file-tag",
   "Racing Tag": "racing-tag",
+  "Waste Tag": "waste-tag",
   "RFID Integrated Reader": "rfid-integrated-reader",
   "RFID Desktop Reader": "rfid-desktop-reader",
   "RFID Desktop/Mobile Reader": "rfid-desktop-mobile-reader",
@@ -98,6 +103,7 @@ export const productLinkSlugs: Record<string, string> = {
   "Overhead Lane Status Signal (OHLS)": "ohls",
   "Automatic Vehicle Classifier": "automatic-vehicle-classifier",
   "MS Weigh in Motion": "ms-weigh-in-motion",
+  "Flap Barrier & Turnstile": "flap-barrier-turnstile",
   "ANPR Camera": "anpr-camera",
   "PTZ Camera": "ptz-camera",
   "NT-Pulse Reader": "nt-pulse",
