@@ -1,7 +1,9 @@
 "use client";
 
+import { useState } from "react";
 import Frame from "@/components/ui/Frame";
 import { button, parallelogramClipPath } from "@/lib/tokens";
+import { useBotGuard } from "@/lib/useBotGuard";
 
 /**
  * §4.4 — two label columns at x=189 (Name/Phone Number/City,State) and
@@ -28,6 +30,9 @@ const fieldStyle = {
 };
 
 export default function ContactForm() {
+  const { honeypotProps, isLikelyBot } = useBotGuard();
+  const [blocked, setBlocked] = useState(false);
+
   return (
     <Frame>
       <style>{`
@@ -38,8 +43,23 @@ export default function ContactForm() {
       <section className="py-14 px-6 min-[1440px]:px-0 contact-form-grid">
         <form
           className="flex flex-col md:flex-row gap-10 md:gap-16"
-          onSubmit={(e) => e.preventDefault()}
+          onSubmit={(e) => {
+            e.preventDefault();
+            // See lib/useBotGuard.ts. This form has no backend yet — once one
+            // exists, its call belongs in the `else` branch below, guarded by
+            // this same check.
+            if (isLikelyBot(e.currentTarget)) {
+              setBlocked(true);
+              return;
+            }
+          }}
         >
+          <input type="text" {...honeypotProps} />
+          {blocked && (
+            <p role="alert" className="sr-only">
+              This submission looked automated and was not sent.
+            </p>
+          )}
           <div className="flex flex-col gap-8 shrink-0">
             <label>
               <span className="sr-only">Name</span>
@@ -81,6 +101,7 @@ export default function ContactForm() {
                 <option>Plaza Center &amp; Database Server</option>
                 <option>RFID Software System</option>
                 <option>Number Plate Detection</option>
+                <option>Face Attendance System</option>
               </select>
             </label>
           </div>
