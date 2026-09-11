@@ -170,3 +170,106 @@ The zip's `node_modules` was installed on Windows (`lightningcss-win32-x64-msvc`
 
 `npx tsc --noEmit` clean. `next build` succeeds — 29 product pages and 7
 solution pages prerendered, 41 URLs in the sitemap.
+
+---
+
+## 7. This round's changes
+
+### ⚠️ etsrfid.com has been taken over — read this before touching it
+
+`etsrfid.com` (Eco Track Systems, the RFID manufacturer referenced elsewhere
+in this project) **no longer belongs to that company**. The domain now hosts
+an unrelated Turkish gambling site. Fetching it today returns "Marsbahis"
+content, not RFID hardware. Do not link to it, fetch from it, or trust
+anything currently live there.
+
+Everything sourced "from ETS" below came from Google's cached/indexed
+snippets of the old site content (paraphrased, not copied verbatim), not a
+live fetch — which is also why none of the new ETS-sourced items have a
+photo. There is nowhere left to get one from. If the client has old ETS
+product photos on file, those can be dropped in directly; otherwise these
+stay text-only.
+
+### Products
+
+| Change | Detail |
+| --- | --- |
+| Group merge | `lane-equipment` + `vehicle-detection` → one `toll-plaza-equipment` group (7 products). Old group ids no longer exist in the `ProductGroup` type. |
+| Zebra FX9600 | Replaced the Impinj R2000 4-Port Reader model under **RFID UHF Reader & Antenna** with a Zebra FX9600 model. Specs are real (Zebra's own spec sheet). **No photo** — per instruction, not showing a competitor's product shot. Antenna models (8dBi/12dBi) unchanged. Top-level product image swapped to the 12dBi antenna's real photo since the Impinj photo is gone. |
+| Racing Tag | Renamed **Racing & Sports Timing Tag**; added a third model (ETS-RT 08 B reusable timing tag) sourced from ETS. |
+| Waste Tag | **New product.** ETS-RT 14, IP67 outdoor waste-bin tag. Text-only (see warning above). |
+| Flap Barrier & Turnstile | **New product**, filed under Toll Plaza Equipment. Pedestrian access gates, sourced from ETS. Text-only. |
+
+Both new no-photo products use the repo's branded placeholder image so the
+grid has no visible hole — same treatment as ANPR/PTZ camera got before the
+client supplied real photos for those.
+
+Fixed a cross-reference the Zebra swap broke: File Tag's "reading files in
+bulk" section named the now-gone Impinj reader; repointed to Zebra FX9600.
+
+### Solutions
+
+| Change | Detail |
+| --- | --- |
+| Face Attendance System | **New solution**, content written for this request (no live-site page existed). RFID card + face recognition for office entry and attendance logging. Uses your 4th photo. |
+| RFID Software System | Row photo replaced with your 2nd photo (toll gate, RFID signal graphic). |
+| Number Plate Detection | Row photo replaced with your 3rd photo (BMW + ANPR beam). |
+| ANPR row | Your 1st photo was the *existing* one — the complaint was composition (mostly empty sky), not a bug. Recropped from 3.26:1 down to 1.5:1, centred on the actual hardware, matching the other rows' proportions better. |
+
+### Header — Solutions dropdown
+
+Mirrors the Products dropdown exactly (hover, click, Escape, outside-click,
+mobile accordion) — both now share one implementation instead of two copies
+of the same interaction logic. Lists all 8 solutions with a "View all
+solutions →" link.
+
+### Footer
+
+- Aastha Greens address now labelled **"Branch Office:"** instead of the
+  generic "Address:" (Registered Office in Delhi keeps its own label).
+- Footer's Solution and Products columns updated with the new entries above,
+  each checked against the build-time slug-validation.
+
+### Bot / spam protection
+
+Neither contact form (the one on `/contact`, and the one at the bottom of
+`/`) currently posts anywhere — both only call `preventDefault()`. There's no
+live mail-sending endpoint today for a bot to abuse. What's in place:
+
+- **Honeypot + time-trap** (`lib/useBotGuard.ts`) on both forms: a hidden
+  field bots tend to auto-fill, plus a reject-if-submitted-under-2-seconds
+  check. Deters unscripted bots and simple scrapers — **not** a targeted
+  attacker, and not a substitute for server-side validation once a real
+  backend exists.
+- **Email de-scraping** (`components/ObfuscatedEmail.tsx`): the footer's
+  email address is assembled client-side after hydration rather than baked
+  into the static HTML, so a scraper reading raw page source doesn't get a
+  plain `mailto:`. The email still appears in plain text in the page's
+  JSON-LD (`Organization`/`ContactPoint` schema) — that's intentional and
+  should stay that way, since Google and other legitimate services rely on
+  exactly that field for search results and business listings.
+
+**What this does NOT cover, and what actually stops a real attack:** rate
+limiting, WAF rules, and CAPTCHA all need server-side or edge infrastructure
+that a static Next.js export doesn't have on its own. When a real submit
+endpoint is added, look at Vercel's built-in Attack Challenge Mode /
+Bot Management, or add hCaptcha/Cloudflare Turnstile to the actual submit
+handler — the honeypot here is a first line of defence, not the whole fence.
+
+### Code quality
+
+Comments in every file touched this round are kept under ~100 words each,
+including the two in `Header.tsx` carried over from the earlier version
+that were trimmed as part of the rewrite. Files not touched this round
+(e.g. `ContactForm.tsx`'s own measurement comment) were left as-is rather
+than edited just to shorten them.
+
+## 8. Verified (this round)
+
+`npx eslint src/` clean (caught and fixed two real issues: an impure
+`Date.now()` call during render in the bot guard, and a `setState`-in-effect
+pattern in the email component — both replaced with React's own recommended
+idioms, `useState`'s lazy initializer and `useSyncExternalStore`
+respectively). `npx tsc --noEmit` clean. `next build` succeeds — **31**
+product pages and **8** solution pages prerendered, **44** URLs in the
+sitemap.
