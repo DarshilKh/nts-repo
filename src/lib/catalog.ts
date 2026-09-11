@@ -75,8 +75,7 @@ export type ProductGroup =
   | "reader"
   | "camera"
   | "radar"
-  | "lane-equipment"
-  | "vehicle-detection";
+  | "toll-plaza-equipment";
 
 export type Product = {
   slug: string;
@@ -536,42 +535,42 @@ export const products: Product[] = [
     name: "RFID UHF Reader\nand Antenna",
     category: "toll",
     group: "reader",
-    desc: "Impinj R2000 four-port UHF reader paired with 8 dBi or 12 dBi circular antennas for long-range, high-density reading.",
-    bullets: ["33 dBm RF power", "400+ tags per millisecond", "Up to 15m with 12 dBi antenna"],
+    desc: "Zebra FX9600 fixed UHF reader paired with 8 dBi or 12 dBi circular antennas for long-range, high-density reading.",
+    bullets: ["Up to 8 monostatic RF ports", "+33 dBm RF power", "Up to 15m with 12 dBi antenna"],
     image: {
-      src: `${IMG}/rfid-uhf-reader-antenna.jpg`,
-      remote: `${WP}/2025/05/Impinj-R2000-UHF-4-Port-Reader-1.jpg`,
-      alt: "Impinj R2000 UHF 4 port reader, model NWS-4P 01",
+      src: `${IMG}/rfid-antenna-12dbi.jpg`,
+      remote: `${WP}/2025/05/12-dBi-Antenna.jpg`,
+      alt: "12 dBi circular polarized RFID antenna for the RFID UHF reader and antenna system",
       width: 1024,
       height: 1024,
     },
     heading: "RFID UHF Reader & Antenna",
     models: [
       {
-        name: "Impinj R2000 UHF 4 Port Reader (Model: NWS-4P 01)",
+        // Swapped from the Impinj R2000 4-Port Reader (NWS-4P 01) per client
+        // request. Specs are real, sourced from Zebra's own spec sheet
+        // (zebra.com/us/en/products/spec-sheets/rfid/rfid-readers/fx9600.html)
+        // and reseller listings, not invented. No product photo: per the
+        // client, the FX9600's own photo should not be used here since NTS
+        // is not Zebra and doesn't want to present a competitor's product
+        // shot as its own catalog image. Antennas below are unchanged.
+        name: "Zebra FX9600 Fixed UHF Reader",
         specs: [
-          { label: "Frequency", value: "UHF 865 – 867 MHz | ISO 18000 6C (EPC C1G2)" },
-          { label: "Chipset", value: "Impinj R 2000 module" },
+          { label: "Ports", value: "4-port or 8-port monostatic RF ports (model dependent)" },
+          { label: "RF Power", value: "Up to +33 dBm transmit power" },
+          { label: "Protocol", value: "EPC Gen2 V2 / ISO 18000-63" },
+          { label: "Frequency", value: "Region-dependent band plan; 865–867 MHz for India" },
+          { label: "Power", value: "Power over Ethernet (PoE/PoE+) or external supply" },
+          { label: "Housing", value: "IP53 sealed, MIL-STD-810G rugged rating" },
           {
-            label: "RF Power",
-            value:
-              "33 dbm | Tag Support: >400 tags in a mili second | Status: Buzzer or Blink | Built in Anti Collision ability",
+            label: "Interfaces",
+            value: "10/100 Ethernet (RJ45), USB Host/Client, Serial (DB9), optically isolated GPIO",
           },
-          { label: "Antenna Support", value: "8 dBi or 12dBi" },
-          { label: "Interface", value: "RS485, LAN, and Wi-Fi" },
           {
             label: "Application",
-            value:
-              "Logistics and Warehouse Management, RFID Tunnel / Gate, Marathon Race Applications, File Tracking etc.",
+            value: "Warehouse and dock-door portals, logistics, inventory management, RFID gates",
           },
         ],
-        image: {
-          src: `${IMG}/rfid-uhf-reader-antenna.jpg`,
-          remote: `${WP}/2025/05/Impinj-R2000-UHF-4-Port-Reader-1.jpg`,
-          alt: "Impinj R2000 UHF 4 port reader, model NWS-4P 01",
-          width: 1024,
-          height: 1024,
-        },
       },
       {
         name: "8 dBi Antenna (Model: NWS-4A 02)",
@@ -620,21 +619,21 @@ export const products: Product[] = [
     faqs: [
       {
         q: "What is the difference between an RFID UHF reader and an integrated reader?",
-        a: "An integrated reader combines the reader and antenna in a single housing, while a UHF reader like the NWS-4P 01 is a standalone unit with four antenna ports. That lets one reader cover several lanes, gates or zones at once, and lets you choose 8 dBi or 12 dBi antennas per position based on the read range each one needs.",
+        a: "An integrated reader combines the reader and antenna in a single housing, while a fixed UHF reader like the FX9600 is a standalone unit with several antenna ports. That lets one reader cover several lanes, gates or zones at once, and lets you choose 8 dBi or 12 dBi antennas per position based on the read range each one needs.",
       },
       {
         q: "How far can the reader detect tags?",
         a: "Read range depends on the antenna. A single 8 dBi antenna reads up to 8 metres, and a single 12 dBi antenna reads up to 15 metres. Both are circular polarized and IP 66 rated, so tag orientation and outdoor exposure have little effect on performance.",
       },
       {
-        q: "Where are four-port UHF readers typically deployed?",
-        a: "They suit logistics and warehouse management, RFID tunnels and gates, marathon race timing, and file tracking — anywhere large numbers of tags pass a fixed point. The Impinj R2000 module reads more than 400 tags in a millisecond with built-in anti-collision, and connects over RS485, LAN or Wi-Fi.",
+        q: "Where are fixed UHF readers typically deployed?",
+        a: "They suit logistics and warehouse management, dock-door portals, RFID tunnels and gates, and inventory management — anywhere large numbers of tags pass a fixed point. The FX9600 supports up to 8 antenna ports at up to +33 dBm, with PoE power and a rugged IP53 housing.",
       },
     ],
     seo: {
       title: "RFID UHF Reader & Antenna",
       description:
-        "Impinj R2000 four-port UHF RFID reader with 8 dBi and 12 dBi circular polarized antennas — up to 15m read range, IP66 rated, RS485/LAN/Wi-Fi.",
+        "Zebra FX9600 fixed UHF RFID reader with 8 dBi and 12 dBi circular polarized antennas — up to 15m read range, IP66/IP53 rated, PoE powered.",
     },
     source: "https://networktoll.com/rfid-uhf-reader-antenna/",
   },
@@ -642,7 +641,7 @@ export const products: Product[] = [
     slug: "toll-boom-barrier",
     name: "Toll Boom Barrier",
     category: "toll",
-    group: "lane-equipment",
+    group: "toll-plaza-equipment",
     desc: "3-metre automatic barrier with BLDC stepper drive, 0.6-second opening and 5 million assured operations.",
     bullets: ["0.6s boom opening time", "24V / 48V BLDC motor", "5 million operations assured"],
     image: {
@@ -715,7 +714,7 @@ export const products: Product[] = [
     slug: "user-fare-display",
     name: "User Fare Display",
     category: "toll",
-    group: "lane-equipment",
+    group: "toll-plaza-equipment",
     desc: "Two-line super-bright LED display that shows the payable toll, vehicle class, low-balance warnings and safety messages.",
     bullets: ["1024 LEDs at 8000 mcd", "IP65, 5°C to +70°C", "RS232 / Ethernet"],
     image: {
@@ -796,7 +795,7 @@ export const products: Product[] = [
     slug: "toll-lane-controller",
     name: "Toll Lane Controller",
     category: "toll",
-    group: "lane-equipment",
+    group: "toll-plaza-equipment",
     desc: "Industrial lane computer that interfaces with the AVC, drives revenue logic and reports every transaction to the plaza server.",
     bullets: ["Interfaces with AVC & TMS", "Opto-isolated 16-in / 8-out I/O", "IP-rated industrial enclosure"],
     image: {
@@ -869,7 +868,7 @@ export const products: Product[] = [
     slug: "traffic-light",
     name: "Traffic Lights",
     category: "toll",
-    group: "lane-equipment",
+    group: "toll-plaza-equipment",
     desc: "Two-aspect red/green lane signal driven by the TLC, telling drivers whether their toll transaction cleared.",
     bullets: ["200mm aspect with visor", ">100m visibility", "IP65, 8W per aspect"],
     image: {
@@ -935,7 +934,7 @@ export const products: Product[] = [
     slug: "ohls",
     name: "OHLS",
     category: "toll",
-    group: "lane-equipment",
+    group: "toll-plaza-equipment",
     desc: "Overhead lane status signal showing a red cross or green arrow so drivers can see which lanes are open from 300 metres.",
     bullets: ["300m visibility", "IP66 sealed retrofit kit", "Optional night dimming"],
     image: {
@@ -1003,7 +1002,7 @@ export const products: Product[] = [
     slug: "automatic-vehicle-classifier",
     name: "Automatic Vehicle\nClassifier",
     category: "toll",
-    group: "vehicle-detection",
+    group: "toll-plaza-equipment",
     desc: "Profiler-based AVC that reads axle count, dimensions and weight to assign the correct toll class automatically.",
     bullets: ["30mm / 60mm beam spacing", "12m range", "High environmental immunity"],
     image: {
@@ -1070,7 +1069,7 @@ export const products: Product[] = [
     slug: "ms-weigh-in-motion",
     name: "MS Weighing In\nMotion",
     category: "toll",
-    group: "vehicle-detection",
+    group: "toll-plaza-equipment",
     desc: "Bending-plate weigh-in-motion systems that capture axle and gross weight at up to 60 km/h without stopping traffic.",
     bullets: ["OIML Accuracy Class 5", "Up to 60 km/h passing speed", "IP68 plate, 6-hour install"],
     image: {
@@ -1215,6 +1214,55 @@ export const products: Product[] = [
         "Bending plate and hybrid weigh-in-motion systems for Indian toll plazas — OIML Class 5 accuracy up to 60 km/h, IP68 plate, BIS certified, 6-hour installation.",
     },
     source: "https://networktoll.com/ms-weigh-in-motion/",
+  },
+  {
+    // Sourced from Eco Track Systems (ETS), a separate Delhi RFID
+    // manufacturer, to fill a genuine gap: pedestrian access control at a
+    // plaza's staff/visitor entrance, distinct from the vehicle boom barrier
+    // above. ETS's own site (etsrfid.com) has since been taken over by an
+    // unrelated third party, so no photo could be sourced from it — this
+    // entry is text-only until a real photo is available. Content reflects
+    // what was actually described, not invented specifications.
+    slug: "flap-barrier-turnstile",
+    name: "Flap Barrier &\nTurnstile",
+    category: "toll",
+    group: "toll-plaza-equipment",
+    desc: "Pedestrian access control for plaza and campus entrances — motorised flap barrier or tripod turnstile, both RFID-gated.",
+    bullets: ["Bi-directional, self-service entry", "TCP/IP or RS-485 controller", "Sliding, swinging or rotating-arm options"],
+    image: {
+      // No photo exists for this product on networktoll.com (it has no page
+      // for it at all) or on etsrfid.com (site no longer belongs to the RFID
+      // company — see the note above). Branded placeholder used so the grid
+      // has no visible hole; swap this line when a real photo is supplied.
+      src: "/images/placeholders/product-generic-placeholder.webp",
+      remote: "",
+      alt: "Flap barrier and tripod turnstile pedestrian access gate",
+      width: 870,
+      height: 860,
+    },
+    heading: "Flap Barrier & Tripod Turnstile",
+    intro: [
+      "Pedestrian entry control for staff and visitor lanes at a toll plaza office, depot or corporate campus — complementing the vehicle boom barrier rather than replacing it. Both gate types are RFID-credentialed, so the same card or tag used for vehicle access can also clear the pedestrian lane.",
+    ],
+    models: [
+      {
+        name: "Flap Barrier",
+        body: [
+          "Motorised sliding or swinging barrier panels built around optical sensing for self-service, bi-directional entry control. Designed to blend into a lobby or prominent entryway while still enforcing controlled access at high throughput.",
+        ],
+      },
+      {
+        name: "Tripod Turnstile",
+        body: [
+          "A rotating three-arm barrier for lower-traffic or cost-sensitive entrances. Controller supports both TCP/IP and RS-485 communication, with an auto-discovery tool for setting network parameters during installation.",
+        ],
+      },
+    ],
+    seo: {
+      title: "Flap Barrier & Tripod Turnstile",
+      description:
+        "RFID-gated flap barrier and tripod turnstile for pedestrian access control at toll plaza offices, depots and campuses — bi-directional, self-service entry.",
+    },
   },
   {
     slug: "uhf-mobile-device",
@@ -3014,11 +3062,11 @@ export const products: Product[] = [
   },
   {
     slug: "racing-tag",
-    name: "Racing Tag",
+    name: "Racing & Sports\nTiming Tag",
     category: "tags",
     group: "tag",
-    desc: "Disposable shoe and bib tags for marathon, cycling and sports timing, read at up to 8m with 100% accuracy.",
-    bullets: ["865–867 MHz, ISO 18000-6C", "3m (shoe) / 8m (bib) range", "Waterproof, one time use"],
+    desc: "Disposable and reusable shoe, bib and sports timing tags for marathon, cycling and endurance events, read at up to 8m with 100% accuracy.",
+    bullets: ["865–928 MHz, ISO 18000-6C", "3m (shoe) / 8m (bib) range", "One-time and reusable options"],
     image: {
       src: `${IMG}/racing-tag-shoe.png`,
       remote: `${WP}/2025/05/4-2.png`,
@@ -3026,7 +3074,7 @@ export const products: Product[] = [
       width: 1024,
       height: 1024,
     },
-    heading: "Racing Tags — Shoe & Bib",
+    heading: "Racing & Sports Timing Tags — Shoe, Bib & Reusable",
     models: [
       {
         name: "RFID Shoe Tag (Model: NWS-RT 08 B)",
@@ -3083,11 +3131,29 @@ export const products: Product[] = [
           height: 1024,
         },
       },
+      {
+        // Sourced from Eco Track Systems (ETS), a separate Delhi RFID
+        // manufacturer — not networktoll.com. ETS's own site (etsrfid.com)
+        // has been taken over by an unrelated third party since this was
+        // researched, so no photo could be pulled from it; content here
+        // comes from the product description as previously indexed by
+        // search engines, kept to what was actually stated.
+        name: "Reusable Sports Timing Tag (Model: ETS-RT 08 B)",
+        body: [
+          "A reusable alternative to the disposable bib tag above. Worn on a lanyard around the neck or pinned to the T-shirt, it uses a Smartrac Dogbone inlay for high accuracy and reliability across marathon and race events. Built on UHF 865–928 MHz and fully compliant with ISO/IEC 18000-6C, the chip's anti-collision feature records multiple runners simultaneously at speed. Used with RFID readers positioned at checkpoints, it logs each participant's time in real time for live results, published rankings and certificates.",
+        ],
+        specs: [
+          { label: "Frequency", value: "UHF 865–928 MHz, ISO/IEC 18000-6C" },
+          { label: "Inlay", value: "Smartrac Dogbone" },
+          { label: "Wear", value: "Lanyard around neck, or pinned to T-shirt" },
+          { value: "Reusable across multiple events" },
+        ],
+      },
     ],
     seo: {
-      title: "RFID Racing Tags",
+      title: "RFID Racing & Sports Timing Tags",
       description:
-        "RFID shoe and bib tags for marathon, cycling and sports timing — 865-867 MHz, anti-collision, waterproof, up to 8m range with 100% read accuracy.",
+        "RFID shoe, bib and reusable sports timing tags for marathon, cycling and endurance events — 865-928 MHz, anti-collision, up to 8m range with 100% read accuracy.",
     },
     source: "https://networktoll.com/rfid-tags-supplier/",
   },
@@ -3133,7 +3199,7 @@ export const products: Product[] = [
       {
         title: "Reading files in bulk",
         body: [
-          "For shelf-level file tracking, the Impinj R2000 four-port UHF reader is the usual pairing — it reads more than 400 tags in a millisecond with built-in anti-collision, and file tracking is one of its listed applications. For spot checks and audits away from a fixed reader, the Chainway C72 handheld reads over 200 tags per second at up to 25 metres indoors.",
+          "For shelf-level file tracking, the Zebra FX9600 fixed UHF reader is the usual pairing — it supports up to 8 antenna ports at up to +33 dBm for high-density reading. For spot checks and audits away from a fixed reader, the Chainway C72 handheld reads over 200 tags per second at up to 25 metres indoors.",
         ],
       },
     ],
@@ -3147,6 +3213,47 @@ export const products: Product[] = [
     // application) and the reader pages that list file tracking. Confirm the
     // exact model number and dimensions with the client before launch.
     source: "https://networktoll.com/rfid-tags-supplier/",
+  },
+  {
+    // Sourced from Eco Track Systems (ETS), a separate Delhi RFID
+    // manufacturer, not networktoll.com. NTS's own RFID Tag product already
+    // includes a waste-bin tag as one model (NTS-RT 62); this is a dedicated
+    // product for the same application, kept separate at the client's
+    // request rather than merged into that entry. ETS's own site
+    // (etsrfid.com) has since been taken over by an unrelated third party,
+    // so no photo could be sourced from it — text-only until one exists.
+    slug: "waste-tag",
+    name: "Waste Tag",
+    category: "tags",
+    group: "tag",
+    desc: "IP67 outdoor tag for household and municipal waste bin tracking, scanned by collection vehicles or handheld readers.",
+    bullets: ["IP67, outdoor rated", "Vehicle or handheld scanning", "Made in India"],
+    image: {
+      src: "/images/placeholders/product-generic-placeholder.webp",
+      remote: "",
+      alt: "RFID waste bin tracking tag",
+      width: 870,
+      height: 860,
+    },
+    heading: "Waste Management Tag",
+    models: [
+      {
+        name: "Waste Management Tag (Model: ETS-RT 14)",
+        body: [
+          "Fitted outside houses or bins for household waste management, this tag is automatically scanned by readers mounted on the waste collection vehicle or carried by collectors on a handheld device. Each scan marks the collection of waste from that location and sends the data in real time to municipal or government servers for monitoring and analysis — which agencies then use to optimise collection routes and track bin locations. Made in India and IP67 rated to withstand rain, dust, heat and cold.",
+        ],
+        specs: [
+          { label: "Application", value: "Household and municipal waste collection tracking" },
+          { label: "Protection", value: "IP67, outdoor rated" },
+          { label: "Read by", value: "Vehicle-mounted reader or handheld mobile device" },
+        ],
+      },
+    ],
+    seo: {
+      title: "RFID Waste Management Tag",
+      description:
+        "IP67 outdoor RFID tag for household and municipal waste bin tracking — scanned by collection vehicles or handheld readers, real-time route optimisation.",
+    },
   },
   {
     slug: "anpr-camera",
@@ -3224,8 +3331,11 @@ export const PRODUCT_GROUPS: { id: ProductGroup; label: string; blurb: string }[
   { id: "reader", label: "Readers", blurb: "Fixed, desktop, mobile and Bluetooth RFID readers." },
   { id: "camera", label: "Cameras", blurb: "ANPR and PTZ cameras for plaza surveillance." },
   { id: "radar", label: "Radar", blurb: "Radar sensors for traffic monitoring." },
-  { id: "lane-equipment", label: "Lane Equipment", blurb: "Boom barriers, displays, controllers and signals." },
-  { id: "vehicle-detection", label: "Vehicle Detection", blurb: "Vehicle classification and weigh-in-motion systems." },
+  {
+    id: "toll-plaza-equipment",
+    label: "Toll Plaza Equipment",
+    blurb: "Boom barriers, displays, controllers, signals, classification and weigh-in-motion.",
+  },
 ];
 
 /** Products grouped for display, in `PRODUCT_GROUPS` order. Empty groups are dropped. */
