@@ -771,6 +771,143 @@ export const solutions: Solution[] = [
         "Combined RFID card and face-recognition attendance system for offices and factories — one credential for door access, attendance logging and canteen payment.",
     },
   },
+  {
+    // Original copy written for this request — not transcribed from any
+    // networktoll.com page (none exists for this) and not copied from the
+    // third-party vision-AI product deck that specified the feature set.
+    // Every paragraph below is written fresh in NTS's own voice; only the
+    // capability list itself was taken as a brief. Four items from that
+    // brief were dropped per instruction: yard parking occupancy, CHE
+    // tracking, digital twin yard view, and conveyor object counting.
+    slug: "vision-ai-monitoring-system",
+    rowId: "vision-ai",
+    name: "Vision AI\nMonitoring System",
+    desc: "Camera-based AI that reads plates and container IDs at the gate, inspects cargo for damage, tracks dock and workstation activity, and flags PPE and fire risks in real time — no new sensors, just smarter use of the cameras already on site.",
+    detail: true,
+    heading: "Vision AI Monitoring System",
+    tagline: "One camera network, complete operational visibility.",
+    intro: [
+      "Most yards, warehouses and plants already run on CCTV — the cameras are there, but nobody's watching every feed all day. The Vision AI Monitoring System turns that existing camera network into a working system: it reads plates and container numbers at the gate, checks cargo for damage before it's accepted, tracks which docks and workstations are actually in use, and raises an alert the moment someone's missing a hard hat or a stack of pallets goes past its safe height.",
+      "It's built to plug into ports, container yards, manufacturing plants, cold storage, distribution centres and e-commerce fulfilment sites without ripping out what's already installed — the AI runs on top of standard CCTV and IP cameras, with a dashboard that brings every zone into one view.",
+    ],
+    sections: [
+      {
+        title: "Gate In & Gate Out Automation",
+        body: [
+          "Every vehicle and container gets logged automatically as it crosses the gate — container ID, number plate, ISO code and weight markings are all read straight off the camera feed, with the full record captured in under two seconds. Entry and exit are timestamped without a guard needing to key anything in, and vehicle or container turnaround time is tracked end to end.",
+        ],
+      },
+      {
+        title: "ANPR & Vehicle Identification",
+        body: [
+          "Plates are read in real time at every gate the system covers, with each entry and exit logged to a searchable record. Vehicles on a blacklist or whitelist trigger an alert automatically, and every vehicle is classified by type as it passes — car, truck, taxi, two-wheeler — so the same feed doubles as an access-control layer and a traffic log. Works with the CCTV already installed; no camera swap needed.",
+        ],
+      },
+      {
+        title: "AI Damage Detection & Visual Proof",
+        body: [
+          "Containers are inspected from all five visible sides — top, front, back, left and right — as they pass through the gate, checking for dents, holes, rust, bends and a missing or broken seal. Every inspection is backed by a timestamped image, so a damage dispute at handover has actual visual proof attached to it rather than a driver's word against a clerk's.",
+        ],
+      },
+      {
+        title: "Vehicle Speed Monitoring",
+        body: [
+          "Speed limits can be set per zone — slower through a loading area, normal through open yard — and the system raises a real-time alert the moment a vehicle goes over. Every over-speed event comes with a timestamp, the vehicle's ID and a video clip, so it's a documented incident rather than just a warning light.",
+        ],
+      },
+      {
+        title: "Dock Space Visualization",
+        body: [
+          "A live 2D layout shows every dock position as occupied or available at a glance, with load and unload duration tracked automatically per dock. Turnaround time and a time-stamped activity log for each bay make it easy to see which docks are actually the bottleneck instead of guessing from a whiteboard.",
+        ],
+      },
+      {
+        title: "Real-Time Container Search",
+        body: [
+          "Type in a container ID and the system shows its exact position in the yard — no walking the rows to find it. A QR-based lookup lets yard staff scan, search and navigate straight to a container from a handheld device, typically finding any box in under ten seconds.",
+        ],
+      },
+      {
+        title: "Gauge & Reefer Monitoring",
+        body: [
+          "Cameras read analogue and digital gauges — temperature, pressure, reefer displays — the same way a person would, without needing an IoT sensor retrofitted to every unit. Readings are logged automatically, and a temperature deviation on a reefer container raises an immediate alert instead of being caught on the next manual round.",
+        ],
+      },
+      {
+        title: "Quality Inspection & Label Reading",
+        body: [
+          "Shipping labels, barcodes and QR codes are read automatically as packages move down the line, with OCR pulling the tracking number, destination and item details straight off the label for instant search and retrieval. Surface damage on a package is flagged the moment it's detected, with an image captured as evidence.",
+        ],
+      },
+      {
+        title: "Pallet Classification & Counting",
+        body: [
+          "Pallets are detected and counted by type as they move through — wood, plastic, CHEP or others — giving a live, category-wise count instead of an end-of-shift tally. That feeds straight into inventory reporting and stock-movement visibility without anyone walking the floor with a clipboard.",
+        ],
+      },
+      {
+        title: "Inventory Stack Height Monitoring",
+        body: [
+          "Each storage zone gets its own safe height threshold, and the system watches stack height against it continuously. Cross the line and an alert goes out by SMS, email or straight to the dashboard — catching an overstacking risk before it becomes a collapsed pallet or a safety incident.",
+        ],
+      },
+      {
+        title: "Workstation Occupancy",
+        body: [
+          "Packing tables, machine stations and QC benches all show live occupied-or-idle status, with a timestamped usage log kept per station. Across multiple sites, one dashboard shows utilisation everywhere at once — useful for spotting an underused line before it shows up in the numbers.",
+        ],
+      },
+      {
+        title: "OCR-Based Document Data Extraction",
+        body: [
+          "Booking documents, Form 6, gate passes, invoices, delivery challans and LR copies are digitised and read automatically, with the extracted data stored for instant search instead of sitting in a folder of scanned PDFs. What used to mean digging through a filing cabinet becomes a text search.",
+        ],
+      },
+      {
+        title: "Forklift Operator & Activity Monitoring",
+        body: [
+          "The system checks whether a forklift has an operator on board and whether that operator is wearing a helmet, alongside the vehicle's own movement status. An empty seat, a missing helmet, extended idle time, or a fork raised while the vehicle is moving all trigger their own alert, each logged with a timestamp.",
+        ],
+      },
+      {
+        title: "Safety Compliance Monitoring (PPE)",
+        body: [
+          "Vests, safety glasses, safety shoes, gloves and helmets are checked automatically against whatever PPE the zone requires, with a live compliance percentage on the dashboard. A missing item raises a real-time alert backed by a timestamped image — useful both for catching a gap in the moment and for showing an auditor the trend over time.",
+        ],
+      },
+      {
+        title: "Fire & Smoke Detection",
+        body: [
+          "Cameras watch continuously for the early signs of fire or smoke and raise an alert the moment something looks wrong, well before a heat or smoke sensor would typically trip. Every alert comes with timestamped image and video evidence, and notifications go out by SMS, email or dashboard so the response doesn't depend on someone happening to be watching that feed.",
+        ],
+      },
+      {
+        title: "Operator Presence & Perimeter Monitoring",
+        body: [
+          "Staff presence at a post is tracked automatically, with an alert if a required position goes unmanned. Around the perimeter, user-defined zones flag an unauthorised entry or boundary breach in real time, with a time-stamped video record kept for every event.",
+        ],
+      },
+    ],
+    faqs: [
+      {
+        q: "Do we need to install new cameras for this?",
+        a: "In most cases, no. The system is built to run on the CCTV and IP cameras already installed at a gate, yard, dock or plant floor. A site survey will confirm coverage for the specific zones you want monitored and flag any blind spots worth adding a camera for.",
+      },
+      {
+        q: "Can we start with just one or two features rather than the full system?",
+        a: "Yes. Gate automation, ANPR, dock visibility, PPE compliance and the rest are separate modules that can be deployed independently — most clients start with one or two zones (commonly the gate and one warehouse floor) and add modules as needed.",
+      },
+      {
+        q: "How are alerts delivered, and can they reach people off-site?",
+        a: "Depending on the module, alerts go out via the dashboard, SMS or email, so a safety or security event doesn't rely on someone watching a monitor at that exact moment. Every alert is backed by a timestamped image or video clip for follow-up.",
+      },
+    ],
+    seo: {
+      title: "Vision AI Monitoring System",
+      description:
+        "Camera-based Vision AI for ports, yards, warehouses and plants — gate automation, ANPR, container damage detection, dock and workstation visibility, PPE compliance and fire detection on your existing CCTV.",
+    },
+  },
 ];
 
 const bySlug = new Map(solutions.map((s) => [s.slug, s]));
