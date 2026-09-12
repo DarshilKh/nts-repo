@@ -307,3 +307,53 @@ had nothing to pull from.
 `npx tsc --noEmit` clean. `next build` succeeds — **30** product pages (was
 31, minus Flap Barrier) and 8 solution pages prerendered, **43** URLs in the
 sitemap (was 44).
+
+---
+
+## 11. This round's changes (photos, NT-Pulse/Prime content, certifications)
+
+### The "cutting" bug — found and fixed
+
+This turned out to be an image dimension mismatch, not a page-layout bug. The
+Inventory Management solution's photo was declared as 1024×683 in the code,
+but the actual file on disk is 1000×500 — a completely different aspect
+ratio. Since the site sizes each photo's box from its declared dimensions and
+then crops with `object-fit: cover`, the wrong ratio made the crop zoom in
+and slice straight through the "Inventory Management" text baked into the
+photo. Fixed the declared dimensions to match the real file. Every other
+image in both catalogs was swept for the same kind of mismatch — this was
+the only one.
+
+### NT-Pulse / NT-Prime content
+
+Re-checked both against the live site. NT-Prime's text and tables were
+already accurate. NT-Pulse was missing the 3 device/dimension photos that
+are on the live page (it had all the text and every spec table, just no
+gallery) — added as a `gallery` on that product.
+
+### Real photos wired in
+
+- **RFID Integrated Reader** — replaced the stand-in NTS-IR-01 photo with
+  the real panel-antenna unit photo supplied by the client.
+- **Number Plate Detection** (solution) — replaced with the client's ANPR
+  bounding-box demo photo.
+- **Face Attendance System** (solution) — the client's Hikvision terminal
+  photo, both on the `/solution` index row and the detail page's gallery.
+
+### About Us — Certifications section (new)
+
+Real logos (CMMI, DPIIT/Startup India, ISO 9001:2015, ISO/IEC 20000-1:2018,
+MSME/Udyam), each cropped from the client's banner image and linking
+directly to the actual certificate PDF (also client-supplied) — a visitor
+can check the certificate number and expiry dates themselves rather than
+trusting the logo alone. PDFs live under `public/certifications/`.
+
+## 12. Verified (this round)
+
+`npx tsc --noEmit` clean. `next build` succeeds — 30 product pages, 8
+solution pages prerendered, 43 URLs in the sitemap (unchanged — this round
+was photos and content fixes, no new pages). Checked the built HTML
+directly for every fix above: the corrected aspect ratio, all three NT-Pulse
+gallery images, the RFID Integrated Reader's new photo, both new solution
+photos, and all 5 certification links (each with the real PDF href,
+`target="_blank"`, `rel="noopener noreferrer"`).
