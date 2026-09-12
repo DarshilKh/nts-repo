@@ -4,6 +4,7 @@ import Footer from "@/components/Footer";
 import AboutIntro from "@/components/sections/AboutIntro";
 import MissionVisionRow from "@/components/sections/MissionVisionRow";
 import WhyChooseUs from "@/components/sections/WhyChooseUs";
+import Certifications from "@/components/sections/Certifications";
 import CTASection from "@/components/sections/CTASection";
 import Breadcrumbs from "@/components/ui/Breadcrumbs";
 import Frame from "@/components/ui/Frame";
@@ -50,6 +51,7 @@ export default function AboutPage() {
         />
 
         <WhyChooseUs />
+        <Certifications />
         <CTASection />
       </main>
       <Footer />
