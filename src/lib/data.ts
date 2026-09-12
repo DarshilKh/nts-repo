@@ -7,6 +7,7 @@ export const solutionLinks = [
   "RFID Software System",
   "Number Plate Detection",
   "Face Attendance System",
+  "Vision AI Monitoring System",
 ];
 
 // Maps each footer label (kept verbatim, typos and all, per the PDF source)
@@ -24,6 +25,7 @@ export const solutionLinkSlugs: Record<string, string> = {
   "RFID Software System": "rfid-software",
   "Number Plate Detection": "number-plate-detection",
   "Face Attendance System": "attendance",
+  "Vision AI Monitoring System": "vision-ai",
 };
 
 export const productLinksCol1 = [
