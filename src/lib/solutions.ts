@@ -338,8 +338,8 @@ export const solutions: Solution[] = [
         src: `${IMG}/inventory-management.png`,
         remote: `${WP}/2025/08/Inventory-Management.png`,
         alt: "RFID inventory management solution dashboard",
-        width: 1024,
-        height: 683,
+        width: 1000,
+        height: 500,
       },
     ],
     sections: [
@@ -715,9 +715,9 @@ export const solutions: Solution[] = [
       {
         src: "/images/real/solution-attendance.jpg",
         remote: "",
-        alt: "Employee tapping an RFID card at an office access terminal",
-        width: 1774,
-        height: 887,
+        alt: "Employee using face recognition attendance terminal at an office entrance",
+        width: 1672,
+        height: 941,
       },
     ],
     sections: [
