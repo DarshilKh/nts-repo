@@ -157,6 +157,15 @@ export const solutionAssets = {
     width: 1672,
     height: 941,
   },
+  // No client-supplied photo for this solution yet — branded placeholder so
+  // the row isn't visually empty. Swap for a real yard/warehouse camera
+  // shot when one is available.
+  visionAi: {
+    src: "/images/placeholders/product-generic-placeholder.webp",
+    alt: "Vision AI monitoring system",
+    width: 870,
+    height: 860,
+  },
 } as const;
 
 /**
