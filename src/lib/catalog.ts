@@ -130,22 +130,17 @@ export const products: Product[] = [
     group: "reader",
     desc: "Reader and antenna combined in one weatherproof unit for logistics, warehousing, access control and asset tracking.",
     bullets: ["Impinj E510/E710 chipset", "Up to 6m read range", "IP66 die-cast housing"],
-    // NOTE: this was pointed at rfid-integrated-reader.png, but that file is
-    // not a photo of this product — it's this site's own branded placeholder
-    // graphic (see /images/placeholders/product-generic-placeholder.webp).
-    // fetch-assets.mjs's old "guess the full-size filename by stripping
-    // -WxH, then keep whichever download is larger" logic silently picked up
-    // an unrelated file at the guessed URL instead of the real photo at the
-    // recorded `remote` below. Using the NTS-IR-01 photo (a real photo of a
-    // reader in this same family) here instead of a broken image. Swap this
-    // one line for a real NTS-IR-05 photo once the client supplies one —
-    // the NTS-IR-05 model entry below has the same placeholder swapped in.
+    // Real product photo supplied directly by the client — a panel-style
+    // reader/antenna unit on a pole mount, replacing the NTS-IR-01 photo
+    // that was standing in here (see the note this replaces, still true of
+    // the NTS-IR-01 model entry below: that model still has no photo of its
+    // own product image, having reused this position as a placeholder).
     image: {
-      src: `${IMG}/rfid-integrated-reader-nts-ir-01.png`,
-      remote: `${WP}/2025/08/NTS-IR-01-931x1024.png`,
-      alt: "UHF Integrated Reader Model NTS-IR-01",
-      width: 931,
-      height: 1024,
+      src: `${IMG}/rfid-integrated-reader-panel.jpg`,
+      remote: "",
+      alt: "RFID integrated reader — panel antenna unit on pole mount",
+      width: 600,
+      height: 600,
     },
     heading: "Network Toll Solution: Offering the Best-in-Class RFID Integrated Reader",
     intro: [
@@ -1408,6 +1403,31 @@ export const products: Product[] = [
     intro: [
       "NT-Pulse enables next-generation radar sensing systems by providing a breakthrough combination of resolution, range, point density, size, cost and software flexibility.",
       "NT-Pulse delivers highly dense 4D point clouds with excellent performance in a compact size for radar-based perception, classification, mapping, tracking, and autonomous navigation. Its rugged solid-state architecture allows reliable operation in rain, fog, dust, snow, and other harsh environments.",
+    ],
+    // Device photos and dimension drawings from the live product page — these
+    // were missing from the original transcription (text and tables only).
+    gallery: [
+      {
+        src: `${IMG}/nt-pulse-device-1.png`,
+        remote: `${WP}/2025/06/Screenshot-2025-06-16-110930.png`,
+        alt: "NT-Pulse device photo",
+        width: 1024,
+        height: 683,
+      },
+      {
+        src: `${IMG}/nt-pulse-device-2.png`,
+        remote: `${WP}/2025/06/Screenshot-2025-06-16-111149.png`,
+        alt: "NT-Pulse device photo, alternate angle",
+        width: 1024,
+        height: 683,
+      },
+      {
+        src: `${IMG}/nt-pulse-dimensions.png`,
+        remote: `${WP}/2025/06/Screenshot-2025-06-16-111252.png`,
+        alt: "NT-Pulse dimension drawing — 100 x 78 x 35mm",
+        width: 1024,
+        height: 683,
+      },
     ],
     sections: [
       {
