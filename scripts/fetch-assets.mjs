@@ -10,10 +10,22 @@
  * on networktoll.com at runtime — that is the domain this build replaces, and
  * hotlinking its uploads would break the site the moment DNS is cut over.
  *
- * WordPress stores a full-size original alongside its generated thumbnails, so
- * for a URL like `foo-931x1024.png` this also tries `foo.png` first and keeps
- * whichever is larger. Several catalog images were only linked at thumbnail
- * size on the live site (the User Fare Display, for instance, at 300x300).
+ * Fetches the literal `remote` URL recorded in the catalog — the exact URL
+ * observed embedded in the live page's HTML — and nothing else.
+ *
+ * An earlier version of this script tried to guess WordPress's full-size
+ * original by stripping the `-WxH` suffix (`foo-931x1024.png` -> `foo.png`)
+ * and used it unvalidated whenever *anything* came back at that guessed URL,
+ * on the theory that a same-named upload was probably the same image at
+ * higher resolution. It wasn't: for six images (the RFID Tag family and one
+ * Integrated Reader model, all from the client's 2025/08 upload batch) the
+ * guessed URL resolved to an unrelated file — this site's own logo graphic —
+ * which silently overwrote the real product photo on disk. See the commit
+ * that removed this logic, and the comments in src/lib/catalog.ts on the
+ * `rfid-integrated-reader` entry, for the full story. Do not reintroduce a
+ * "guess a nearby URL and trust whatever comes back" step here — if a higher-
+ * resolution source is wanted, its exact URL should be verified (e.g. by
+ * viewing the file) and added to the catalog as `remote` directly.
  */
 
 import { readFile, writeFile, mkdir, stat } from "node:fs/promises";
@@ -61,12 +73,6 @@ async function readAssets() {
   return [...assets].map(([local, remote]) => ({ local, remote }));
 }
 
-/** For `name-931x1024.png` return `name.png` — WordPress's full-size original. */
-function fullSizeVariant(url) {
-  const stripped = url.replace(/-\d+x\d+(\.[a-z]+)$/i, "$1");
-  return stripped === url ? null : stripped;
-}
-
 async function download(url) {
   const res = await fetch(url, {
     headers: {
@@ -89,7 +95,7 @@ async function exists(p) {
   }
 }
 
-const results = { saved: 0, skipped: 0, upgraded: 0, missing: [], failed: [] };
+const results = { saved: 0, skipped: 0, missing: [], failed: [] };
 
 for (const { local, remote } of await readAssets()) {
   const dest = join(PUBLIC, local);
@@ -105,40 +111,21 @@ for (const { local, remote } of await readAssets()) {
     continue;
   }
 
-  const candidates = [fullSizeVariant(remote), remote].filter(Boolean);
-  let best = null;
-  let bestUrl = null;
-
-  for (const url of candidates) {
-    try {
-      const buf = await download(url);
-      if (!best || buf.length > best.length) {
-        best = buf;
-        bestUrl = url;
-      }
-      // The full-size variant is tried first; if it worked, don't bother
-      // fetching the thumbnail as well.
-      if (url === candidates[0]) break;
-    } catch {
-      /* try the next candidate */
-    }
-  }
-
-  if (!best) {
+  let buf;
+  try {
+    buf = await download(remote);
+  } catch {
     results.failed.push({ local, remote });
     continue;
   }
 
   await mkdir(dirname(dest), { recursive: true });
-  await writeFile(dest, best);
+  await writeFile(dest, buf);
   results.saved++;
-  if (bestUrl !== remote) results.upgraded++;
   process.stdout.write(`  ✓ ${local}\n`);
 }
 
-console.log(
-  `\n${results.saved} saved (${results.upgraded} at full size), ${results.skipped} already present.`
-);
+console.log(`\n${results.saved} saved, ${results.skipped} already present.`);
 
 if (results.failed.length) {
   console.log(`\n${results.failed.length} failed to download:`);
