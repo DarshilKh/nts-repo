@@ -130,10 +130,20 @@ export const products: Product[] = [
     group: "reader",
     desc: "Reader and antenna combined in one weatherproof unit for logistics, warehousing, access control and asset tracking.",
     bullets: ["Impinj E510/E710 chipset", "Up to 6m read range", "IP66 die-cast housing"],
+    // NOTE: this was pointed at rfid-integrated-reader.png, but that file is
+    // not a photo of this product — it's this site's own branded placeholder
+    // graphic (see /images/placeholders/product-generic-placeholder.webp).
+    // fetch-assets.mjs's old "guess the full-size filename by stripping
+    // -WxH, then keep whichever download is larger" logic silently picked up
+    // an unrelated file at the guessed URL instead of the real photo at the
+    // recorded `remote` below. Using the NTS-IR-01 photo (a real photo of a
+    // reader in this same family) here instead of a broken image. Swap this
+    // one line for a real NTS-IR-05 photo once the client supplies one —
+    // the NTS-IR-05 model entry below has the same placeholder swapped in.
     image: {
-      src: `${IMG}/rfid-integrated-reader.png`,
-      remote: `${WP}/2025/06/integrated-Reader-931x1024.png`,
-      alt: "NTS UHF RFID integrated reader",
+      src: `${IMG}/rfid-integrated-reader-nts-ir-01.png`,
+      remote: `${WP}/2025/08/NTS-IR-01-931x1024.png`,
+      alt: "UHF Integrated Reader Model NTS-IR-01",
       width: 931,
       height: 1024,
     },
@@ -152,13 +162,11 @@ export const products: Product[] = [
           "Seamlessly compatible with RFID middleware for rapid implementation of large projects",
           "Widely used in E-parking, garbage truck, feeding vehicle, access control and so on",
         ],
-        image: {
-          src: `${IMG}/rfid-integrated-reader.png`,
-          remote: `${WP}/2025/06/integrated-Reader-931x1024.png`,
-          alt: "UHF Integrated Reader Model NTS-IR-05",
-          width: 931,
-          height: 1024,
-        },
+        // Same swap as the product-level image above: the real NTS-IR-05
+        // photo (fetched as `remote`) got replaced on disk by this site's own
+        // logo placeholder due to a bug in fetch-assets.mjs (now fixed — see
+        // that file). No `image` field at all until a real photo exists —
+        // the model card renders text-only rather than a broken picture.
         brochure: {
           label: "NTS-IR-05 brochure",
           href: `${PDF}/nts-ir-05.pdf`,
@@ -1676,8 +1684,8 @@ export const products: Product[] = [
       src: `${IMG}/rfid-tag.png`,
       remote: `${WP}/2025/08/3-931x1024.png`,
       alt: "RFID anti metal tag, model NTS-RT 15",
-      width: 931,
-      height: 1024,
+      width: 1000,
+      height: 856,
     },
     heading: "Network Toll — Leading RFID/UHF Tags Suppliers",
     intro: [
@@ -1697,8 +1705,8 @@ export const products: Product[] = [
           src: `${IMG}/rfid-tag.png`,
           remote: `${WP}/2025/08/3-931x1024.png`,
           alt: "RFID anti metal tag, model NTS-RT 15",
-          width: 931,
-          height: 1024,
+          width: 1000,
+          height: 856,
         },
         brochure: {
           label: "Anti metal tag NTS-RT 15",
@@ -1723,8 +1731,8 @@ export const products: Product[] = [
           src: `${IMG}/rfid-tag-nts-rt-40.png`,
           remote: `${WP}/2025/08/2-931x1024.png`,
           alt: "RFID asset UHF reusable tag, model NTS-RT 40",
-          width: 931,
-          height: 1024,
+          width: 1000,
+          height: 787,
         },
         brochure: {
           label: "Reusable tag NTS-RT 40",
@@ -1741,8 +1749,8 @@ export const products: Product[] = [
           src: `${IMG}/rfid-tag-alien-9640.png`,
           remote: `${WP}/2025/08/1-931x1024.png`,
           alt: "Alien 9640 RFID label inlay",
-          width: 931,
-          height: 1024,
+          width: 1000,
+          height: 866,
         },
         brochure: {
           label: "Alien 9640 RFID label",
@@ -1756,8 +1764,8 @@ export const products: Product[] = [
           src: `${IMG}/rfid-tag-nts-rt-62.png`,
           remote: `${WP}/2025/08/waste-Bin-1-931x1024.png`,
           alt: "Outdoor RFID waste bin tag, model NTS-RT 62",
-          width: 931,
-          height: 1024,
+          width: 1000,
+          height: 721,
         },
         specs: [
           { label: "Model Number", value: "NTS-RT 62" },
@@ -3140,8 +3148,8 @@ export const products: Product[] = [
       src: `${IMG}/file-tag.png`,
       remote: `${WP}/2025/08/1-931x1024.png`,
       alt: "RFID file and folder label",
-      width: 931,
-      height: 1024,
+      width: 1000,
+      height: 866,
     },
     heading: "File Tag",
     intro: [
@@ -3157,8 +3165,8 @@ export const products: Product[] = [
           src: `${IMG}/file-tag.png`,
           remote: `${WP}/2025/08/1-931x1024.png`,
           alt: "RFID file and folder label",
-          width: 931,
-          height: 1024,
+          width: 1000,
+          height: 866,
         },
         brochure: {
           label: "Alien 9640 RFID label",
