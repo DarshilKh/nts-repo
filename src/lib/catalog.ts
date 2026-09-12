@@ -173,13 +173,8 @@ export const products: Product[] = [
         body: [
           "NTS-IR 01 is a sleek and compact next generation RFID reader powered with 9 dbi linear polarized integrated antenna to facilitate fast and accurate tag identification process. It works on global UHF frequency (865-868MHz, 902-928 MHz) standards and has a read range of up to 6 meters. It is a cost-effective high-performance reader and is most widely used in applications like vehicle tracking in parking lots, access control for flap/ boom barriers, event management, projects related to R&D etc. where required read range is medium in nature. The product is IP 66 rated and has an inbuilt LED and buzzer for tag identification. It comes with mounting accessories, adapter and SDK for configuration and integration with third party software.",
         ],
-        image: {
-          src: `${IMG}/rfid-integrated-reader-nts-ir-01.png`,
-          remote: `${WP}/2025/08/NTS-IR-01-931x1024.png`,
-          alt: "UHF Integrated Reader Model NTS-IR-01",
-          width: 931,
-          height: 1024,
-        },
+        // Photo removed per client request — no image field, so the model
+        // card renders text-only (same pattern as NTS-IR-05 above).
         brochure: {
           label: "NTS-IR-01 brochure",
           href: `${PDF}/nts-ir-01.pdf`,
