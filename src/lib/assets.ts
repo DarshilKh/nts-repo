@@ -147,15 +147,15 @@ export const solutionAssets = {
   },
   numberPlateDetection: {
     src: "/images/real/solution-numberplate-detection-new.jpg",
-    alt: "ANPR camera reading a vehicle's number plate at a gate",
-    width: 1774,
-    height: 887,
+    alt: "ANPR bounding boxes reading vehicle plates at an intersection",
+    width: 855,
+    height: 392,
   },
   attendance: {
     src: "/images/real/solution-attendance.jpg",
-    alt: "Employee tapping an RFID card at an office access turnstile",
-    width: 1774,
-    height: 887,
+    alt: "Employee using face recognition attendance terminal at an office entrance",
+    width: 1672,
+    height: 941,
   },
 } as const;
 
