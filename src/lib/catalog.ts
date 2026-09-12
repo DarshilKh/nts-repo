@@ -1583,6 +1583,29 @@ export const products: Product[] = [
       "Prime enables next-generation radar sensing systems by providing a breakthrough combination of resolution, range, point density, size, and software flexibility.",
       "Prime delivers highly dense 4D point clouds with excellent performance for radar-based perception, classification, mapping, tracking, and autonomous navigation. Its rugged solid-state architecture allows reliable operation in rain, fog, dust, snow, and other harsh environments.",
     ],
+    gallery: [
+      {
+        src: `${IMG}/nt-prime-compare.jpg`,
+        remote: "",
+        alt: "NT-Prime radar unit, front view, size comparison",
+        width: 1600,
+        height: 1200,
+      },
+      {
+        src: `${IMG}/nt-prime-side-by-side.jpg`,
+        remote: "",
+        alt: "NT-Prime radar unit, front and rear housing view",
+        width: 1600,
+        height: 1200,
+      },
+      {
+        src: `${IMG}/nt-prime-rear.jpg`,
+        remote: "",
+        alt: "NT-Prime radar unit, rear heatsink and connector view",
+        width: 1600,
+        height: 1200,
+      },
+    ],
     sections: [
       {
         title: "Highlights",
