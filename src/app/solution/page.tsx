@@ -141,6 +141,20 @@ export default function SolutionPage() {
           cornerMarkSide="left"
         />
 
+        {/* row 9 (added — client request) — text right x=964, image left 921px */}
+        <SolutionRow
+          styleId="vision-ai"
+          learnMore={Boolean(solutionHref("vision-ai"))}
+          learnMoreHref={solutionHref("vision-ai")}
+          title={"Vision AI\nMonitoring System"}
+          body="Camera-based AI that reads plates and container IDs at the gate, inspects cargo for damage, tracks dock and workstation activity, and flags PPE and fire risks in real time — on the CCTV you already have."
+          image={solutionAssets.visionAi}
+          imageSide="left"
+          imageWidthPx={921}
+          textInsetPx={964}
+          cornerMarkSide="right"
+        />
+
         <CTASection />
       </main>
       <Footer />
