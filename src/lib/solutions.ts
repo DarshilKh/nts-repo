@@ -13,10 +13,19 @@
 
 import type { CatalogImage, Brochure, Section, Faq } from "./catalog";
 
+export type SolutionGroup =
+  | "toll-traffic"
+  | "rfid-facility"
+  | "vision-gate-vehicle"
+  | "vision-warehouse-yard"
+  | "vision-safety";
+
 export type Solution = {
   slug: string;
   /** Anchor id of this solution's row on /solution — matches SolutionRow styleId. */
   rowId: string;
+  /** Category for the grouped, multi-column Solutions nav dropdown — see SOLUTION_GROUPS. */
+  group: SolutionGroup;
   /** Row + card title. */
   name: string;
   /** 2–3 line row body on the index page. */
@@ -50,6 +59,7 @@ export const solutions: Solution[] = [
   {
     slug: "toll-management",
     rowId: "toll",
+    group: "toll-traffic",
     name: "Toll Management",
     desc: "Automate the full lane: FASTag RFID identification, ANPR backup, automatic vehicle classification and weigh-in-motion, all reporting to a single plaza server. Hybrid lanes keep cash and card working alongside electronic collection.",
     detail: true,
@@ -133,6 +143,7 @@ export const solutions: Solution[] = [
   {
     slug: "anpr-monitoring",
     rowId: "anpr",
+    group: "toll-traffic",
     name: "ANPR Monitering",
     desc: "Day-and-night number plate recognition for toll plazas, parking and highways. ANPR runs alongside FASTag as enforcement and fallback, catching vehicles with a missing, blocked or blacklisted tag.",
     detail: true,
@@ -217,6 +228,7 @@ export const solutions: Solution[] = [
   {
     slug: "smart-parking-management",
     rowId: "smart-parking",
+    group: "toll-traffic",
     name: "Smart Parking Management",
     desc: "FASTag-based entry and exit, real-time bay counting and guidance displays, with boom barriers, CCTV and ANPR controlling access across the facility.",
     detail: true,
@@ -324,6 +336,7 @@ export const solutions: Solution[] = [
   {
     slug: "inventory-management",
     rowId: "inventory",
+    group: "rfid-facility",
     name: "Inventory Management",
     desc: "Track stock at item level with UHF tags and fixed or handheld readers. Cycle counts that took a day take minutes, and shrinkage shows up in a report instead of at year end.",
     detail: true,
@@ -452,6 +465,7 @@ export const solutions: Solution[] = [
   {
     slug: "rfid-software-system",
     rowId: "rfid-software",
+    group: "rfid-facility",
     name: "RFID Software System",
     desc: "Custom RFID platforms for gate automation, vehicle and personnel tracking, weighbridge automation, race timing and work-in-progress monitoring — with live dashboards and exportable reports.",
     detail: true,
@@ -571,6 +585,7 @@ export const solutions: Solution[] = [
   {
     slug: "plaza-center-database-server",
     rowId: "plaza",
+    group: "toll-traffic",
     name: "Plaza Center & Database Server",
     desc: "The plaza server is where every lane reports. It consolidates transactions, incidents and images, reconciles revenue across lanes and shifts, and syncs to your central back office for audit and settlement.",
     detail: true,
@@ -643,6 +658,7 @@ export const solutions: Solution[] = [
   {
     slug: "number-plate-detection",
     rowId: "number-plate-detection",
+    group: "toll-traffic",
     name: "Number Plate Detection",
     desc: "Camera-based vehicle identification for gate automation — reads plates at speed, day or night, and drives entry and exit without an operator.",
     detail: true,
@@ -702,6 +718,7 @@ export const solutions: Solution[] = [
     // tracking use case already mentioned on the RFID Software System page.
     slug: "face-attendance-system",
     rowId: "attendance",
+    group: "rfid-facility",
     name: "Face Attendance\nSystem",
     desc: "RFID card and face-recognition attendance at the office entrance — one tap or one glance logs the visit, no separate biometric device or manual register.",
     detail: true,
@@ -779,133 +796,579 @@ export const solutions: Solution[] = [
     // capability list itself was taken as a brief. Four items from that
     // brief were dropped per instruction: yard parking occupancy, CHE
     // tracking, digital twin yard view, and conveyor object counting.
-    slug: "vision-ai-monitoring-system",
-    rowId: "vision-ai",
-    name: "Vision AI\nMonitoring System",
-    desc: "Camera-based AI that reads plates and container IDs at the gate, inspects cargo for damage, tracks dock and workstation activity, and flags PPE and fire risks in real time — no new sensors, just smarter use of the cameras already on site.",
+    slug: "gate-in-gate-out-automation",
+    rowId: "gate-automation",
+    group: "vision-gate-vehicle",
+    name: "Gate In & Gate\nOut Automation",
+    desc: "Every vehicle and container is logged automatically at the gate — plate, container ID, ISO code and weight read straight off the camera feed in under two seconds, no manual entry.",
     detail: true,
-    heading: "Vision AI Monitoring System",
-    tagline: "One camera network, complete operational visibility.",
+    heading: "Gate In & Gate Out Automation",
     intro: [
-      "Most yards, warehouses and plants already run on CCTV — the cameras are there, but nobody's watching every feed all day. The Vision AI Monitoring System turns that existing camera network into a working system: it reads plates and container numbers at the gate, checks cargo for damage before it's accepted, tracks which docks and workstations are actually in use, and raises an alert the moment someone's missing a hard hat or a stack of pallets goes past its safe height.",
-      "It's built to plug into ports, container yards, manufacturing plants, cold storage, distribution centres and e-commerce fulfilment sites without ripping out what's already installed — the AI runs on top of standard CCTV and IP cameras, with a dashboard that brings every zone into one view.",
+      "Every vehicle and container gets logged automatically as it crosses the gate — container ID, number plate, ISO code and weight markings are all read straight off the camera feed, with the full record captured in under two seconds. Entry and exit are timestamped without a guard needing to key anything in, and vehicle or container turnaround time is tracked end to end.",
     ],
-    sections: [
+    gallery: [
       {
-        title: "Gate In & Gate Out Automation",
-        body: [
-          "Every vehicle and container gets logged automatically as it crosses the gate — container ID, number plate, ISO code and weight markings are all read straight off the camera feed, with the full record captured in under two seconds. Entry and exit are timestamped without a guard needing to key anything in, and vehicle or container turnaround time is tracked end to end.",
-        ],
-      },
-      {
-        title: "ANPR & Vehicle Identification",
-        body: [
-          "Plates are read in real time at every gate the system covers, with each entry and exit logged to a searchable record. Vehicles on a blacklist or whitelist trigger an alert automatically, and every vehicle is classified by type as it passes — car, truck, taxi, two-wheeler — so the same feed doubles as an access-control layer and a traffic log. Works with the CCTV already installed; no camera swap needed.",
-        ],
-      },
-      {
-        title: "AI Damage Detection & Visual Proof",
-        body: [
-          "Containers are inspected from all five visible sides — top, front, back, left and right — as they pass through the gate, checking for dents, holes, rust, bends and a missing or broken seal. Every inspection is backed by a timestamped image, so a damage dispute at handover has actual visual proof attached to it rather than a driver's word against a clerk's.",
-        ],
-      },
-      {
-        title: "Vehicle Speed Monitoring",
-        body: [
-          "Speed limits can be set per zone — slower through a loading area, normal through open yard — and the system raises a real-time alert the moment a vehicle goes over. Every over-speed event comes with a timestamp, the vehicle's ID and a video clip, so it's a documented incident rather than just a warning light.",
-        ],
-      },
-      {
-        title: "Dock Space Visualization",
-        body: [
-          "A live 2D layout shows every dock position as occupied or available at a glance, with load and unload duration tracked automatically per dock. Turnaround time and a time-stamped activity log for each bay make it easy to see which docks are actually the bottleneck instead of guessing from a whiteboard.",
-        ],
-      },
-      {
-        title: "Real-Time Container Search",
-        body: [
-          "Type in a container ID and the system shows its exact position in the yard — no walking the rows to find it. A QR-based lookup lets yard staff scan, search and navigate straight to a container from a handheld device, typically finding any box in under ten seconds.",
-        ],
-      },
-      {
-        title: "Gauge & Reefer Monitoring",
-        body: [
-          "Cameras read analogue and digital gauges — temperature, pressure, reefer displays — the same way a person would, without needing an IoT sensor retrofitted to every unit. Readings are logged automatically, and a temperature deviation on a reefer container raises an immediate alert instead of being caught on the next manual round.",
-        ],
-      },
-      {
-        title: "Quality Inspection & Label Reading",
-        body: [
-          "Shipping labels, barcodes and QR codes are read automatically as packages move down the line, with OCR pulling the tracking number, destination and item details straight off the label for instant search and retrieval. Surface damage on a package is flagged the moment it's detected, with an image captured as evidence.",
-        ],
-      },
-      {
-        title: "Pallet Classification & Counting",
-        body: [
-          "Pallets are detected and counted by type as they move through — wood, plastic, CHEP or others — giving a live, category-wise count instead of an end-of-shift tally. That feeds straight into inventory reporting and stock-movement visibility without anyone walking the floor with a clipboard.",
-        ],
-      },
-      {
-        title: "Inventory Stack Height Monitoring",
-        body: [
-          "Each storage zone gets its own safe height threshold, and the system watches stack height against it continuously. Cross the line and an alert goes out by SMS, email or straight to the dashboard — catching an overstacking risk before it becomes a collapsed pallet or a safety incident.",
-        ],
-      },
-      {
-        title: "Workstation Occupancy",
-        body: [
-          "Packing tables, machine stations and QC benches all show live occupied-or-idle status, with a timestamped usage log kept per station. Across multiple sites, one dashboard shows utilisation everywhere at once — useful for spotting an underused line before it shows up in the numbers.",
-        ],
-      },
-      {
-        title: "OCR-Based Document Data Extraction",
-        body: [
-          "Booking documents, Form 6, gate passes, invoices, delivery challans and LR copies are digitised and read automatically, with the extracted data stored for instant search instead of sitting in a folder of scanned PDFs. What used to mean digging through a filing cabinet becomes a text search.",
-        ],
-      },
-      {
-        title: "Forklift Operator & Activity Monitoring",
-        body: [
-          "The system checks whether a forklift has an operator on board and whether that operator is wearing a helmet, alongside the vehicle's own movement status. An empty seat, a missing helmet, extended idle time, or a fork raised while the vehicle is moving all trigger their own alert, each logged with a timestamp.",
-        ],
-      },
-      {
-        title: "Safety Compliance Monitoring (PPE)",
-        body: [
-          "Vests, safety glasses, safety shoes, gloves and helmets are checked automatically against whatever PPE the zone requires, with a live compliance percentage on the dashboard. A missing item raises a real-time alert backed by a timestamped image — useful both for catching a gap in the moment and for showing an auditor the trend over time.",
-        ],
-      },
-      {
-        title: "Fire & Smoke Detection",
-        body: [
-          "Cameras watch continuously for the early signs of fire or smoke and raise an alert the moment something looks wrong, well before a heat or smoke sensor would typically trip. Every alert comes with timestamped image and video evidence, and notifications go out by SMS, email or dashboard so the response doesn't depend on someone happening to be watching that feed.",
-        ],
-      },
-      {
-        title: "Operator Presence & Perimeter Monitoring",
-        body: [
-          "Staff presence at a post is tracked automatically, with an alert if a required position goes unmanned. Around the perimeter, user-defined zones flag an unauthorised entry or boundary breach in real time, with a time-stamped video record kept for every event.",
-        ],
+        src: `${IMG}/vision-gate-in-gate-out.png`,
+        remote: "",
+        alt: "Camera-based gate automation reading a container truck's ID and plate",
+        width: 800,
+        height: 579,
       },
     ],
     faqs: [
       {
-        q: "Do we need to install new cameras for this?",
-        a: "In most cases, no. The system is built to run on the CCTV and IP cameras already installed at a gate, yard, dock or plant floor. A site survey will confirm coverage for the specific zones you want monitored and flag any blind spots worth adding a camera for.",
+        q: "Does this replace our boom barrier and existing gate hardware?",
+        a: "No — it works alongside what's already there. The cameras handle identification and logging; your boom barrier, RFID reader or manual gate operation keeps controlling physical access.",
       },
       {
-        q: "Can we start with just one or two features rather than the full system?",
-        a: "Yes. Gate automation, ANPR, dock visibility, PPE compliance and the rest are separate modules that can be deployed independently — most clients start with one or two zones (commonly the gate and one warehouse floor) and add modules as needed.",
-      },
-      {
-        q: "How are alerts delivered, and can they reach people off-site?",
-        a: "Depending on the module, alerts go out via the dashboard, SMS or email, so a safety or security event doesn't rely on someone watching a monitor at that exact moment. Every alert is backed by a timestamped image or video clip for follow-up.",
+        q: "What happens if a plate or container ID can't be read clearly?",
+        a: "The system flags the record for manual review rather than silently failing, so a dirty or damaged plate doesn't create a gap in the log.",
       },
     ],
     seo: {
-      title: "Vision AI Monitoring System",
+      title: "Gate In & Gate Out Automation",
       description:
-        "Camera-based Vision AI for ports, yards, warehouses and plants — gate automation, ANPR, container damage detection, dock and workstation visibility, PPE compliance and fire detection on your existing CCTV.",
+        "Automated gate logging for trucks and containers — plate, container ID, ISO code and weight read from the camera feed in under two seconds, with full entry-exit timestamps.",
+    },
+  },
+  {
+    slug: "anpr-vehicle-identification",
+    rowId: "anpr-vehicle-id",
+    group: "vision-gate-vehicle",
+    name: "ANPR & Vehicle\nIdentification",
+    desc: "Real-time plate detection with blacklist/whitelist alerts, searchable entry-exit records, vehicle classification by type, and multi-gate visibility on the CCTV you already run.",
+    detail: true,
+    heading: "ANPR & Vehicle Identification",
+    intro: [
+      "Plates are read in real time at every gate the system covers, with each entry and exit logged to a searchable record. Vehicles on a blacklist or whitelist trigger an alert automatically, and every vehicle is classified by type as it passes — car, truck, taxi, two-wheeler — so the same feed doubles as an access-control layer and a traffic log. Works with the CCTV already installed; no camera swap needed.",
+    ],
+    gallery: [
+      {
+        src: `${IMG}/vision-anpr-vehicle-identification.png`,
+        remote: "",
+        alt: "ANPR system detecting and identifying a truck at a warehouse gate",
+        width: 2650,
+        height: 2050,
+      },
+    ],
+    faqs: [
+      {
+        q: "Can this cover multiple gates or sites from one dashboard?",
+        a: "Yes. Records from every gate feed into one centralised, searchable dashboard, so a vehicle's full movement history across sites is visible in one place.",
+      },
+      {
+        q: "How is a blacklisted vehicle handled once detected?",
+        a: "The system raises an immediate alert to the dashboard (and, depending on setup, SMS or email) the moment a blacklisted plate is read, so security can respond before the vehicle reaches the gate.",
+      },
+    ],
+    seo: {
+      title: "ANPR & Vehicle Identification",
+      description:
+        "Real-time automatic number plate recognition with blacklist/whitelist alerts, vehicle classification, searchable records and multi-gate visibility on existing CCTV.",
+    },
+  },
+  {
+    slug: "ai-damage-detection",
+    rowId: "damage-detection",
+    group: "vision-gate-vehicle",
+    name: "AI Damage\nDetection",
+    desc: "Five-sided automated container inspection — dents, holes, rust, bends and seal condition checked at the gate, with a timestamped photo as proof for every inspection.",
+    detail: true,
+    heading: "AI Damage Detection & Visual Proof",
+    intro: [
+      "Containers are inspected from all five visible sides — top, front, back, left and right — as they pass through the gate, checking for dents, holes, rust, bends and a missing or broken seal. Every inspection is backed by a timestamped image, so a damage dispute at handover has actual visual proof attached to it rather than a driver's word against a clerk's.",
+    ],
+    gallery: [
+      {
+        src: `${IMG}/vision-ai-damage-detection.png`,
+        remote: "",
+        alt: "Overhead gantry scanning a container truck for damage on five sides",
+        width: 2580,
+        height: 1410,
+      },
+    ],
+    faqs: [
+      {
+        q: "What kind of damage does the system actually catch?",
+        a: "Dents, holes, bends, rust, and a missing or broken seal are checked on each of the five visible sides as the container passes through.",
+      },
+      {
+        q: "Is the inspection image kept on file for later disputes?",
+        a: "Yes — every inspection is backed by a timestamped image, so a handover dispute can be settled by pulling up the actual photo instead of relying on memory.",
+      },
+    ],
+    seo: {
+      title: "AI Damage Detection & Visual Proof",
+      description:
+        "Automated five-sided container damage inspection at the gate — dents, holes, rust, bends and seal condition checked, with timestamped photo evidence for every pass.",
+    },
+  },
+  {
+    slug: "vehicle-speed-monitoring",
+    rowId: "speed-monitoring",
+    group: "vision-gate-vehicle",
+    name: "Vehicle Speed\nMonitoring",
+    desc: "Zone-wise speed limits with real-time over-speed alerts, each backed by a timestamp, vehicle ID and video clip — a documented incident, not just a warning light.",
+    detail: true,
+    heading: "Vehicle Speed Monitoring",
+    intro: [
+      "Speed limits can be set per zone — slower through a loading area, normal through open yard — and the system raises a real-time alert the moment a vehicle goes over. Every over-speed event comes with a timestamp, the vehicle's ID and a video clip, so it's a documented incident rather than just a warning light.",
+    ],
+    gallery: [
+      {
+        src: `${IMG}/vision-vehicle-speed-monitoring.png`,
+        remote: "",
+        alt: "Camera tracking a forklift's speed in a warehouse aisle with a warning alert",
+        width: 2930,
+        height: 1980,
+      },
+    ],
+    faqs: [
+      {
+        q: "Can different zones have different speed limits?",
+        a: "Yes — each zone (loading bay, open yard, pedestrian crossing) can be configured with its own limit, so the alert threshold matches what's actually safe for that area.",
+      },
+      {
+        q: "What evidence is kept for an over-speed event?",
+        a: "Every alert comes with a timestamp, the vehicle's ID and a video clip of the event, so it can be reviewed or used for a safety conversation after the fact.",
+      },
+    ],
+    seo: {
+      title: "Vehicle Speed Monitoring",
+      description:
+        "Camera-based vehicle speed monitoring with configurable zone-wise limits, real-time over-speed alerts, and timestamped video evidence for every incident.",
+    },
+  },
+  {
+    slug: "dock-space-visualization",
+    rowId: "dock-visualization",
+    group: "vision-warehouse-yard",
+    name: "Dock Space\nVisualization",
+    desc: "Live 2D layout of every dock — occupied or available at a glance, with load/unload duration, turnaround time and a time-stamped activity log per bay.",
+    detail: true,
+    heading: "Dock Space Visualization",
+    intro: [
+      "A live 2D layout shows every dock position as occupied or available at a glance, with load and unload duration tracked automatically per dock. Turnaround time and a time-stamped activity log for each bay make it easy to see which docks are actually the bottleneck instead of guessing from a whiteboard.",
+    ],
+    gallery: [
+      {
+        src: `${IMG}/vision-dock-space-visualization.png`,
+        remote: "",
+        alt: "Overhead camera view showing occupied and available loading docks",
+        width: 3010,
+        height: 2130,
+      },
+    ],
+    faqs: [
+      {
+        q: "How does the system know a dock is occupied versus just has a trailer parked nearby?",
+        a: "Each dock position is mapped individually, so occupancy is read from that specific bay's camera zone rather than inferred from general yard activity.",
+      },
+      {
+        q: "Can we see historical dock usage, not just the live view?",
+        a: "Yes — load/unload duration, turnaround time and a time-stamped activity log are kept per dock, so trends over a shift or a week are visible, not just the current snapshot.",
+      },
+    ],
+    seo: {
+      title: "Dock Space Visualization",
+      description:
+        "Live 2D dock occupancy visualization — real-time occupied/available status, load and unload duration, turnaround tracking and time-stamped activity logs per bay.",
+    },
+  },
+  {
+    slug: "real-time-container-search",
+    rowId: "container-search",
+    group: "vision-gate-vehicle",
+    name: "Real-Time\nContainer Search",
+    desc: "Search a container ID and get its exact yard location instantly — QR-based scan, search and navigate from a handheld, typically under ten seconds per lookup.",
+    detail: true,
+    heading: "Real-Time Container Search",
+    intro: [
+      "Type in a container ID and the system shows its exact position in the yard — no walking the rows to find it. A QR-based lookup lets yard staff scan, search and navigate straight to a container from a handheld device, typically finding any box in under ten seconds.",
+    ],
+    gallery: [
+      {
+        src: `${IMG}/vision-container-search.png`,
+        remote: "",
+        alt: "Operator searching a container ID and viewing its location on a yard map",
+        width: 2000,
+        height: 870,
+      },
+    ],
+    faqs: [
+      {
+        q: "Does this need every container to be tagged or scanned in first?",
+        a: "The container's ID is captured automatically at the gate when it enters, so its location is already in the system by the time it's placed in the yard — no separate tagging step.",
+      },
+      {
+        q: "Can yard staff use this from a phone rather than a desktop?",
+        a: "Yes — the QR-based scan, search and navigate flow is built for a handheld device, so staff can look up a container from wherever they are in the yard.",
+      },
+    ],
+    seo: {
+      title: "Real-Time Container Search",
+      description:
+        "Search any container ID and get its exact yard location instantly — QR-based scan and navigate from a handheld device, typical lookup time under ten seconds.",
+    },
+  },
+  {
+    slug: "gauge-reefer-monitoring",
+    rowId: "gauge-reefer",
+    group: "vision-warehouse-yard",
+    name: "Gauge & Reefer\nMonitoring",
+    desc: "Cameras read analogue and digital gauges — temperature, pressure, reefer displays — the way a person would, with an instant alert on any deviation.",
+    detail: true,
+    heading: "Gauge & Reefer Monitoring",
+    intro: [
+      "Cameras read analogue and digital gauges — temperature, pressure, reefer displays — the same way a person would, without needing an IoT sensor retrofitted to every unit. Readings are logged automatically, and a temperature deviation on a reefer container raises an immediate alert instead of being caught on the next manual round.",
+    ],
+    gallery: [
+      {
+        src: `${IMG}/vision-gauge-reefer-monitoring.png`,
+        remote: "",
+        alt: "Camera reading a reefer container's temperature and gauge display",
+        width: 2420,
+        height: 2380,
+      },
+    ],
+    faqs: [
+      {
+        q: "Do we need to install sensors on every reefer unit for this to work?",
+        a: "No — the camera reads the existing display or gauge visually, the same way a person doing a manual round would, so there's no per-unit sensor to install or maintain.",
+      },
+      {
+        q: "How fast is a temperature deviation flagged?",
+        a: "As soon as the camera reads a value outside the set range, an alert goes out immediately rather than waiting for the next scheduled manual check.",
+      },
+    ],
+    seo: {
+      title: "Gauge & Reefer Monitoring",
+      description:
+        "Camera-based reading of temperature, pressure and reefer gauge displays with automatic logging and instant alerts on deviation — no sensor retrofit required.",
+    },
+  },
+  {
+    slug: "quality-inspection-label-reading",
+    rowId: "quality-inspection",
+    group: "vision-warehouse-yard",
+    name: "Quality Inspection\n& Label Reading",
+    desc: "Automatic label and barcode OCR on the line, with surface damage flagged and image evidence captured the moment a defect is detected.",
+    detail: true,
+    heading: "Quality Inspection & Label Reading",
+    intro: [
+      "Shipping labels, barcodes and QR codes are read automatically as packages move down the line, with OCR pulling the tracking number, destination and item details straight off the label for instant search and retrieval. Surface damage on a package is flagged the moment it's detected, with an image captured as evidence.",
+    ],
+    gallery: [
+      {
+        src: `${IMG}/vision-quality-inspection-label.png`,
+        remote: "",
+        alt: "Conveyor line camera reading package labels and flagging a damaged box",
+        width: 2920,
+        height: 1980,
+      },
+    ],
+    faqs: [
+      {
+        q: "What label information is actually extracted?",
+        a: "Tracking number, destination and item details are read via OCR straight off the label, and stored so a package can be found by that information later.",
+      },
+      {
+        q: "What happens when the system flags a damaged package?",
+        a: "It's flagged the moment the damage is detected on the line, with an image captured automatically as evidence — so it can be pulled aside before it ships rather than discovered at the customer's end.",
+      },
+    ],
+    seo: {
+      title: "Quality Inspection & Label Reading",
+      description:
+        "Automatic OCR-based label and barcode reading on the conveyor line with real-time surface damage detection and image evidence for every flagged package.",
+    },
+  },
+  {
+    slug: "pallet-classification-counting",
+    rowId: "pallet-counting",
+    group: "vision-warehouse-yard",
+    name: "Pallet Classification\n& Counting",
+    desc: "Automatic pallet detection and counting by type — wood, plastic, CHEP — with a live category-wise count feeding straight into inventory reporting.",
+    detail: true,
+    heading: "Pallet Classification & Counting",
+    intro: [
+      "Pallets are detected and counted by type as they move through — wood, plastic, CHEP or others — giving a live, category-wise count instead of an end-of-shift tally. That feeds straight into inventory reporting and stock-movement visibility without anyone walking the floor with a clipboard.",
+    ],
+    gallery: [
+      {
+        src: `${IMG}/vision-pallet-classification.png`,
+        remote: "",
+        alt: "Camera detecting and classifying different pallet types being loaded",
+        width: 2920,
+        height: 1980,
+      },
+    ],
+    faqs: [
+      {
+        q: "What pallet types can the system tell apart?",
+        a: "Wood, plastic and CHEP pallets are distinguished automatically, with counts kept separately by category rather than lumped into one total.",
+      },
+      {
+        q: "Is this count available in real time or only at shift end?",
+        a: "Live — the category-wise count updates as pallets move through, rather than requiring an end-of-shift manual tally.",
+      },
+    ],
+    seo: {
+      title: "Pallet Classification & Counting",
+      description:
+        "Automatic pallet detection and counting by type (wood, plastic, CHEP) with live category-wise counts feeding directly into inventory and stock reporting.",
+    },
+  },
+  {
+    slug: "inventory-stack-height-monitoring",
+    rowId: "stack-height",
+    group: "vision-warehouse-yard",
+    name: "Inventory Stack\nHeight Monitoring",
+    desc: "Per-zone safe height thresholds watched continuously, with an SMS, email or dashboard alert the moment a stack crosses the line.",
+    detail: true,
+    heading: "Inventory Stack Height Monitoring",
+    intro: [
+      "Each storage zone gets its own safe height threshold, and the system watches stack height against it continuously. Cross the line and an alert goes out by SMS, email or straight to the dashboard — catching an overstacking risk before it becomes a collapsed pallet or a safety incident.",
+    ],
+    gallery: [
+      {
+        src: `${IMG}/vision-stack-height-monitoring.png`,
+        remote: "",
+        alt: "Warehouse camera flagging a pallet stack that has exceeded its safe height limit",
+        width: 2950,
+        height: 1980,
+      },
+    ],
+    faqs: [
+      {
+        q: "Can different storage zones have different height limits?",
+        a: "Yes — each zone is configured with its own safe height threshold, so a high-bay racking area and a floor-stacking zone can each have limits that actually suit them.",
+      },
+      {
+        q: "How quickly does an overstacking alert reach someone?",
+        a: "The moment a stack crosses its threshold, an alert is sent by SMS, email or to the dashboard — not held for a scheduled report.",
+      },
+    ],
+    seo: {
+      title: "Inventory Stack Height Monitoring",
+      description:
+        "Camera-based stack height monitoring with configurable per-zone safety thresholds and instant SMS, email or dashboard alerts on overstacking risk.",
+    },
+  },
+  {
+    slug: "workstation-occupancy",
+    rowId: "workstation-occupancy",
+    group: "vision-warehouse-yard",
+    name: "Workstation\nOccupancy",
+    desc: "Live occupied-or-idle status for packing tables, machine stations and QC benches, with a timestamped usage log and a multi-site dashboard.",
+    detail: true,
+    heading: "Workstation Occupancy",
+    intro: [
+      "Packing tables, machine stations and QC benches all show live occupied-or-idle status, with a timestamped usage log kept per station. Across multiple sites, one dashboard shows utilisation everywhere at once — useful for spotting an underused line before it shows up in the numbers.",
+    ],
+    gallery: [
+      {
+        src: `${IMG}/vision-workstation-occupancy.png`,
+        remote: "",
+        alt: "Cameras tracking occupancy at packing, machine and QC workstations",
+        width: 1260,
+        height: 690,
+      },
+    ],
+    faqs: [
+      {
+        q: "What counts as a station being 'occupied' versus 'idle'?",
+        a: "Occupancy is read from operator presence and activity at that specific station, giving a real-time occupied-or-idle status rather than an inferred guess.",
+      },
+      {
+        q: "Can this cover stations across more than one site?",
+        a: "Yes — a single dashboard brings together workstation status from multiple locations, so utilisation can be compared site to site.",
+      },
+    ],
+    seo: {
+      title: "Workstation Occupancy Monitoring",
+      description:
+        "Real-time occupied/idle tracking for packing, machine and QC workstations, with timestamped usage logs and a multi-location dashboard for utilisation visibility.",
+    },
+  },
+  {
+    slug: "ocr-document-data-extraction",
+    rowId: "document-extraction",
+    group: "vision-warehouse-yard",
+    name: "OCR-Based Document\nData Extraction",
+    desc: "Booking documents, gate passes, invoices, challans and LR copies digitised and read automatically — searchable text instead of a folder of scans.",
+    detail: true,
+    heading: "OCR-Based Document Data Extraction",
+    intro: [
+      "Booking documents, Form 6, gate passes, invoices, delivery challans and LR copies are digitised and read automatically, with the extracted data stored for instant search instead of sitting in a folder of scanned PDFs. What used to mean digging through a filing cabinet becomes a text search.",
+    ],
+    gallery: [
+      {
+        src: `${IMG}/vision-document-data-extraction.png`,
+        remote: "",
+        alt: "Scanning a booking document with a phone for automatic data extraction",
+        width: 2700,
+        height: 2120,
+      },
+    ],
+    faqs: [
+      {
+        q: "Which document types does this handle?",
+        a: "Booking documents, Form 6, gate passes, invoices, delivery challans and LR copies are all supported — the common paperwork that moves through a gate or back office.",
+      },
+      {
+        q: "Where does the extracted data end up?",
+        a: "It's stored digitally and indexed for instant search, so finding a specific document later is a text search rather than a manual file search.",
+      },
+    ],
+    seo: {
+      title: "OCR-Based Document Data Extraction",
+      description:
+        "Automatic OCR data extraction for booking documents, gate passes, invoices, delivery challans and LR copies — digitised, indexed and instantly searchable.",
+    },
+  },
+  {
+    slug: "forklift-operator-monitoring",
+    rowId: "forklift-monitoring",
+    group: "vision-safety",
+    name: "Forklift Operator\n& Activity Monitoring",
+    desc: "Operator presence and helmet detection on every forklift, with alerts for an empty seat, missing helmet, extended idle time or a fork raised while moving.",
+    detail: true,
+    heading: "Forklift Operator & Activity Monitoring",
+    intro: [
+      "The system checks whether a forklift has an operator on board and whether that operator is wearing a helmet, alongside the vehicle's own movement status. An empty seat, a missing helmet, extended idle time, or a fork raised while the vehicle is moving all trigger their own alert, each logged with a timestamp.",
+    ],
+    gallery: [
+      {
+        src: `${IMG}/vision-forklift-monitoring.png`,
+        remote: "",
+        alt: "Camera detecting a forklift operator and confirming helmet use",
+        width: 2540,
+        height: 1830,
+      },
+    ],
+    faqs: [
+      {
+        q: "What specific forklift safety events does this catch?",
+        a: "An empty operator seat, a missing helmet, extended idle time, and a fork raised while the vehicle is moving are each detected and logged as their own event.",
+      },
+      {
+        q: "Is there a record kept of these events for safety audits?",
+        a: "Yes — every alert is timestamped and logged, giving a documented history to review during a safety audit rather than relying on incident reports alone.",
+      },
+    ],
+    seo: {
+      title: "Forklift Operator & Activity Monitoring",
+      description:
+        "Camera-based forklift safety monitoring — operator presence, helmet detection, idle time and fork-raised-while-moving alerts, each logged with a timestamp.",
+    },
+  },
+  {
+    slug: "ppe-safety-compliance-monitoring",
+    rowId: "ppe-compliance",
+    group: "vision-safety",
+    name: "Safety Compliance\nMonitoring (PPE)",
+    desc: "Vests, glasses, shoes, gloves and helmets checked automatically per zone, with a live compliance percentage and timestamped evidence on every violation.",
+    detail: true,
+    heading: "Safety Compliance Monitoring (PPE)",
+    intro: [
+      "Vests, safety glasses, safety shoes, gloves and helmets are checked automatically against whatever PPE the zone requires, with a live compliance percentage on the dashboard. A missing item raises a real-time alert backed by a timestamped image — useful both for catching a gap in the moment and for showing an auditor the trend over time.",
+    ],
+    gallery: [
+      {
+        src: `${IMG}/vision-ppe-safety-compliance.png`,
+        remote: "",
+        alt: "Warehouse camera checking workers for PPE compliance with missing-item alerts",
+        width: 2930,
+        height: 1980,
+      },
+    ],
+    faqs: [
+      {
+        q: "Which PPE items can the system check for?",
+        a: "Safety vest, safety glasses, safety shoes, gloves and helmet are each checked individually against whatever a given zone requires.",
+      },
+      {
+        q: "Can compliance data be pulled for a safety audit?",
+        a: "Yes — the live compliance percentage and every violation event, backed by a timestamped image, gives a documented trend to show an auditor rather than a spot-check impression.",
+      },
+    ],
+    seo: {
+      title: "Safety Compliance Monitoring (PPE)",
+      description:
+        "Automatic PPE compliance monitoring — vest, glasses, shoes, gloves and helmet detection, live compliance percentage, and timestamped evidence for every violation.",
+    },
+  },
+  {
+    slug: "fire-smoke-detection",
+    rowId: "fire-detection",
+    group: "vision-safety",
+    name: "Fire & Smoke\nDetection",
+    desc: "Continuous camera-based fire and smoke detection, catching the early signs well before a heat sensor typically trips, with instant SMS, email or dashboard alerts.",
+    detail: true,
+    heading: "Fire & Smoke Detection",
+    intro: [
+      "Cameras watch continuously for the early signs of fire or smoke and raise an alert the moment something looks wrong, well before a heat or smoke sensor would typically trip. Every alert comes with timestamped image and video evidence, and notifications go out by SMS, email or dashboard so the response doesn't depend on someone happening to be watching that feed.",
+    ],
+    gallery: [
+      {
+        src: `${IMG}/vision-fire-smoke-detection.png`,
+        remote: "",
+        alt: "Early fire and smoke detection inside an industrial facility",
+        width: 2930,
+        height: 1980,
+      },
+    ],
+    faqs: [
+      {
+        q: "How is this different from a standard smoke detector?",
+        a: "A camera can pick up visible smoke or flame earlier than a heat or particle-based sensor typically trips, and it captures image and video evidence of the event at the same time.",
+      },
+      {
+        q: "Who gets notified when fire or smoke is detected?",
+        a: "Alerts go out by SMS, email or straight to the dashboard, so the response isn't dependent on someone actively watching that camera feed at the time.",
+      },
+    ],
+    seo: {
+      title: "Fire & Smoke Detection",
+      description:
+        "Continuous camera-based fire and smoke detection with early warning, timestamped image and video evidence, and instant SMS, email or dashboard alerts.",
+    },
+  },
+  {
+    slug: "operator-perimeter-monitoring",
+    rowId: "perimeter-monitoring",
+    group: "vision-safety",
+    name: "Operator Presence &\nPerimeter Monitoring",
+    desc: "Automatic staff-presence tracking at required posts, plus perimeter intrusion detection on user-defined zones with a time-stamped video record for every event.",
+    detail: true,
+    heading: "Operator Presence & Perimeter Monitoring",
+    intro: [
+      "Staff presence at a post is tracked automatically, with an alert if a required position goes unmanned. Around the perimeter, user-defined zones flag an unauthorised entry or boundary breach in real time, with a time-stamped video record kept for every event.",
+    ],
+    gallery: [
+      {
+        src: `${IMG}/vision-perimeter-monitoring.png`,
+        remote: "",
+        alt: "Night-vision camera detecting a perimeter intrusion and an unmanned guard post",
+        width: 2520,
+        height: 1900,
+      },
+    ],
+    faqs: [
+      {
+        q: "How does the system define which zones count as 'perimeter'?",
+        a: "Monitoring zones are user-defined, so a fence line, restricted gate or any other boundary can be set up as an area to watch for intrusion.",
+      },
+      {
+        q: "What happens if a guard post is left unmanned?",
+        a: "An alert is raised automatically if a required position goes unmanned, rather than that gap only being noticed on the next patrol.",
+      },
+    ],
+    seo: {
+      title: "Operator Presence & Perimeter Monitoring",
+      description:
+        "Automatic operator presence tracking and perimeter intrusion detection with user-defined monitoring zones and time-stamped video records for every event.",
     },
   },
 ];
@@ -925,6 +1388,26 @@ export function solutionHref(rowId: string): string | undefined {
 
 /** Only the solutions that have a real page — drives routing and the sitemap. */
 export const solutionPages = solutions.filter((s) => s.detail);
+
+/**
+ * Category metadata for the grouped, multi-column "Solutions" nav dropdown
+ * — mirrors PRODUCT_GROUPS in lib/catalog.ts. Order here is display order.
+ */
+export const SOLUTION_GROUPS: { id: SolutionGroup; label: string }[] = [
+  { id: "toll-traffic", label: "Toll & Traffic" },
+  { id: "rfid-facility", label: "RFID & Facility Software" },
+  { id: "vision-gate-vehicle", label: "Gate & Vehicle" },
+  { id: "vision-warehouse-yard", label: "Warehouse & Yard" },
+  { id: "vision-safety", label: "Safety & Security" },
+];
+
+/** Solutions grouped for display, in SOLUTION_GROUPS order. Empty groups are dropped. */
+export function solutionsByGroup(): { id: SolutionGroup; label: string; solutions: Solution[] }[] {
+  return SOLUTION_GROUPS.map((g) => ({
+    ...g,
+    solutions: solutionPages.filter((s) => s.group === g.id),
+  })).filter((g) => g.solutions.length > 0);
+}
 
 /** Assets referenced by the solution catalog, for scripts/fetch-assets.mjs. */
 export function allSolutionAssets(): { src: string; remote: string }[] {
