@@ -7,8 +7,30 @@ export const solutionLinks = [
   "RFID Software System",
   "Number Plate Detection",
   "Face Attendance System",
-  "Vision AI Monitoring System",
+  "Gate In & Gate Out Automation",
+  "ANPR & Vehicle Identification",
+  "AI Damage Detection",
+  "Vehicle Speed Monitoring",
+  "Dock Space Visualization",
+  "Real-Time Container Search",
+  "Gauge & Reefer Monitoring",
+  "Quality Inspection & Label Reading",
+  "Pallet Classification & Counting",
+  "Inventory Stack Height Monitoring",
+  "Workstation Occupancy",
+  "OCR-Based Document Data Extraction",
+  "Forklift Operator & Activity Monitoring",
+  "Safety Compliance Monitoring (PPE)",
+  "Fire & Smoke Detection",
+  "Operator Presence & Perimeter Monitoring",
 ];
+
+// Same 24 entries as solutionLinks, split into two even columns — the
+// footer's Products column has always rendered this way (see
+// productLinksCol1/2 below); Solutions grew to the same length and gets
+// the same treatment rather than one long single-column list.
+export const solutionLinksCol1 = solutionLinks.slice(0, 12);
+export const solutionLinksCol2 = solutionLinks.slice(12);
 
 // Maps each footer label (kept verbatim, typos and all, per the PDF source)
 // to the matching Solution.rowId in lib/solutions.ts (same id as each
@@ -25,7 +47,22 @@ export const solutionLinkSlugs: Record<string, string> = {
   "RFID Software System": "rfid-software",
   "Number Plate Detection": "number-plate-detection",
   "Face Attendance System": "attendance",
-  "Vision AI Monitoring System": "vision-ai",
+  "Gate In & Gate Out Automation": "gate-automation",
+  "ANPR & Vehicle Identification": "anpr-vehicle-id",
+  "AI Damage Detection": "damage-detection",
+  "Vehicle Speed Monitoring": "speed-monitoring",
+  "Dock Space Visualization": "dock-visualization",
+  "Real-Time Container Search": "container-search",
+  "Gauge & Reefer Monitoring": "gauge-reefer",
+  "Quality Inspection & Label Reading": "quality-inspection",
+  "Pallet Classification & Counting": "pallet-counting",
+  "Inventory Stack Height Monitoring": "stack-height",
+  "Workstation Occupancy": "workstation-occupancy",
+  "OCR-Based Document Data Extraction": "document-extraction",
+  "Forklift Operator & Activity Monitoring": "forklift-monitoring",
+  "Safety Compliance Monitoring (PPE)": "ppe-compliance",
+  "Fire & Smoke Detection": "fire-detection",
+  "Operator Presence & Perimeter Monitoring": "perimeter-monitoring",
 };
 
 export const productLinksCol1 = [
