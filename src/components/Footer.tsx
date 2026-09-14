@@ -3,7 +3,8 @@ import Logo from "./Logo";
 import Frame from "./ui/Frame";
 import ObfuscatedEmail from "./ObfuscatedEmail";
 import {
-  solutionLinks,
+  solutionLinksCol1,
+  solutionLinksCol2,
   solutionLinkSlugs,
   productLinksCol1,
   productLinksCol2,
@@ -14,10 +15,13 @@ import { solutionHref } from "@/lib/solutions";
 
 /**
  * §4 — footer measurements are identical on Home/Solution/Contact/About
- * (left inset 155, columns 370/343/512, divider gaps 61/56) but measurably
- * DIFFERENT on Products (columns 363/310/486, divider gaps 33/42, dividers
- * land at x=518/861 instead of x=525/868). Rather than forcing one shared
- * value, this takes an explicit variant for the one outlier page.
+ * (left inset 155, columns 370/343/512) but measurably DIFFERENT on
+ * Products (columns 363/310/486). Rather than forcing one shared value,
+ * this takes an explicit variant for the one outlier page. The two
+ * divider gaps (pad2/pad3) are deliberately equal within each variant —
+ * an earlier version copied slightly mismatched measured values (61/56
+ * and 33/42) straight from the design file, which read as visibly uneven
+ * spacing around the middle column once built.
  */
 const rowPitch = { lineHeight: "30px" };
 
@@ -29,9 +33,15 @@ const rowPitch = { lineHeight: "30px" };
  */
 const labelStyle = { fontWeight: 700, color: "var(--text-primary)" } as const;
 
+// The middle (Solution) column's width was measured back when it was a
+// single list — 343/310px, both narrower than the last (Products) column
+// even though both are now the same 2-sub-column grid shape. Widened to
+// match Products' own width in each variant, so the two identically-
+// structured columns get identical room instead of Solution's links
+// visibly more cramped than Products' right next to it.
 const variants = {
-  default: { cols: "370px 343px 512px", pad2: 61, pad3: 56 },
-  products: { cols: "363px 310px 486px", pad2: 33, pad3: 42 },
+  default: { cols: "370px 512px 512px", pad2: 58, pad3: 58 },
+  products: { cols: "363px 486px 486px", pad2: 38, pad3: 38 },
 } as const;
 
 // The 1440px reference frame has no padding of its own (see Frame.tsx), so
@@ -112,25 +122,43 @@ export default function Footer({
                 h4 here skipped levels and failed axe's heading-order check.
                 The global h1-h4 rule styles h2 identically, so this is a
                 markup-only change. */}
-            <h2 style={{ fontSize: "var(--fs-footer-heading)", fontWeight: 800, marginBottom: "1rem" }}>
+            <h2 style={{ fontSize: "var(--fs-footer-heading)", fontWeight: 800, marginBottom: "1rem", textAlign: "center" }}>
               Solution
             </h2>
-            <ul className="flex flex-col" style={{ fontSize: "var(--fs-footer-link)", color: "var(--text-muted)" }}>
-              {solutionLinks.map((s) => {
-                const href = solutionLinkSlugs[s] ? solutionHref(solutionLinkSlugs[s]) : undefined;
-                return href ? (
-                  <li key={s} style={rowPitch}>
-                    <Link href={href} className="hover:underline">
+            <div className="grid grid-cols-2 gap-x-6">
+              <ul className="flex flex-col" style={{ fontSize: "var(--fs-footer-link)", color: "var(--text-muted)" }}>
+                {solutionLinksCol1.map((s) => {
+                  const href = solutionLinkSlugs[s] ? solutionHref(solutionLinkSlugs[s]) : undefined;
+                  return href ? (
+                    <li key={s} style={rowPitch}>
+                      <Link href={href} className="hover:underline">
+                        {s}
+                      </Link>
+                    </li>
+                  ) : (
+                    <li key={s} style={rowPitch}>
                       {s}
-                    </Link>
-                  </li>
-                ) : (
-                  <li key={s} style={rowPitch}>
-                    {s}
-                  </li>
-                );
-              })}
-            </ul>
+                    </li>
+                  );
+                })}
+              </ul>
+              <ul className="flex flex-col" style={{ fontSize: "var(--fs-footer-link)", color: "var(--text-muted)" }}>
+                {solutionLinksCol2.map((s) => {
+                  const href = solutionLinkSlugs[s] ? solutionHref(solutionLinkSlugs[s]) : undefined;
+                  return href ? (
+                    <li key={s} style={rowPitch}>
+                      <Link href={href} className="hover:underline">
+                        {s}
+                      </Link>
+                    </li>
+                  ) : (
+                    <li key={s} style={rowPitch}>
+                      {s}
+                    </li>
+                  );
+                })}
+              </ul>
+            </div>
           </div>
 
           <div className={`footer-col3-${variant} min-[1440px]:border-l-2`} style={{ borderColor: "var(--brand-red)" }}>
