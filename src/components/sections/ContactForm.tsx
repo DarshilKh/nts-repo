@@ -126,7 +126,7 @@ export default function ContactForm() {
               type="submit"
               className="self-end mt-6"
               style={{
-                width: 340,
+                width: "min(340px, 100%)",
                 height: 68,
                 clipPath: parallelogramClipPath(button.slantRatioSubmit, true),
                 background: "var(--brand-red)",
