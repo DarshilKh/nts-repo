@@ -14,11 +14,12 @@ const items = [
 
 const IMAGE_PANEL_WIDTH = 517;
 const PANEL_GAP = 20;
-// Heading/body land at absolute x=606 (nudged in from the originally
-// measured x=653 to sit closer to the image card, matching the tighter
-// inset used on the Mission/Vision rows above). The text card's own left
-// edge is at 517+20=537, so internal padding is reduced accordingly.
-const TEXT_INNER_PADDING = 606 - (IMAGE_PANEL_WIDTH + PANEL_GAP);
+// Heading/body land at absolute x=646 (originally measured at x=653, nudged
+// in to 606 to sit closer to the image card, then back out to 646 — the
+// client felt the text read as too close to the image panel's shadow
+// seam). The text card's own left edge is at 517+20=537, so internal
+// padding is reduced accordingly.
+const TEXT_INNER_PADDING = 646 - (IMAGE_PANEL_WIDTH + PANEL_GAP);
 
 /**
  * §4.5 — CORRECTED against the PDF's vector/raster layer, same finding as
@@ -49,7 +50,12 @@ export default function WhyChooseUs() {
             className="w-full"
           />
         </Card>
-        <Card className="relative flex flex-col justify-center px-6 py-14 md:px-14 min-[1440px]:px-0 min-h-[280px]">
+        {/* `!` on the 1440px override: see MissionVisionRow.tsx for why a
+            plain `min-[1440px]:px-0` silently loses to `md:px-14` here in
+            Tailwind v4 (its arbitrary-breakpoint block is emitted before
+            the named `md` block, so at ≥1440px md:px-14 was winning by
+            source order and adding an uncancelled 56px). */}
+        <Card className="relative flex flex-col justify-center px-6 py-14 md:px-14 min-[1440px]:px-0! min-h-[280px]">
           <div
             className="whyus-mark hidden absolute -top-3 left-0"
             style={{ width: 25, height: 25, background: "var(--brand-red)" }}

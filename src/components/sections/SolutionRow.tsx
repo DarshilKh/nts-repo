@@ -65,17 +65,29 @@ export default function SolutionRow({
         style={{ boxShadow: card.shadow, background: "var(--bg)" }}
       >
         <div className={imageSide === "right" ? "md:order-2" : "md:order-1"}>
+          {/* No fixed height here (there used to be one, h-[380px]) — a
+              shared fixed height combined with object-fit:cover crops
+              whichever photos don't happen to share that box's exact
+              ratio, and several of the newer client-supplied screenshots
+              (near-square, e.g. gauge/reefer) were losing most of their
+              content that way. Height instead follows MediaSlot's own
+              aspect-ratio (set from `image.width`/`image.height`), so the
+              box is shaped like the actual photo and cover never has
+              anything to crop. */}
           <MediaSlot
             src={image.src}
             alt={image.alt}
             measuredWidth={image.width}
             measuredHeight={image.height}
-            className="h-[380px]"
             priority={priority}
           />
         </div>
         <div
-          className={`${imageSide === "right" ? "md:order-1" : "md:order-2"} flex flex-col justify-center px-6 py-10 md:px-14 min-[1440px]:px-0`}
+          // `!` forces the ≥1440px override to actually win over `md:px-14`
+          // — see MissionVisionRow.tsx for why a plain `min-[1440px]:px-0`
+          // loses that cascade in Tailwind v4 and silently adds 56px onto
+          // every row's `textPad` below.
+          className={`${imageSide === "right" ? "md:order-1" : "md:order-2"} flex flex-col justify-center px-6 py-10 md:px-14 min-[1440px]:px-0!`}
         >
           <div className={textClass}>
             <Heading as="h2" size="h3Lg" className="whitespace-pre-line">
