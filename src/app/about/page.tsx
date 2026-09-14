@@ -37,7 +37,7 @@ export default function AboutPage() {
           body="Network Toll Solution delivers RFID and automation solutions for tolling, parking, vehicle tracking, warehouses, and access control helping businesses improve efficiency, security, and operations."
           icon={aboutAssets.mission}
           panelSide="left"
-          textInsetPx={480}
+          textInsetPx={520}
         />
 
         {/* §4.5 — text left x=372 (absolute), icon right (centered, real seal asset) */}
