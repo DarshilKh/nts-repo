@@ -2,8 +2,11 @@
 
 import { useState } from "react";
 import Frame from "@/components/ui/Frame";
+import Text from "@/components/ui/Text";
 import { button, parallelogramClipPath } from "@/lib/tokens";
 import { useBotGuard } from "@/lib/useBotGuard";
+
+const MESSAGE_CHAR_LIMIT = 100;
 
 /**
  * §4.4 — two label columns at x=189 (Name/Phone Number/City,State) and
@@ -32,6 +35,7 @@ const fieldStyle = {
 export default function ContactForm() {
   const { honeypotProps, isLikelyBot } = useBotGuard();
   const [blocked, setBlocked] = useState(false);
+  const [message, setMessage] = useState("");
 
   return (
     <Frame>
@@ -111,6 +115,9 @@ export default function ContactForm() {
               <textarea
                 placeholder="Message"
                 rows={5}
+                maxLength={MESSAGE_CHAR_LIMIT}
+                value={message}
+                onChange={(e) => setMessage(e.target.value)}
                 style={{
                   border: "2px solid var(--brand-red)",
                   borderRadius: 0,
@@ -122,6 +129,9 @@ export default function ContactForm() {
                 }}
               />
             </label>
+            <Text size="bodyXs" tone="muted" className="mt-1" style={{ maxWidth: 388 }}>
+              {message.length}/{MESSAGE_CHAR_LIMIT} characters
+            </Text>
             <button
               type="submit"
               className="self-end mt-6"

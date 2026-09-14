@@ -8,6 +8,8 @@ import Frame from "@/components/ui/Frame";
 import { button, parallelogramClipPath } from "@/lib/tokens";
 import { useBotGuard } from "@/lib/useBotGuard";
 
+const COMMENT_CHAR_LIMIT = 100;
+
 /**
  * §4.1 — the PDF measured this section's heading at x=189 with the form
  * column starting at x=992, giving a 723px text column. Reproducing those
@@ -24,6 +26,7 @@ import { useBotGuard } from "@/lib/useBotGuard";
 export default function CTASection() {
   const { honeypotProps, isLikelyBot } = useBotGuard();
   const [blocked, setBlocked] = useState(false);
+  const [comment, setComment] = useState("");
 
   return (
     <Frame>
@@ -72,7 +75,7 @@ export default function CTASection() {
                 This submission looked automated and was not sent.
               </p>
             )}
-            {["Name", "Mail", "Phone", "Comment"].map((field) => (
+            {["Name", "Mail", "Phone"].map((field) => (
               <label key={field} className="flex flex-col">
                 <span className="sr-only">{field}</span>
                 <input
@@ -87,6 +90,26 @@ export default function CTASection() {
                 />
               </label>
             ))}
+            <label className="flex flex-col">
+              <span className="sr-only">Comment</span>
+              <textarea
+                placeholder="Comment"
+                rows={3}
+                maxLength={COMMENT_CHAR_LIMIT}
+                value={comment}
+                onChange={(e) => setComment(e.target.value)}
+                style={{
+                  width: "100%",
+                  resize: "vertical",
+                  borderBottom: "1px solid var(--text-label)",
+                  paddingBottom: "1.25rem",
+                  fontSize: "var(--fs-body-xs)",
+                }}
+              />
+              <Text size="bodyXs" tone="muted" className="mt-1 self-end">
+                {comment.length}/{COMMENT_CHAR_LIMIT} characters
+              </Text>
+            </label>
             <button
               type="submit"
               className="self-start mt-2"

@@ -69,7 +69,11 @@ export default function ImageTextRow({
           />
         </div>
         <div
-          className={`${imageSide === "right" ? "md:order-1" : "md:order-2"} relative flex flex-col justify-center px-6 py-14 md:px-16 min-[1440px]:px-0`}
+          // `!` forces the ≥1440px override to actually win over `md:px-16`
+          // — see MissionVisionRow.tsx for why a plain `min-[1440px]:px-0`
+          // loses that cascade in Tailwind v4 and silently adds 64px onto
+          // `textPaddingLeftPx` below.
+          className={`${imageSide === "right" ? "md:order-1" : "md:order-2"} relative flex flex-col justify-center px-6 py-14 md:px-16 min-[1440px]:px-0!`}
         >
           <div className={textClass}>
             <Heading as="h2" size="h2" className="max-w-md">

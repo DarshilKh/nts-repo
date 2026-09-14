@@ -24,10 +24,12 @@ import Frame from "@/components/ui/Frame";
  *
  * Mission (icon left, text right) and Vision (icon right, text left)
  * mirror this shape with independently set text insets. Originally measured
- * from the source PDF at 527/372; nudged in to 480/140 per client feedback —
- * the 372 inset left Vision's heading floating in the middle of an
- * otherwise-empty card since, unlike Mission, its text column starts flush
- * at the frame's left edge (x=0) rather than after the icon panel.
+ * from the source PDF at 527/372; nudged to 480/140 per client feedback (the
+ * 372 inset left Vision's heading floating in the middle of an otherwise-
+ * empty card since, unlike Mission, its text column starts flush at the
+ * frame's left edge (x=0) rather than after the icon panel), then Mission's
+ * nudged further to 520 — the client felt its text sat too close to the
+ * icon panel's shadow seam.
  *
  * A small 25×25 red square sits at the TOP-LEFT corner of the TEXT card
  * specifically (floating just above/left of its top edge) — not near the
@@ -64,6 +66,16 @@ export default function MissionVisionRow({
   const textCardLeftEdge = panelSide === "left" ? ICON_PANEL_WIDTH + PANEL_GAP : 0;
   const textInnerPadding = Math.max(0, textInsetPx - textCardLeftEdge);
 
+  // The text Card's own `md:px-14 min-[1440px]:px-0` (below) is meant to
+  // zero out that padding again once the ≥1440 layout takes over — but
+  // Tailwind v4 emits its arbitrary `min-[1440px]:` utilities in ONE block
+  // ahead of the named `md:` (768px) block in the generated CSS, so at a
+  // ≥1440 viewport `md:px-14` (later in the file, equal specificity) was
+  // silently winning the cascade and adding an uncancelled 56px on top of
+  // `textInnerPadding` above. The `!` forces the 1440px rule to actually
+  // win, which is what made this component's `textInsetPx` prop true to
+  // its name.
+
   return (
     <Frame>
       <style>{`
@@ -90,7 +102,7 @@ export default function MissionVisionRow({
           />
         </Card>
         <Card
-          className={`relative flex flex-col justify-center px-6 py-12 md:px-14 min-[1440px]:px-0 min-h-[280px] ${
+          className={`relative flex flex-col justify-center px-6 py-12 md:px-14 min-[1440px]:px-0! min-h-[280px] ${
             panelSide === "right" ? "md:order-1" : "md:order-2"
           }`}
         >
