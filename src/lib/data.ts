@@ -13,7 +13,6 @@ export const solutionLinks = [
   "Vehicle Speed Monitoring",
   "Dock Space Visualization",
   "Real-Time Container Search",
-  "Gauge & Reefer Monitoring",
   "Quality Inspection & Label Reading",
   "Pallet Classification & Counting",
   "Inventory Stack Height Monitoring",
@@ -25,7 +24,7 @@ export const solutionLinks = [
   "Operator Presence & Perimeter Monitoring",
 ];
 
-// Same 24 entries as solutionLinks, split into two even columns — the
+// Same entries as solutionLinks, split into two even columns — the
 // footer's Products column has always rendered this way (see
 // productLinksCol1/2 below); Solutions grew to the same length and gets
 // the same treatment rather than one long single-column list.
@@ -53,7 +52,6 @@ export const solutionLinkSlugs: Record<string, string> = {
   "Vehicle Speed Monitoring": "speed-monitoring",
   "Dock Space Visualization": "dock-visualization",
   "Real-Time Container Search": "container-search",
-  "Gauge & Reefer Monitoring": "gauge-reefer",
   "Quality Inspection & Label Reading": "quality-inspection",
   "Pallet Classification & Counting": "pallet-counting",
   "Inventory Stack Height Monitoring": "stack-height",

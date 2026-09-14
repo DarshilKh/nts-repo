@@ -1012,42 +1012,6 @@ export const solutions: Solution[] = [
     },
   },
   {
-    slug: "gauge-reefer-monitoring",
-    rowId: "gauge-reefer",
-    group: "vision-warehouse-yard",
-    name: "Gauge & Reefer\nMonitoring",
-    desc: "Cameras read analogue and digital gauges — temperature, pressure, reefer displays — the way a person would, with an instant alert on any deviation.",
-    detail: true,
-    heading: "Gauge & Reefer Monitoring",
-    intro: [
-      "Cameras read analogue and digital gauges — temperature, pressure, reefer displays — the same way a person would, without needing an IoT sensor retrofitted to every unit. Readings are logged automatically, and a temperature deviation on a reefer container raises an immediate alert instead of being caught on the next manual round.",
-    ],
-    gallery: [
-      {
-        src: `${IMG}/vision-gauge-reefer-monitoring.png`,
-        remote: "",
-        alt: "Camera reading a reefer container's temperature and gauge display",
-        width: 2420,
-        height: 2380,
-      },
-    ],
-    faqs: [
-      {
-        q: "Do we need to install sensors on every reefer unit for this to work?",
-        a: "No — the camera reads the existing display or gauge visually, the same way a person doing a manual round would, so there's no per-unit sensor to install or maintain.",
-      },
-      {
-        q: "How fast is a temperature deviation flagged?",
-        a: "As soon as the camera reads a value outside the set range, an alert goes out immediately rather than waiting for the next scheduled manual check.",
-      },
-    ],
-    seo: {
-      title: "Gauge & Reefer Monitoring",
-      description:
-        "Camera-based reading of temperature, pressure and reefer gauge displays with automatic logging and instant alerts on deviation — no sensor retrofit required.",
-    },
-  },
-  {
     slug: "quality-inspection-label-reading",
     rowId: "quality-inspection",
     group: "vision-warehouse-yard",
