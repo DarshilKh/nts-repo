@@ -799,10 +799,10 @@ export const solutions: Solution[] = [
     slug: "gate-in-gate-out-automation",
     rowId: "gate-automation",
     group: "vision-gate-vehicle",
-    name: "Gate In & Gate\nOut Automation",
+    name: "RFID Gate\nAutomation",
     desc: "Every vehicle and container is logged automatically at the gate — plate, container ID, ISO code and weight read straight off the camera feed in under two seconds, no manual entry.",
     detail: true,
-    heading: "Gate In & Gate Out Automation",
+    heading: "RFID Gate Automation",
     intro: [
       "Every vehicle and container gets logged automatically as it crosses the gate — container ID, number plate, ISO code and weight markings are all read straight off the camera feed, with the full record captured in under two seconds. Entry and exit are timestamped without a guard needing to key anything in, and vehicle or container turnaround time is tracked end to end.",
     ],
@@ -826,7 +826,7 @@ export const solutions: Solution[] = [
       },
     ],
     seo: {
-      title: "Gate In & Gate Out Automation",
+      title: "RFID Gate Automation",
       description:
         "Automated gate logging for trucks and containers — plate, container ID, ISO code and weight read from the camera feed in under two seconds, with full entry-exit timestamps.",
     },
@@ -1333,6 +1333,86 @@ export const solutions: Solution[] = [
       title: "Operator Presence & Perimeter Monitoring",
       description:
         "Automatic operator presence tracking and perimeter intrusion detection with user-defined monitoring zones and time-stamped video records for every event.",
+    },
+  },
+  {
+    slug: "rfid-race-timing-system",
+    rowId: "race-timing",
+    group: "rfid-facility",
+    name: "RFID Race Timing\nSystem",
+    desc: "UHF RFID tags on every bib and antenna gates at the start, finish and each checkpoint capture crossing times automatically — accurate chip timing, live tracking and instant results with no manual stopwatch entry.",
+    detail: true,
+    heading: "RFID Race Timing System for Marathons & Running Events",
+    tagline:
+      "Automated chip timing, live participant tracking and instant results for marathons, runs and endurance events.",
+    intro: [
+      "Network Toll Solution's RFID race timing system replaces manual stopwatch timing with UHF RFID chip timing built for marathons, fun runs, cycling events and endurance races. Each participant's bib carries an RFID tag; fixed antenna gates at the start line, finish line and any intermediate checkpoint read that tag the instant a runner passes, timestamping the crossing automatically and eliminating the queueing, missed splits and manual entry errors that come with barcode scanning or handheld timing.",
+      "Registration runs off the same RFID tag — scan it once to pull up a participant's record, with optional fields for name, category, unit and date of birth so age-group results calculate themselves. Race day operations run from a single dashboard: live tracking shows every checkpoint crossing as it happens, and results are ranked and published automatically the moment a runner crosses the finish gate, with bulk participant import and export to Excel for large-field events.",
+    ],
+    sections: [
+      {
+        title: "How It Works",
+        body: [
+          "A typical race-day setup needs only three things: RFID-tagged bibs, one or more antenna gates, and the timing software.",
+        ],
+        list: [
+          "Registration: each bib's RFID tag is scanned once to register a participant, with optional personal and category details for results and certificates.",
+          "Checkpoint gates: fixed UHF antenna gates at the start, finish and any split point read every tag that passes, automatically and without the runner breaking stride.",
+          "Live tracking: crossing times populate a live dashboard as the race runs, so organisers and spectators can follow progress in real time.",
+          "Automatic results: finish-line crossings are timestamped and ranked instantly, ready for publishing or certificate generation without a manual results-compilation step.",
+        ],
+      },
+      {
+        title: "Built for Race Day",
+        body: [
+          "The system is built to hold up under the conditions that actually break manual timing: large fields, multiple checkpoints, and outdoor deployment.",
+        ],
+        list: [
+          "Multi-checkpoint support: any number of timing gates can be deployed along a route, not just start and finish, so split times and course progress are tracked throughout.",
+          "Handles large fields: built for events with hundreds to thousands of registered participants without slowing down at registration or at the finish gate.",
+          "Bulk Excel import/export: participant lists can be uploaded in bulk ahead of race day and results exported the same way once the event is complete.",
+          "Outdoor-ready hardware: antenna gates and readers are built to run unattended through a full race day in outdoor event conditions.",
+        ],
+      },
+    ],
+    gallery: [
+      {
+        src: `${IMG}/race_rfid.jpeg`,
+        remote: "",
+        alt: "UHF RFID antenna gate mounted over a race course, timing runners as they pass through the checkpoint",
+        width: 1024,
+        height: 768,
+      },
+      {
+        src: `${IMG}/race_rfid_1.jpeg`,
+        remote: "",
+        alt: "Runners with bib-mounted RFID tags approaching the finish line arch to have their time captured automatically",
+        width: 1024,
+        height: 768,
+      },
+    ],
+    faqs: [
+      {
+        q: "How accurate is RFID race timing compared to manual or barcode timing?",
+        a: "Each tag is read the instant it crosses an antenna gate, giving a precise, automatic timestamp with no queueing and no manual entry — accurate down to the individual crossing, unlike stopwatch or barcode-scan timing where a busy finish line can cost accuracy.",
+      },
+      {
+        q: "Can it handle a large number of participants at once?",
+        a: "Yes — the antenna gates read multiple tags simultaneously as runners cross in a group, and bulk Excel import keeps registration fast even for events with thousands of entrants.",
+      },
+      {
+        q: "Do we need checkpoints in the middle of the course, or just start and finish?",
+        a: "Both are supported — antenna gates can be deployed at any number of points along the route, so you get intermediate split times and course-progress tracking in addition to the overall finish time.",
+      },
+      {
+        q: "Does the hardware work for outdoor events in the field, not just a stadium?",
+        a: "Yes — the antenna gates and readers are built to be set up on a course and run unattended for the full duration of an outdoor event, which is how the system is typically deployed.",
+      },
+    ],
+    seo: {
+      title: "RFID Race Timing System — Marathon & Running Event Chip Timing",
+      description:
+        "UHF RFID chip timing for marathons, runs and endurance events. Bib-integrated tags, multi-checkpoint antenna gates, live tracking and automatic results — no manual stopwatch timing.",
     },
   },
 ];

@@ -140,9 +140,9 @@ export default function SolutionPage() {
           styleId="gate-automation"
           learnMore={Boolean(solutionHref("gate-automation"))}
           learnMoreHref={solutionHref("gate-automation")}
-          title={"Gate In & Gate\nOut Automation"}
+          title={"RFID Gate\nAutomation"}
           body="Every vehicle and container is logged automatically at the gate — plate, container ID, ISO code and weight read in under two seconds, no manual entry."
-          image={{ src: "/images/solutions/vision-gate-in-gate-out.png", alt: "Gate In & Gate Out Automation", width: 800, height: 579 }}
+          image={{ src: "/images/solutions/vision-gate-in-gate-out.png", alt: "RFID Gate Automation", width: 800, height: 579 }}
           imageSide="right"
           imageWidthPx={921}
           textInsetPx={85}
@@ -328,6 +328,19 @@ export default function SolutionPage() {
           imageSide="left"
           imageWidthPx={921}
           textInsetPx={964}
+        />
+
+        {/* row 26 (added — client request, client-supplied photos) — text left x=85, image right 921px */}
+        <SolutionRow
+          styleId="race-timing"
+          learnMore={Boolean(solutionHref("race-timing"))}
+          learnMoreHref={solutionHref("race-timing")}
+          title={"RFID Race Timing\nSystem"}
+          body="UHF RFID bib tags and antenna gates at every checkpoint capture crossing times automatically, with live tracking and instant results — no manual stopwatch timing."
+          image={{ src: "/images/solutions/race_main.png", alt: "RFID race timing software showing bib-tag registration for a marathon event", width: 1917, height: 996 }}
+          imageSide="right"
+          imageWidthPx={921}
+          textInsetPx={85}
         />
 
         <CTASection />
