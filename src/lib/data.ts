@@ -7,7 +7,7 @@ export const solutionLinks = [
   "RFID Software System",
   "Number Plate Detection",
   "Face Attendance System",
-  "Gate In & Gate Out Automation",
+  "RFID Gate Automation",
   "ANPR & Vehicle Identification",
   "AI Damage Detection",
   "Vehicle Speed Monitoring",
@@ -22,6 +22,7 @@ export const solutionLinks = [
   "Safety Compliance Monitoring (PPE)",
   "Fire & Smoke Detection",
   "Operator Presence & Perimeter Monitoring",
+  "RFID Race Timing System",
 ];
 
 // Same entries as solutionLinks, split into two even columns — the
@@ -46,7 +47,7 @@ export const solutionLinkSlugs: Record<string, string> = {
   "RFID Software System": "rfid-software",
   "Number Plate Detection": "number-plate-detection",
   "Face Attendance System": "attendance",
-  "Gate In & Gate Out Automation": "gate-automation",
+  "RFID Gate Automation": "gate-automation",
   "ANPR & Vehicle Identification": "anpr-vehicle-id",
   "AI Damage Detection": "damage-detection",
   "Vehicle Speed Monitoring": "speed-monitoring",
@@ -61,6 +62,7 @@ export const solutionLinkSlugs: Record<string, string> = {
   "Safety Compliance Monitoring (PPE)": "ppe-compliance",
   "Fire & Smoke Detection": "fire-detection",
   "Operator Presence & Perimeter Monitoring": "perimeter-monitoring",
+  "RFID Race Timing System": "race-timing",
 };
 
 export const productLinksCol1 = [
