@@ -15,20 +15,18 @@ import { homeAssets } from "@/lib/assets";
  * for a visually balanced margin, with a wider gap between the text and
  * carousel columns than the source's tighter spacing.
  *
- * Top padding: measured gap from the header logo's bottom edge (y≈125) to
- * this heading's top (y=352) is ~227px — noticeably MORE than the ~150px
- * gap measured on Solution/Contact/About's hero-equivalent sections (their
- * headings sit at y≈268–282). An earlier pass had this backwards (Home
- * used LESS top padding than the other three); corrected here so Home's
- * gap is the largest, matching the source. The min-[1440px]: variant
- * applies the exact measured relationship only at the PDF's native frame
- * width; below that a smaller inferred padding is used (no source data
- * exists for narrower viewports — §3.8).
+ * Top padding: the source PDF measured a ~227px gap from the header logo's
+ * bottom edge to this heading's top, well past the ~150px gap on Solution/
+ * Contact/About's hero-equivalent sections — reproducing that (at pt-150)
+ * read as too much dead air above the fold on the live site, so this now
+ * sits closer to those other pages (pt-90) rather than exceeding them.
+ * Below 1440px a smaller inferred padding is used (no source data exists
+ * for narrower viewports — §3.8).
  */
 export default function Hero() {
   return (
     <Frame>
-      <section className="pt-10 md:pt-14 pb-16 md:pb-20 px-6 min-[1440px]:pl-[122px] min-[1440px]:pr-[110px] min-[1440px]:pt-[150px]">
+      <section className="pt-10 md:pt-14 pb-16 md:pb-20 px-6 min-[1440px]:pl-[122px] min-[1440px]:pr-[110px] min-[1440px]:pt-[90px]">
         {/* The carousel column is a fixed 560px at the measured 1440px frame,
             but pinning that same 560px starting at the `md:` breakpoint
             (768px) leaves the text column too little room — its longest
