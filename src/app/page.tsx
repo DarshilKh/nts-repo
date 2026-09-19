@@ -23,7 +23,10 @@ export default function Home() {
         <Hero />
         <StatsRow />
 
-        {/* §4.1 — image flush-left (517px, x:0–517), text starts x=599 */}
+        {/* Image flush-left (517px, x:0–517). Text padding widened from the
+            originally-measured 82px (x=599) to 140px — the tighter value
+            read as the text sitting stuck against the image with no
+            breathing room, per client feedback. */}
         <ImageTextRow
           styleId="operations"
           heading="Designed for Diverse Operations"
@@ -31,7 +34,7 @@ export default function Home() {
           image={homeAssets.operations}
           imageSide="left"
           imageWidthPx={517}
-          textPaddingLeftPx={82 /* 599 - 517 */}
+          textPaddingLeftPx={140}
         />
 
         {/* §4.1 — text starts x=154, image flush-right (517px, x:924–1441) */}

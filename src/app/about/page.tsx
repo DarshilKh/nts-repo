@@ -30,24 +30,24 @@ export default function AboutPage() {
         </Frame>
         <AboutIntro />
 
-        {/* §4.5 — icon left (centered, real badge asset), text starts x=527 */}
+        {/* Mission/Vision/Why Choose Us share MissionVisionRow's layout
+            (same media-panel/text-panel mechanics, same text padding and
+            max-width) so the three read as one design system — only
+            `panelSide` and content differ per row. */}
         <MissionVisionRow
           styleId="mission"
           heading="Our Mission"
           body="Network Toll Solution delivers RFID and automation solutions for tolling, parking, vehicle tracking, warehouses, and access control helping businesses improve efficiency, security, and operations."
-          icon={aboutAssets.mission}
+          media={aboutAssets.mission}
           panelSide="left"
-          textInsetPx={520}
         />
 
-        {/* §4.5 — text left x=372 (absolute), icon right (centered, real seal asset) */}
         <MissionVisionRow
           styleId="vision"
           heading="Our Vision"
           body="To become a trusted leader in RFID and intelligent automation by delivering technology that creates smarter, safer, and more connected environments."
-          icon={aboutAssets.vision}
+          media={aboutAssets.vision}
           panelSide="right"
-          textInsetPx={140}
         />
 
         <WhyChooseUs />
