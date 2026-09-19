@@ -1098,6 +1098,29 @@ export const products: Product[] = [
       width: 1024,
       height: 1024,
     },
+    gallery: [
+      {
+        src: `${IMG}/ms-weigh-1.png`,
+        remote: "",
+        alt: "Dimensional drawing of the pillar and base plate used in an MS weigh in motion installation",
+        width: 854,
+        height: 576,
+      },
+      {
+        src: `${IMG}/ms-weigh-2.jpg`,
+        remote: "",
+        alt: "Installation crew laying cable conduit at an MS weigh in motion site",
+        width: 899,
+        height: 360,
+      },
+      {
+        src: `${IMG}/ms-weigh-3.jpg`,
+        remote: "",
+        alt: "Weigh in motion plate pit being prepared in a toll lane during installation",
+        width: 880,
+        height: 357,
+      },
+    ],
     heading: "MS Weigh in Motion",
     models: [
       {

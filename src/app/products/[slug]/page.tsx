@@ -160,7 +160,7 @@ export default async function ProductPage({
           </section>
 
           {product.gallery?.length ? (
-            <section className="px-6 min-[1440px]:px-[122px] py-6 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+            <section className="px-6 min-[1440px]:px-[122px] py-6 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 items-start">
               {product.gallery.map((g) => (
                 <div key={g.src} style={{ boxShadow: card.shadow, background: "var(--bg)" }}>
                   <MediaSlot
