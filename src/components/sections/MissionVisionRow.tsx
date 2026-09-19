@@ -1,3 +1,4 @@
+import { ReactNode } from "react";
 import Heading from "@/components/ui/Heading";
 import Text from "@/components/ui/Text";
 import MediaSlot from "@/components/ui/MediaSlot";
@@ -5,83 +6,70 @@ import Card from "@/components/ui/Card";
 import Frame from "@/components/ui/Frame";
 
 /**
- * §4.5 — CORRECTED against the PDF's vector/raster layer: this is two
- * separate elevated Card panels (icon card + text card) sitting side by
- * side with a visible ~20px gutter between them, not one single
- * full-width shadowed box. The icon panel is a narrow fixed-width column
- * (~386px at the 1440 frame, NOT half-width) with the text panel taking
- * the remainder — confirmed by pixel-scanning the source render for the
- * shadow seam between the two panels (found at x≈382–400 of 1440, not
- * x≈720, and not flush against the text's own x=527/372 inset as the
- * prior build assumed). Both panels share the page background (--bg) and
- * get their elevation only from the standard card drop-shadow — no fill
- * change, no border.
+ * Shared two-column row used by all three About-page cards — Mission,
+ * Vision and Why Choose Us. One media panel (fixed width) and one text
+ * panel (the remainder), side by side with a visible ~20px shadow gutter
+ * between them; which side the media panel sits on is the `panelSide`
+ * prop, everything else (padding, vertical centering, max text width,
+ * card shadow/radius, the small red corner mark) is identical across all
+ * three so they read as one design system instead of three independently
+ * tuned layouts.
  *
- * textInsetPx remains the ABSOLUTE x-coordinate (from the 1440 frame's
- * left edge) where the heading/body text itself starts — the text card's
- * own internal padding is derived from it so the heading still lands at
- * that exact x regardless of which side the icon card is on.
- *
- * Mission (icon left, text right) and Vision (icon right, text left)
- * mirror this shape with independently set text insets. Originally measured
- * from the source PDF at 527/372; nudged to 480/140 per client feedback (the
- * 372 inset left Vision's heading floating in the middle of an otherwise-
- * empty card since, unlike Mission, its text column starts flush at the
- * frame's left edge (x=0) rather than after the icon panel), then Mission's
- * nudged further to 520 — the client felt its text sat too close to the
- * icon panel's shadow seam.
- *
- * A small 25×25 red square sits at the TOP-LEFT corner of the TEXT card
- * specifically (floating just above/left of its top edge) — not near the
- * icon, and not a full-height accent bar.
+ * The text panel's padding is a single symmetric `textPaddingX` (same
+ * number left and right, same number on every row) rather than the
+ * earlier per-row "absolute x-position measured off the PDF" scheme —
+ * that produced a different effective inset on every row depending on
+ * which side the media panel was on, which is exactly the inconsistency
+ * this component now exists to prevent. `textMaxWidthPx` caps the text
+ * block itself so it reads as a compact block rather than stretching
+ * across the whole column.
  */
-const ICON_PANEL_WIDTH = 386;
 const PANEL_GAP = 20;
+const DEFAULT_MEDIA_PANEL_WIDTH = 386;
+const DEFAULT_TEXT_PADDING_X = 96;
+const DEFAULT_TEXT_MAX_WIDTH = 420;
 
 export default function MissionVisionRow({
   styleId,
   heading,
   body,
-  icon,
+  children,
+  media,
+  mediaClassName = "w-[180px]",
   panelSide,
-  textInsetPx,
+  mediaPanelWidthPx = DEFAULT_MEDIA_PANEL_WIDTH,
+  textPaddingX = DEFAULT_TEXT_PADDING_X,
+  textMaxWidthPx = DEFAULT_TEXT_MAX_WIDTH,
 }: {
   styleId: string;
   heading: string;
-  body: string;
-  icon: { src: string; alt: string; width: number; height: number };
+  /** Plain-paragraph body. Omit and pass `children` for richer content
+   *  (e.g. Why Choose Us's bulleted list) — both render at the same
+   *  position, padding and max-width. */
+  body?: string;
+  children?: ReactNode;
+  media: { src: string; alt: string; width: number; height: number };
+  /** Tailwind width class for the media itself inside its panel — small
+   *  and centered for an icon (the default), `w-full` for a photo/
+   *  illustration meant to fill the panel (Why Choose Us). */
+  mediaClassName?: string;
   panelSide: "left" | "right";
-  textInsetPx: number;
+  mediaPanelWidthPx?: number;
+  textPaddingX?: number;
+  textMaxWidthPx?: number;
 }) {
   const textClass = `mv-text-${styleId}`;
   const wrapClass = `mv-wrap-${styleId}`;
 
   const gridCols =
-    panelSide === "left" ? `${ICON_PANEL_WIDTH}px 1fr` : `1fr ${ICON_PANEL_WIDTH}px`;
-
-  // Text card's own left edge, at the 1440 frame: 0 when it's the first
-  // column (panelSide="right"), or ICON_PANEL_WIDTH + gap when it follows
-  // the icon column (panelSide="left"). Internal padding makes up the
-  // remaining distance to the measured absolute heading position.
-  const textCardLeftEdge = panelSide === "left" ? ICON_PANEL_WIDTH + PANEL_GAP : 0;
-  const textInnerPadding = Math.max(0, textInsetPx - textCardLeftEdge);
-
-  // The text Card's own `md:px-14 min-[1440px]:px-0` (below) is meant to
-  // zero out that padding again once the ≥1440 layout takes over — but
-  // Tailwind v4 emits its arbitrary `min-[1440px]:` utilities in ONE block
-  // ahead of the named `md:` (768px) block in the generated CSS, so at a
-  // ≥1440 viewport `md:px-14` (later in the file, equal specificity) was
-  // silently winning the cascade and adding an uncancelled 56px on top of
-  // `textInnerPadding` above. The `!` forces the 1440px rule to actually
-  // win, which is what made this component's `textInsetPx` prop true to
-  // its name.
+    panelSide === "left" ? `${mediaPanelWidthPx}px 1fr` : `1fr ${mediaPanelWidthPx}px`;
 
   return (
     <Frame>
       <style>{`
         @media (min-width: 1440px) {
           .${wrapClass} { display: grid; grid-template-columns: ${gridCols}; gap: ${PANEL_GAP}px; }
-          .${textClass} { padding-left: ${textInnerPadding}px; }
+          .${textClass} { padding-left: ${textPaddingX}px; padding-right: ${textPaddingX}px; max-width: ${textMaxWidthPx + textPaddingX * 2}px; }
         }
       `}</style>
       <section
@@ -93,12 +81,12 @@ export default function MissionVisionRow({
           }`}
         >
           <MediaSlot
-            src={icon.src}
-            alt={icon.alt}
-            measuredWidth={icon.width}
-            measuredHeight={icon.height}
+            src={media.src}
+            alt={media.alt}
+            measuredWidth={media.width}
+            measuredHeight={media.height}
             sizes="220px"
-            className="w-[180px]"
+            className={mediaClassName}
           />
         </Card>
         <Card
@@ -111,13 +99,15 @@ export default function MissionVisionRow({
             style={{ width: 25, height: 25, background: "var(--brand-red)" }}
             aria-hidden="true"
           />
-          <div className={`${textClass} min-[1440px]:pr-16`}>
+          <div className={textClass}>
             <Heading as="h2" size="h2Alt">
               {heading}
             </Heading>
-            <Text size="body" tone="muted" className="mt-6 max-w-md">
-              {body}
-            </Text>
+            {children ?? (
+              <Text size="body" tone="muted" className="mt-6">
+                {body}
+              </Text>
+            )}
           </div>
         </Card>
       </section>
