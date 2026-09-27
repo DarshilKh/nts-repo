@@ -9,8 +9,9 @@ import CTASection from "@/components/sections/CTASection";
 import { homeAssets } from "@/lib/assets";
 
 export const metadata: Metadata = {
+  title: "Toll Booth Management Solutions India – Network Toll Solution",
   description:
-    "RFID-powered toll management, smart parking, fleet monitoring, and access control automation. 100+ satisfied clients, 500+ projects, 8+ years of experience.",
+    "Network toll Solutions is one of the best Toll Booth Management Solution Provider Company from Delhi which offers Toll Booth Management Solutions for companies. Inquire us or Call now.",
   alternates: { canonical: "/" },
   openGraph: { url: "/" },
 };

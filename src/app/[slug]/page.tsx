@@ -55,12 +55,18 @@ export async function generateMetadata({
   const product = getProduct(slug);
   if (product) {
     return {
-      title: product.seo.title,
+      // `absolute` opts out of the root layout's title template (`%s |
+      // Network Toll Solution`) — these titles are the client's exact,
+      // already-complete old-site titles (most already end in their own
+      // "- Network Toll Solution(s)" / "- NT Solutions" / "- networktoll"),
+      // so letting the template append its own suffix on top would double
+      // the branding rather than match the live page.
+      title: { absolute: product.seo.title },
       description: product.seo.description,
       alternates: { canonical: `/${product.slug}` },
       openGraph: {
         url: `/${product.slug}`,
-        title: `${product.seo.title} | ${SITE_NAME}`,
+        title: product.seo.title,
         description: product.seo.description,
         type: "website",
       },
@@ -70,12 +76,12 @@ export async function generateMetadata({
   const solution = getSolution(slug);
   if (solution) {
     return {
-      title: solution.seo.title,
+      title: { absolute: solution.seo.title },
       description: solution.seo.description,
       alternates: { canonical: `/${solution.slug}` },
       openGraph: {
         url: `/${solution.slug}`,
-        title: `${solution.seo.title} | ${SITE_NAME}`,
+        title: solution.seo.title,
         description: solution.seo.description,
         type: "website",
       },

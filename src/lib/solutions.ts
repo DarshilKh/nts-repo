@@ -134,9 +134,9 @@ export const solutions: Solution[] = [
       },
     ],
     seo: {
-      title: "Toll Management Software",
+      title: "Toll Management Software | Toll Plaza Software - NT Solutions",
       description:
-        "Secure, NHAI-compliant toll management software (TMS) with multi-lane control, ETC integration, 98% accurate vehicle classification and fraud detection.",
+        "Network Toll Solutions offers best toll management software and Toll Management System in Delhi, India at reasonable price.",
     },
     source: "https://networktoll.com/toll-management-software/",
   },
@@ -219,9 +219,9 @@ export const solutions: Solution[] = [
       },
     ],
     seo: {
-      title: "Automatic Number Plate Recognition System",
+      title: "Automatic Number Plate Recognition System, Vehicle Number Plate Recognition Software",
       description:
-        "AI-driven ANPR system for highways — real-time number plate detection, vehicle classification, high-quality image capture and reliable performance in all weather.",
+        "Discover our AI-driven Automatic Number Plate Recognition (ANPR) system designed for highway applications. Get real-time vehicle number plate detection, accurate vehicle classification, high-quality image capture, and reliable performance in all traffic and weather conditions.",
     },
     source: "https://networktoll.com/automatic-number-plate-recognition-system/",
   },
@@ -327,9 +327,9 @@ export const solutions: Solution[] = [
       },
     ],
     seo: {
-      title: "Smart Parking Management",
+      title: "RFID Automated Car Parking Systems - Network Toll Solution",
       description:
-        "FASTag parking management and automated car parking systems — real-time bay counting, guidance displays, boom barriers, CCTV and ANPR access control.",
+        "Network Toll Solution provides Smart RFID Automated Car Parking Systems which permits hands-free vehicle access and automate entry and exit gates",
     },
     source: "https://networktoll.com/automated-car-parking-systems/",
   },
@@ -456,9 +456,9 @@ export const solutions: Solution[] = [
       },
     ],
     seo: {
-      title: "Inventory Management Solution",
+      title: "Inventory Management Solution, Inventory Management System",
       description:
-        "RFID inventory management system with real-time stock tracking, automated reorder points, multi-location support and ERP integration.",
+        "At Network Toll, our Inventory Management System is designed to help businesses track, monitor, and manage their physical assets with ease and accuracy.",
     },
     source: "https://networktoll.com/inventory-management-solution/",
   },
@@ -576,9 +576,9 @@ export const solutions: Solution[] = [
       },
     ],
     seo: {
-      title: "RFID Software System",
+      title: "RFID Based Software Solutions - Network Toll Solution",
       description:
-        "Custom RFID software solutions for gate automation, vehicle and personnel tracking, weighbridge automation, race timing and WIP monitoring.",
+        "Network Toll Solution provides the best RFID Based Software Solutions for asset management, manufacturing industry, warehouse and many more. Inquire with us today.",
     },
     source: "https://networktoll.com/rfid-software-system/",
   },
@@ -649,9 +649,9 @@ export const solutions: Solution[] = [
       },
     ],
     seo: {
-      title: "Plaza Center & Database Server",
+      title: "Plaza Center and Central Database Server - Network Toll Solution",
       description:
-        "Toll plaza control centre and central database server — monitoring station, point of sale, validation, cash-up and reporting with RAID and remote maintenance.",
+        "Network Toll Solution provides Plaza Center and Central Database Server. For Any inquiry call or mail us.",
     },
     source: "https://networktoll.com/plaza-center-database-server/",
   },
@@ -705,9 +705,9 @@ export const solutions: Solution[] = [
       },
     ],
     seo: {
-      title: "Number Plate Detection for Gate Automation",
+      title: "Number Plate Detection for Gate Automation - Network Toll",
       description:
-        "Camera-based vehicle number plate detection for gate automation, toll plazas, smart cities and townships — AI OCR, day/night IR, blacklist alerts.",
+        "Network Toll Solution offers Vehicle Number Plate System, Vehicle Identification System, Vehicle Detection Based on Camera and Number Plate Detection for Gate Automation.",
     },
     source: "https://networktoll.com/number-plate-detection/",
   },

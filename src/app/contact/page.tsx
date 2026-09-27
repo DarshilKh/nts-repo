@@ -8,11 +8,12 @@ import Breadcrumbs from "@/components/ui/Breadcrumbs";
 import Frame from "@/components/ui/Frame";
 
 export const metadata: Metadata = {
-  title: "Contact Us",
-  description:
-    "Get in touch with Network Toll Solution for toll plaza, parking management, and fleet tracking projects. Request a quote or schedule a consultation today.",
+  // `absolute` opts out of the root layout's title template — see the note
+  // in src/app/[slug]/page.tsx for why (this title is already complete).
+  title: { absolute: "Contact us - Network Toll Solution" },
+  description: "Get in touch with us for any need related to RFID product and services.",
   alternates: { canonical: "/contact" },
-  openGraph: { url: "/contact", title: "Contact Us | Network Toll Solution" },
+  openGraph: { url: "/contact", title: "Contact us - Network Toll Solution" },
 };
 
 export default function ContactPage() {

@@ -200,9 +200,9 @@ export const products: Product[] = [
       },
     ],
     seo: {
-      title: "RFID Integrated Reader",
+      title: "RFID Integrated Reader Price Delhi, India - Network Toll Solutions",
       description:
-        "High-performance UHF RFID integrated readers combining reader and antenna in one IP66 unit — for tolling, parking, access control, warehousing and asset tracking.",
+        "Network Toll Solutions offers premium quality RFID Integrated Readers in Delhi at reasonable price. For Any inquiry call us or mail now.",
     },
     source: "https://networktoll.com/rfid-integrated-reader/",
   },
@@ -344,9 +344,9 @@ export const products: Product[] = [
       },
     ],
     seo: {
-      title: "RFID Desktop Reader",
+      title: "RFID Desktop Reader Price Delhi, India - Network Toll Solutions",
       description:
-        "UHF, Mifare and NFC desktop RFID readers and writers for FASTag issuance, tag registration, data encoding and cashless payment applications.",
+        "Network Toll Solutions offers premium quality RFID Desktop Readers in Delhi at reasonable price. For Any inquiry call us or mail now.",
     },
     source: "https://networktoll.com/rfid-desktop-reader/",
   },
@@ -423,9 +423,9 @@ export const products: Product[] = [
       },
     ],
     seo: {
-      title: "RFID Desktop/Mobile Reader",
+      title: "RFID Desktop Mobile Reader Price in Delhi, India - Network Toll Solutions",
       description:
-        "Compact USB and phone-mounted RFID readers supporting 125 KHz and 13.56 MHz cards on Android, Windows and Linux — plug and play, no development needed.",
+        "Network Toll Solutions offers premium quality RFID Desktop Mobile Readers in Delhi at reasonable price. For Any inquiry call us or mail now.",
     },
     source: "https://networktoll.com/rfid-desktop-mobile-reader/",
   },
@@ -522,9 +522,9 @@ export const products: Product[] = [
       },
     ],
     seo: {
-      title: "Bluetooth RFID Reader",
+      title: "Bluetooth RFID Reader Price in Delhi, India - Network TollSolutions",
       description:
-        "Wireless UHF Bluetooth RFID readers with 3m to 10m read range, Impinj R2000 module and up to 8 hours of continuous use on Android, Windows and iOS.",
+        "Network TollSolutions offers premium quality RFID Bluetooth Readers in Delhi at reasonable price. For Any inquiry call us or mail now.",
     },
     source: "https://networktoll.com/bluetooth-reader/",
   },
@@ -650,9 +650,9 @@ export const products: Product[] = [
       },
     ],
     seo: {
-      title: "RFID UHF Reader & Antenna",
+      title: "RFID Reader with Antenna Price in Delhi, India - Network Toll Solutions",
       description:
-        "Zebra FX9600 fixed UHF RFID reader with 8 dBi and 12 dBi circular polarized antennas — up to 15m read range, IP66/IP53 rated, PoE powered.",
+        "RFID UHF Reader & Antenna RFID UHF Reader & Antenna Impinj R2000 UHF 4 Port Reader (Model: NWS-4P 01) Frequency: UHF 865 – 867 MHz | ISO 18000 6C (EPC C1G2)Chipset: Impinj R 2000 moduleRF Power: 33 dbm |Tag Support: >400 tags in a mili second | Status: Buzzer or Blink | Built in Anti Collision abilityAntenna Support: 8",
     },
     source: "https://networktoll.com/rfid-uhf-reader-antenna/",
   },
@@ -723,9 +723,9 @@ export const products: Product[] = [
       },
     ],
     seo: {
-      title: "Toll Boom Barrier",
+      title: "Boom Barrier in India - Network Toll Solution",
       description:
-        "Automatic 3-metre toll boom barrier with Japanese BLDC stepper drive, 0.6 second opening, Wiegand and loop-detector inputs, and 5 million assured operations.",
+        "Network Toll Solution offers the best quality boom barrier in India for residential apartments, corporate offices and parking zones. Inquire us today.",
     },
     source: "https://networktoll.com/boom-barrier-india/",
   },
@@ -804,9 +804,9 @@ export const products: Product[] = [
       },
     ],
     seo: {
-      title: "User Fare Display",
+      title: "User Fare Display - networktoll",
       description:
-        "Two-line 1024-LED user fare display for toll lanes — 8000 mcd super-bright red LEDs, IP65 housing, RS232 or Ethernet, readable in direct sunlight.",
+        "User Fare Display User Fare Display Function UFD is used to indicate the payable toll fare to the road user and when the payment has been made, the publicity message can be shown. The main function of User Fare Display is to inform the driver of the vehicle classification entered by the toll collector and",
     },
     source: "https://networktoll.com/user-fare-display/",
   },
@@ -877,9 +877,9 @@ export const products: Product[] = [
       },
     ],
     seo: {
-      title: "Toll Lane Controller",
+      title: "Toll Lane Controller - networktoll",
       description:
-        "Industrial toll lane controller (TLC) interfacing with AVC and the plaza Toll Management Server — controls revenue logic, collection and vehicle passage.",
+        "Toll Lane Controller Toll Lane Controller Function The TLC System includes the software and hardware components. Toll Lane Controller is the interfacing with AVC .These lane controllers in turn are connected to Toll Management Server (TMS) located in Plaza. They store all the relevant transactional data, incidents & eventsoccurring in the lane area. In better",
     },
     source: "https://networktoll.com/toll-lane-controller/",
   },
@@ -943,9 +943,9 @@ export const products: Product[] = [
       },
     ],
     seo: {
-      title: "Toll Lane Traffic Light",
+      title: "Traffic Light - networktoll",
       description:
-        "Two-aspect LED toll lane traffic light controlled by the TLC — 200mm red/green aspects, over 100m visibility, IP65 housing, 8W per aspect.",
+        "Traffic Light Traffic Light Function The traffic light is used to control the flow of vehicles through the toll lane before and after toll has been collected. The traffic light shall display a red or green light to the motorists indicating the status of their transaction and indicating either to stop or proceedLED Display Technical",
     },
     source: "https://networktoll.com/traffic-light/",
   },
@@ -1011,9 +1011,9 @@ export const products: Product[] = [
       },
     ],
     seo: {
-      title: "OHLS — Overhead Lane Status Signal",
+      title: "OHLS - networktoll",
       description:
-        "Overhead lane status (OHLS) signal with red cross and green arrow aspects, 300m visibility, IP66 polycarbonate housing and optional automatic night dimming.",
+        "Traffic Light OHLS Overhead Lane Status Features:Synchronize with TLCIP 66 RatingWeather-proof housing with a sunshade or visorAutomatic night dimming feature (Optional)Size: 100/200 mmColor: Red, Green, BothBody material: Ploy CarbonateSpecificationDetailsTechnology:LEDColors:Red, GreenRed LEDs Intensity:8000 mcdGreen LEDs Intensity:10000 mcdVisibility:300 mWavelength:Red - 625 nm, Green - 505 nmEnclosure Dimensions:Polycarbonate 300 mm dia LED AspectLane Closed Indication:Red CrossLane Open Indication:Green",
     },
     source: "https://networktoll.com/ohls/",
   },
@@ -1078,9 +1078,9 @@ export const products: Product[] = [
       },
     ],
     seo: {
-      title: "Automatic Vehicle Classifier",
+      title: "Automatic Vehicle Classifier - Network Toll Solution",
       description:
-        "2D profiler based Automatic Vehicle Classifier (AVC) for toll plazas — axle count, dimensions and weight based classification with 12m range and 30/60mm beam spacing.",
+        "Network Toll Solution provides Automatic Vehicle Classifiers. For Any inquiry call or mail us.",
     },
     source: "https://networktoll.com/automatic-vehicle-classifier/",
   },
@@ -1251,9 +1251,9 @@ export const products: Product[] = [
       },
     ],
     seo: {
-      title: "MS Weigh in Motion",
+      title: "Toll Plaza Weigh-in-Motion | Toll Plaza MS Wim - NT Solutions",
       description:
-        "Bending plate and hybrid weigh-in-motion systems for Indian toll plazas — OIML Class 5 accuracy up to 60 km/h, IP68 plate, BIS certified, 6-hour installation.",
+        "Network Toll Solutions offers Toll Plaza Weigh-in-Motion, Toll Plaza MS Wim in Delhi, India at reasonable price. For Any inquiry call us or mail now.",
     },
     source: "https://networktoll.com/ms-weigh-in-motion/",
   },
@@ -1396,9 +1396,9 @@ export const products: Product[] = [
       },
     ],
     seo: {
-      title: "UHF Mobile Device",
+      title: "UHF Mobile Device - networktoll",
       description:
-        "Chainway C72 rugged Android UHF RFID handheld with Impinj R2000 engine, over 25m read range, 200+ tags per second, 8000mAh battery and IP65 sealing.",
+        "UHF Mobile Device UHF Mobile Device Android Device Chainway C72 is an Android rugged mobile computer. It features powerful processor, 8000mAh battery and superb UHF RFID capability. It can be equipped with R2000 linearly or circularly polarized antenna. That it can read tags in bulk from long distance enables it to be deployed in asset",
     },
     source: "https://networktoll.com/uhf-mobile-device/",
   },
@@ -1580,9 +1580,9 @@ export const products: Product[] = [
       },
     ],
     seo: {
-      title: "NT-Pulse Imaging Radar",
+      title: "NT-Pulse - networktoll",
       description:
-        "NT-Pulse long-range software defined imaging radar — 1.5° angular resolution, dense 4D point clouds, 77–81 GHz, IP68, automotive Ethernet or PoE.",
+        "NT-Pulse NT-Pulse Long-Range, Ultra High Resolution Software Defined Imaging Device NT-Pulse NT-Pulse enables next-generation radar sensing systems by providing a breakthrough combination of resolution, range, point density, size, cost and software flexibility.NT-Pulse delivers highly dense 4D point clouds with excellent performance in a compact size for radar-based perception, classification, mapping, tracking, and autonomous navigation. Its",
     },
     source: "https://networktoll.com/nt-pulse/",
   },
@@ -2170,9 +2170,9 @@ export const products: Product[] = [
       },
     ],
     seo: {
-      title: "RFID Tags & Labels",
+      title: "RFID Tags RFID Labels Jewellery Tags Supplier India",
       description:
-        "UHF RFID tags and labels from Network Toll Solutions — anti-metal, asset, laundry, garment, cylinder, pallet, tyre, PCB and fully customised inlays.",
+        "Network Toll Solution is one of the best supplier for RFID Tags/Labels, RFID Jewellery Tags also RFID Metal Tags for Clothes at reasonable price. Enquire us or call today.",
     },
     source: "https://networktoll.com/rfid-tags-supplier/",
   },
@@ -2234,9 +2234,9 @@ export const products: Product[] = [
       },
     ],
     seo: {
-      title: "RFID Library Tags",
+      title: "Library Tags Suppliers - Network Toll Solution",
       description:
-        "ISO 15693 RFID library tags (NWS-RT 01) with NXP ICODE SLIX chip, 1m read range and 15-year data retention for book, file and journal tracking.",
+        "Network Toll Solutions offers RFID library tags for efficient book tracking and inventory management. Trusted manufacturer and supplier delivering accuracy, durability, and easy integration for libraries",
     },
     source: "https://networktoll.com/library-tags/",
   },
@@ -2296,9 +2296,9 @@ export const products: Product[] = [
       },
     ],
     seo: {
-      title: "RFID Windshield Tag",
+      title: "Windshield Tags Suppliers - Network Toll Solution",
       description:
-        "Tamper-proof UHF RFID windshield tag (NWS-RT 01) with 15m read range, Alien Higgs 3 or Monza chip and customised printing for tolling and parking.",
+        "Network Toll Solution offers the best quality Windshield Tags which is used on the vehicles for electronic toll collection.",
     },
     source: "https://networktoll.com/windshield-tag/",
   },
@@ -2368,9 +2368,9 @@ export const products: Product[] = [
       },
     ],
     seo: {
-      title: "RFID Solar Panel Tags",
+      title: "RFID Solar Panel Tags | Solar Panel Tags Suppliers - NT Solution",
       description:
-        "Durable UHF RFID solar panel tags designed to MNRE guidelines — 6-7m read range, Alien Higgs 3 chip, tamper proof 3M adhesive, built for outdoor solar farms.",
+        "Network Toll Solution is one of the top supplier of RFID Solar Panel Tags. Made with coated paper or PET and strong 3M glue, perfect for long-term outdoor use.",
     },
     source: "https://networktoll.com/rfid-solar-panel-tags/",
   },
@@ -2471,9 +2471,9 @@ export const products: Product[] = [
       },
     ],
     seo: {
-      title: "RFID Card",
+      title: "RFID Card Price in Delhi, India - Network Toll Solutions",
       description:
-        "Mifare, UHF, LF proximity, dual-frequency and magnetic RFID cards in IP68 PVC with hologram, silkscreen and full-colour printing options.",
+        "Network TollSolutions offers premium quality RFID Cards in Delhi at reasonable price. For Any inquiry call us or mail now",
     },
     source: "https://networktoll.com/card/",
   },
@@ -2659,9 +2659,9 @@ export const products: Product[] = [
       },
     ],
     seo: {
-      title: "Soft Metal Label / Tag",
+      title: "RFID Soft Metal Label and Tags - Network Toll Solution",
       description:
-        "Flexible UHF on-metal RFID label (NWS-RT 25) for IT asset tracking — 3-5m read range, Alien Higgs 3 chip, 100,000 rewrites, custom printing.",
+        "Network Toll Solution offers RFID Soft Metal Label and Tags which are lightweight, flexible, and designed for long-range readability even on metal surfaces",
     },
     source: "https://networktoll.com/soft-metal-label-tag/",
   },
@@ -2723,9 +2723,9 @@ export const products: Product[] = [
       },
     ],
     seo: {
-      title: "Multi Purpose Hang Tag",
+      title: "Multi Purpose Hang Tag - Network Toll Solution",
       description:
-        "ISO 18000-6C multi purpose RFID hang tag (NWS-RT 24) for retail, inventory and jewellery — 3-4m read range, IP66, 100,000 read/write cycles.",
+        "Network Toll Solution offers Multi Purpose Hang Tag with Model: NWS-RT 24. This is designed for a variety of applications such as vehicle identification, cargo tracking.",
     },
     source: "https://networktoll.com/multi-purpose-tag/",
   },
@@ -2909,9 +2909,9 @@ export const products: Product[] = [
       },
     ],
     seo: {
-      title: "RFID Animal Tags",
+      title: "Animal Tags - networktoll",
       description:
-        "Tamper-evident TPU animal ear tags in visual, LF (ISO 11784/85) and UHF variants for livestock identification, breeding, dairy and traceability.",
+        "Animal Tags Animal Tags Model No: ETS-RT 05 ETS-RT 05 Animal ear tags are identification markers attached to the ears of animals, particularly in the livestock industry. These tags are used for various purposes, including individual identification, tracking, and management. Commonly used for cattle, sheep, goats, pigs, and other livestock, ear tags provide a quick",
     },
     source: "https://networktoll.com/animal-tags/",
   },
@@ -3095,9 +3095,9 @@ export const products: Product[] = [
       },
     ],
     seo: {
-      title: "RFID Jewellery Tags",
+      title: "Jewellery Tags - networktoll",
       description:
-        "UHF RFID jewellery tags for watches, rings, bracelets and luxury retail — hang, reusable and tamper-proof variants with up to 4m read range.",
+        "Jewellery Tags Jewellery Tags Model No: ETS-RT 06 A ETS-RT 06 A is a uniquely designed high performance UHF tag meant for application in Jewellery items. It works on global UHF frequency 865 – 928 MHz and fully compliant with ISO/IEC 18000-6C, EPC Global C1G2 standards. Its wide read range of up to 4 mt",
     },
     source: "https://networktoll.com/jewellery-tags/",
   },

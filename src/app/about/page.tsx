@@ -11,11 +11,17 @@ import Frame from "@/components/ui/Frame";
 import { aboutAssets } from "@/lib/assets";
 
 export const metadata: Metadata = {
-  title: "About Us",
+  // The old site's "Why Choose Us" page (a separate URL) is merged into
+  // this one now — see the <WhyChooseUs> section below — so this page's
+  // own title/description carries forward "About Us", the dominant of the
+  // two merged pages, rather than either being dropped or picking both.
+  // `absolute` opts out of the root layout's title template — see the note
+  // in src/app/[slug]/page.tsx for why (this title is already complete).
+  title: { absolute: "About Network Toll Solution | Best RFID Services" },
   description:
-    "Learn about Network Toll Solution's mission, vision, and RFID automation expertise — 100+ satisfied clients, 500+ projects, and 8+ years of experience.",
+    "Network Toll Solutions provides the best RFID services and solutions including Traffic management, Fast tag solution and many more.",
   alternates: { canonical: "/about" },
-  openGraph: { url: "/about", title: "About Us | Network Toll Solution" },
+  openGraph: { url: "/about", title: "About Network Toll Solution | Best RFID Services" },
 };
 
 export default function AboutPage() {
