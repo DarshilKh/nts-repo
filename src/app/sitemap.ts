@@ -17,15 +17,16 @@ export default function sitemap(): MetadataRoute.Sitemap {
     { path: "/about", priority: 0.7, changeFrequency: "yearly" },
     { path: "/contact", priority: 0.8, changeFrequency: "yearly" },
     // One entry per product detail page. Generated from the catalog rather
-    // than hand-listed so a new product can never ship unindexed.
+    // than hand-listed so a new product can never ship unindexed. Flat,
+    // root-level URL — see the note atop src/app/[slug]/page.tsx.
     ...products.map((p) => ({
-      path: `/products/${p.slug}`,
+      path: `/${p.slug}`,
       priority: 0.8,
       changeFrequency: "monthly" as const,
     })),
     // One entry per solution that has a real page.
     ...solutionPages.map((s) => ({
-      path: `/solution/${s.slug}`,
+      path: `/${s.slug}`,
       priority: 0.85,
       changeFrequency: "monthly" as const,
     })),

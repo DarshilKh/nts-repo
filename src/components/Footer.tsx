@@ -169,7 +169,8 @@ export default function Footer({
               <ul className="flex flex-col" style={{ fontSize: "var(--fs-footer-link)", color: "var(--text-muted)" }}>
                 {productLinksCol1.map((p) => (
                   <li key={p} style={rowPitch}>
-                    <Link href={`/products/${productLinkSlugs[p]}`} className="hover:underline">
+                    {/* Flat, root-level URL — see the note atop src/app/[slug]/page.tsx. */}
+                    <Link href={`/${productLinkSlugs[p]}`} className="hover:underline">
                       {p}
                     </Link>
                   </li>
@@ -178,7 +179,7 @@ export default function Footer({
               <ul className="flex flex-col" style={{ fontSize: "var(--fs-footer-link)", color: "var(--text-muted)" }}>
                 {productLinksCol2.map((p) => (
                   <li key={p} style={rowPitch}>
-                    <Link href={`/products/${productLinkSlugs[p]}`} className="hover:underline">
+                    <Link href={`/${productLinkSlugs[p]}`} className="hover:underline">
                       {p}
                     </Link>
                   </li>

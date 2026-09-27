@@ -57,7 +57,7 @@ const WP = "https://networktoll.com/wp-content/uploads";
 
 export const solutions: Solution[] = [
   {
-    slug: "toll-management",
+    slug: "toll-management-software",
     rowId: "toll",
     group: "toll-traffic",
     name: "Toll Management",
@@ -141,7 +141,7 @@ export const solutions: Solution[] = [
     source: "https://networktoll.com/toll-management-software/",
   },
   {
-    slug: "anpr-monitoring",
+    slug: "automatic-number-plate-recognition-system",
     rowId: "anpr",
     group: "toll-traffic",
     name: "ANPR Monitering",
@@ -226,7 +226,7 @@ export const solutions: Solution[] = [
     source: "https://networktoll.com/automatic-number-plate-recognition-system/",
   },
   {
-    slug: "smart-parking-management",
+    slug: "automated-car-parking-systems",
     rowId: "smart-parking",
     group: "toll-traffic",
     name: "Smart Parking Management",
@@ -334,7 +334,7 @@ export const solutions: Solution[] = [
     source: "https://networktoll.com/automated-car-parking-systems/",
   },
   {
-    slug: "inventory-management",
+    slug: "inventory-management-solution",
     rowId: "inventory",
     group: "rfid-facility",
     name: "Inventory Management",
@@ -1427,7 +1427,9 @@ export function getSolution(slug: string): Solution | undefined {
 /** Detail-page href for a /solution row, or undefined when there's no page. */
 export function solutionHref(rowId: string): string | undefined {
   const s = byRowId.get(rowId);
-  return s?.detail ? `/solution/${s.slug}` : undefined;
+  // Flat, root-level URL — see the note atop src/app/[slug]/page.tsx for why
+  // this isn't nested under /solution/ anymore.
+  return s?.detail ? `/${s.slug}` : undefined;
 }
 
 /** Only the solutions that have a real page — drives routing and the sitemap. */

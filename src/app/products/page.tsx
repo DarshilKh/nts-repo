@@ -41,7 +41,8 @@ function catalogJsonLd() {
       "@type": "ListItem",
       position: i + 1,
       name: productTitle(p),
-      url: absoluteUrl(`/products/${p.slug}`),
+      // Flat, root-level URL — see the note atop src/app/[slug]/page.tsx.
+      url: absoluteUrl(`/${p.slug}`),
     })),
   };
 }

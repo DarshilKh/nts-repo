@@ -39,7 +39,8 @@ type DropdownConfig = {
 
 const solutionColumnGroups = solutionsByGroup().map((g) => ({
   title: g.label,
-  items: g.solutions.map((s) => ({ label: s.name.replace(/\n/g, " "), href: `/solution/${s.slug}` })),
+  // Flat, root-level URL — see the note atop src/app/[slug]/page.tsx.
+  items: g.solutions.map((s) => ({ label: s.name.replace(/\n/g, " "), href: `/${s.slug}` })),
 }));
 
 // 5 category groups spread across 3 columns — grouped by rough item count

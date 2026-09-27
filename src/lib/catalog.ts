@@ -657,7 +657,7 @@ export const products: Product[] = [
     source: "https://networktoll.com/rfid-uhf-reader-antenna/",
   },
   {
-    slug: "toll-boom-barrier",
+    slug: "boom-barrier-india",
     name: "Toll Boom Barrier",
     category: "toll",
     group: "toll-plaza-equipment",
@@ -1587,7 +1587,7 @@ export const products: Product[] = [
     source: "https://networktoll.com/nt-pulse/",
   },
   {
-    slug: "nt-prime",
+    slug: "traffic-monitoring-radar",
     name: "NT-Prime",
     category: "toll",
     group: "radar",
@@ -1735,7 +1735,7 @@ export const products: Product[] = [
   },
   // ---------------------------------------------------------------- tags
   {
-    slug: "rfid-tag",
+    slug: "rfid-tags-supplier",
     name: "RFID Tag",
     category: "tags",
     group: "tag",
@@ -2177,7 +2177,7 @@ export const products: Product[] = [
     source: "https://networktoll.com/rfid-tags-supplier/",
   },
   {
-    slug: "library-tag",
+    slug: "library-tags",
     name: "Library Tag",
     category: "tags",
     group: "tag",
@@ -2303,7 +2303,7 @@ export const products: Product[] = [
     source: "https://networktoll.com/windshield-tag/",
   },
   {
-    slug: "solar-panel-tag",
+    slug: "rfid-solar-panel-tags",
     name: "Solar Panel Tag",
     category: "tags",
     group: "tag",
@@ -2375,7 +2375,7 @@ export const products: Product[] = [
     source: "https://networktoll.com/rfid-solar-panel-tags/",
   },
   {
-    slug: "rfid-card",
+    slug: "card",
     name: "RFID Card",
     category: "tags",
     group: "card-wristband",
@@ -2606,7 +2606,7 @@ export const products: Product[] = [
     source: "https://networktoll.com/wristband/",
   },
   {
-    slug: "soft-metal-tag",
+    slug: "soft-metal-label-tag",
     name: "Soft Metal Tag",
     category: "tags",
     group: "tag",
@@ -2730,7 +2730,7 @@ export const products: Product[] = [
     source: "https://networktoll.com/multi-purpose-tag/",
   },
   {
-    slug: "animal-tag",
+    slug: "animal-tags",
     name: "Animal Tag",
     category: "tags",
     group: "tag",
@@ -2916,7 +2916,7 @@ export const products: Product[] = [
     source: "https://networktoll.com/animal-tags/",
   },
   {
-    slug: "jewellery-tag",
+    slug: "jewellery-tags",
     name: "Jewellery Tag",
     category: "tags",
     group: "tag",

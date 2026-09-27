@@ -115,16 +115,16 @@ export const productLinksCol2 = [
 // check below — a typo'd slug used to fail silently and send the visitor to
 // a 404 instead of the product.
 export const productLinkSlugs: Record<string, string> = {
-  "RFID Tag": "rfid-tag",
-  "Library Tag": "library-tag",
+  "RFID Tag": "rfid-tags-supplier",
+  "Library Tag": "library-tags",
   "Windshield tag": "windshield-tag",
-  "Solar Panel Tag": "solar-panel-tag",
-  "RFID Card": "rfid-card",
+  "Solar Panel Tag": "rfid-solar-panel-tags",
+  "RFID Card": "card",
   "Wristband Tag": "wristband",
-  "Soft Metal Tag": "soft-metal-tag",
+  "Soft Metal Tag": "soft-metal-label-tag",
   "Multi Purpose Tag": "multi-purpose-tag",
-  "Animal Tag": "animal-tag",
-  "Jewellery Tag": "jewellery-tag",
+  "Animal Tag": "animal-tags",
+  "Jewellery Tag": "jewellery-tags",
   "File Tag": "file-tag",
   "Racing Tag": "racing-tag",
   "Waste Tag": "waste-tag",
@@ -134,7 +134,7 @@ export const productLinkSlugs: Record<string, string> = {
   "Bluetooth Reader": "bluetooth-reader",
   "UHF Mobile Reader": "uhf-mobile-device",
   "RFID UHF Reader and Antenna": "rfid-uhf-reader-antenna",
-  "Toll Boom Barrier": "toll-boom-barrier",
+  "Toll Boom Barrier": "boom-barrier-india",
   "User Fair Display": "user-fare-display",
   "Toll Lane Controler": "toll-lane-controller",
   "Traffic Light": "traffic-light",
@@ -144,7 +144,7 @@ export const productLinkSlugs: Record<string, string> = {
   "ANPR Camera": "anpr-camera",
   "PTZ Camera": "ptz-camera",
   "NT-Pulse Reader": "nt-pulse",
-  "NT-Prime Reader": "nt-prime",
+  "NT-Prime Reader": "traffic-monitoring-radar",
 };
 
 export const navLinks = [

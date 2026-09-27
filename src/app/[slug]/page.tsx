@@ -12,24 +12,37 @@ import ProductEnquiry from "@/components/sections/ProductEnquiry";
 import SpecTable from "@/components/sections/SpecTable";
 import JsonLd from "@/components/JsonLd";
 import { products, getProduct, productTitle, PRODUCT_GROUPS, type Product } from "@/lib/catalog";
+import { solutionPages, getSolution, solutions, type Solution } from "@/lib/solutions";
 import { absoluteUrl, SITE_NAME } from "@/lib/seo";
 import { card } from "@/lib/tokens";
 
 /**
- * One page per catalog entry. The old WordPress site had a page per product
- * carrying the model numbers, spec tables, FAQs and brochure PDFs that buyers
- * actually search for — all of that would have been lost by shipping only the
- * card grid, along with ~25 indexed URLs. These pages carry it forward, with
- * the copy transcribed in src/lib/catalog.ts.
+ * Product and solution detail pages, merged into one flat, root-level route.
+ * Previously `/products/[slug]` and `/solution/[slug]` — moved here per
+ * client request: the old networktoll.com site served every product and
+ * solution page directly off the domain root (e.g.
+ * `networktoll.com/rfid-integrated-reader/`), with no folder in between.
+ * Matching that exactly, rather than 301-redirecting to it, is the
+ * strongest possible outcome for the SEO history tied to those URLs — a
+ * redirect transfers *most* ranking signal; an unchanged URL has nothing to
+ * transfer, because nothing changed.
  *
- * Statically generated: the catalog is a build-time constant, so every product
- * page is prerendered and `dynamicParams` is off — an unknown slug is a 404,
- * not a runtime render.
+ * Every catalog/solution entry that has a real predecessor on the old site
+ * was renamed to that old page's exact slug (see the `source:` field on
+ * each entry in lib/catalog.ts / lib/solutions.ts) — this route just serves
+ * whichever one matches. New content added during the rebuild (no old
+ * predecessor) keeps whatever slug it already had; there's no legacy URL to
+ * match, so it lives here too rather than being the one exception nested
+ * under a folder. A slug is looked up as a product first, then a solution —
+ * verified at build time to never collide (see the redirect/rename work in
+ * next.config.ts's comments for how that was checked).
  */
 export const dynamicParams = false;
 
 export function generateStaticParams() {
-  return products.map((p) => ({ slug: p.slug }));
+  const productSlugs = products.map((p) => ({ slug: p.slug }));
+  const solutionSlugs = solutionPages.map((s) => ({ slug: s.slug }));
+  return [...productSlugs, ...solutionSlugs];
 }
 
 export async function generateMetadata({
@@ -38,20 +51,38 @@ export async function generateMetadata({
   params: Promise<{ slug: string }>;
 }): Promise<Metadata> {
   const { slug } = await params;
-  const product = getProduct(slug);
-  if (!product) return {};
 
-  return {
-    title: product.seo.title,
-    description: product.seo.description,
-    alternates: { canonical: `/products/${product.slug}` },
-    openGraph: {
-      url: `/products/${product.slug}`,
-      title: `${product.seo.title} | ${SITE_NAME}`,
+  const product = getProduct(slug);
+  if (product) {
+    return {
+      title: product.seo.title,
       description: product.seo.description,
-      type: "website",
-    },
-  };
+      alternates: { canonical: `/${product.slug}` },
+      openGraph: {
+        url: `/${product.slug}`,
+        title: `${product.seo.title} | ${SITE_NAME}`,
+        description: product.seo.description,
+        type: "website",
+      },
+    };
+  }
+
+  const solution = getSolution(slug);
+  if (solution) {
+    return {
+      title: solution.seo.title,
+      description: solution.seo.description,
+      alternates: { canonical: `/${solution.slug}` },
+      openGraph: {
+        url: `/${solution.slug}`,
+        title: `${solution.seo.title} | ${SITE_NAME}`,
+        description: solution.seo.description,
+        type: "website",
+      },
+    };
+  }
+
+  return {};
 }
 
 function productJsonLd(product: Product) {
@@ -61,7 +92,7 @@ function productJsonLd(product: Product) {
     name: productTitle(product),
     description: product.seo.description,
     image: absoluteUrl(product.image.src),
-    url: absoluteUrl(`/products/${product.slug}`),
+    url: absoluteUrl(`/${product.slug}`),
     brand: { "@type": "Brand", name: SITE_NAME },
     category: PRODUCT_GROUPS.find((g) => g.id === product.group)?.label ?? "Products",
   };
@@ -72,7 +103,7 @@ function productJsonLd(product: Product) {
  * penalises FAQ markup that doesn't match visible page content, so this is
  * derived from the same array that renders below rather than hand-maintained.
  */
-function faqJsonLd(product: Product) {
+function productFaqJsonLd(product: Product) {
   return {
     "@context": "https://schema.org",
     "@type": "FAQPage",
@@ -84,15 +115,31 @@ function faqJsonLd(product: Product) {
   };
 }
 
-export default async function ProductPage({
-  params,
-}: {
-  params: Promise<{ slug: string }>;
-}) {
-  const { slug } = await params;
-  const product = getProduct(slug);
-  if (!product) notFound();
+function serviceJsonLd(s: Solution) {
+  return {
+    "@context": "https://schema.org",
+    "@type": "Service",
+    name: s.name,
+    description: s.seo.description,
+    url: absoluteUrl(`/${s.slug}`),
+    provider: { "@id": `${absoluteUrl("/")}#organization` },
+    areaServed: "IN",
+  };
+}
 
+function solutionFaqJsonLd(s: Solution) {
+  return {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    mainEntity: (s.faqs ?? []).map((f) => ({
+      "@type": "Question",
+      name: f.q,
+      acceptedAnswer: { "@type": "Answer", text: f.a },
+    })),
+  };
+}
+
+function ProductDetail({ product }: { product: Product }) {
   const title = productTitle(product);
 
   /**
@@ -110,22 +157,19 @@ export default async function ProductPage({
     ...(product.models?.flatMap((m) => (m.brochure ? [m.brochure] : [])) ?? []),
   ].filter((b, i, all) => all.findIndex((x) => x.href === b.href) === i);
 
-  const related = products
-    .filter((p) => p.group === product.group && p.slug !== product.slug)
-    .slice(0, 4);
+  const related = products.filter((p) => p.group === product.group && p.slug !== product.slug).slice(0, 4);
 
   return (
     <>
-      <Header />
       <JsonLd data={productJsonLd(product)} />
-      {product.faqs?.length ? <JsonLd data={faqJsonLd(product)} /> : null}
+      {product.faqs?.length ? <JsonLd data={productFaqJsonLd(product)} /> : null}
       <main>
         <Frame>
           <div className="px-6 min-[1440px]:px-[122px] pt-6">
             <Breadcrumbs
               items={[
                 { name: "Products", path: "/products" },
-                { name: title, path: `/products/${product.slug}` },
+                { name: title, path: `/${product.slug}` },
               ]}
             />
           </div>
@@ -183,10 +227,7 @@ export default async function ProductPage({
               </Heading>
               <div className="mt-8 space-y-14">
                 {product.models.map((model, i) => (
-                  <article
-                    key={model.name}
-                    className="grid grid-cols-1 md:grid-cols-2 gap-8 items-start"
-                  >
+                  <article key={model.name} className="grid grid-cols-1 md:grid-cols-2 gap-8 items-start">
                     {model.image && (
                       <div
                         className={i % 2 === 1 ? "md:order-2" : ""}
@@ -216,10 +257,7 @@ export default async function ProductPage({
                             <li
                               key={`${s.label ?? ""}-${j}`}
                               className="flex gap-2"
-                              style={{
-                                fontSize: "var(--fs-body-xs)",
-                                color: "var(--text-muted)",
-                              }}
+                              style={{ fontSize: "var(--fs-body-xs)", color: "var(--text-muted)" }}
                             >
                               <span style={{ color: "var(--brand-red)" }} aria-hidden="true">
                                 •
@@ -302,18 +340,10 @@ export default async function ProductPage({
               </Heading>
               <div className="mt-6 max-w-4xl">
                 {product.faqs.map((f) => (
-                  <details
-                    key={f.q}
-                    className="py-4"
-                    style={{ borderTop: "1px solid rgba(0,0,0,0.12)" }}
-                  >
+                  <details key={f.q} className="py-4" style={{ borderTop: "1px solid rgba(0,0,0,0.12)" }}>
                     <summary
                       className="cursor-pointer"
-                      style={{
-                        fontSize: "var(--fs-body)",
-                        fontWeight: 700,
-                        color: "var(--text-primary)",
-                      }}
+                      style={{ fontSize: "var(--fs-body)", fontWeight: 700, color: "var(--text-primary)" }}
                     >
                       {f.q}
                     </summary>
@@ -341,12 +371,7 @@ export default async function ProductPage({
                       href={b.href}
                       download
                       className="flex items-center justify-between gap-4 px-5 py-4"
-                      style={{
-                        background: "var(--brand-red)",
-                        color: "var(--white)",
-                        fontSize: "var(--fs-body-xs)",
-                        fontWeight: 700,
-                      }}
+                      style={{ background: "var(--brand-red)", color: "var(--white)", fontSize: "var(--fs-body-xs)", fontWeight: 700 }}
                     >
                       <span>{b.label}</span>
                       <span aria-hidden="true">PDF ↓</span>
@@ -366,19 +391,13 @@ export default async function ProductPage({
               <ul className="mt-4 flex flex-wrap gap-x-8 gap-y-3">
                 {related.map((r) => (
                   <li key={r.slug}>
-                    <Link
-                      href={`/products/${r.slug}`}
-                      style={{ color: "var(--brand-red)", fontSize: "var(--fs-body-xs)", fontWeight: 600 }}
-                    >
+                    <Link href={`/${r.slug}`} style={{ color: "var(--brand-red)", fontSize: "var(--fs-body-xs)", fontWeight: 600 }}>
                       {productTitle(r)}
                     </Link>
                   </li>
                 ))}
                 <li>
-                  <Link
-                    href="/products"
-                    style={{ color: "var(--text-muted)", fontSize: "var(--fs-body-xs)", fontWeight: 600 }}
-                  >
+                  <Link href="/products" style={{ color: "var(--text-muted)", fontSize: "var(--fs-body-xs)", fontWeight: 600 }}>
                     All products →
                   </Link>
                 </li>
@@ -389,7 +408,204 @@ export default async function ProductPage({
 
         <ProductEnquiry productName={title} />
       </main>
-      <Footer />
     </>
   );
+}
+
+function SolutionDetail({ solution }: { solution: Solution }) {
+  const related = solutions.filter((s) => s.detail && s.slug !== solution.slug);
+
+  return (
+    <>
+      <JsonLd data={serviceJsonLd(solution)} />
+      {solution.faqs?.length ? <JsonLd data={solutionFaqJsonLd(solution)} /> : null}
+      <main>
+        <Frame>
+          <div className="px-6 min-[1440px]:px-[122px] pt-6">
+            <Breadcrumbs
+              items={[
+                { name: "Solution", path: "/solution" },
+                { name: solution.name, path: `/${solution.slug}` },
+              ]}
+            />
+          </div>
+
+          <section className="px-6 min-[1440px]:px-[122px] pt-10 pb-4">
+            <Heading as="h1" size="h2" className="max-w-4xl">
+              {solution.heading ?? solution.name}
+            </Heading>
+            {solution.tagline && (
+              <Text size="bodyLg" tone="brand" weight={600} className="mt-3">
+                {solution.tagline}
+              </Text>
+            )}
+            {solution.intro?.map((para) => (
+              <Text key={para} size="body" tone="muted" className="mt-5 max-w-4xl">
+                {para}
+              </Text>
+            ))}
+          </section>
+
+          {solution.gallery?.length ? (
+            <section className="px-6 min-[1440px]:px-[122px] py-6 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+              {solution.gallery.map((g) => (
+                <div key={g.src} style={{ boxShadow: card.shadow, background: "var(--bg)" }}>
+                  <MediaSlot
+                    src={g.src}
+                    alt={g.alt}
+                    measuredWidth={g.width}
+                    measuredHeight={g.height}
+                    sizes="(min-width: 1024px) 30vw, (min-width: 640px) 45vw, 100vw"
+                  />
+                </div>
+              ))}
+            </section>
+          ) : null}
+
+          {solution.sections?.length ? (
+            <section className="px-6 min-[1440px]:px-[122px] py-6 space-y-10">
+              {solution.sections.map((s) => (
+                <div key={s.title}>
+                  <Heading as="h2" size="itemHeading" weight={700}>
+                    {s.title}
+                  </Heading>
+                  {s.body?.map((para) => (
+                    <Text key={para} size="bodyXs" tone="muted" className="mt-3 max-w-4xl">
+                      {para}
+                    </Text>
+                  ))}
+                  {s.list && (
+                    <ul className="mt-4 space-y-2 max-w-4xl">
+                      {s.list.map((item) => (
+                        <li
+                          key={item}
+                          className="flex gap-2"
+                          style={{ fontSize: "var(--fs-body-xs)", color: "var(--text-muted)" }}
+                        >
+                          <span style={{ color: "var(--brand-red)" }} aria-hidden="true">
+                            •
+                          </span>
+                          {item}
+                        </li>
+                      ))}
+                    </ul>
+                  )}
+                </div>
+              ))}
+            </section>
+          ) : null}
+
+          {solution.video && (
+            <section className="px-6 min-[1440px]:px-[122px] py-8">
+              <div className="relative w-full max-w-4xl" style={{ aspectRatio: "16 / 9", boxShadow: card.shadow }}>
+                <iframe
+                  src={solution.video}
+                  title={`${solution.name} — overview video`}
+                  loading="lazy"
+                  allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                  allowFullScreen
+                  className="absolute inset-0 w-full h-full"
+                  style={{ border: 0 }}
+                />
+              </div>
+            </section>
+          )}
+
+          {solution.brochures?.length ? (
+            <section className="px-6 min-[1440px]:px-[122px] py-10">
+              <Heading as="h2" size="h3Lg">
+                Downloads
+              </Heading>
+              <ul className="mt-6 flex flex-col gap-3 max-w-2xl">
+                {solution.brochures.map((b) => (
+                  <li key={b.href}>
+                    <a
+                      href={b.href}
+                      download
+                      className="flex items-center justify-between gap-4 px-5 py-4"
+                      style={{ background: "var(--brand-red)", color: "var(--white)", fontSize: "var(--fs-body-xs)", fontWeight: 700 }}
+                    >
+                      <span>{b.label}</span>
+                      <span aria-hidden="true">PDF ↓</span>
+                      <span className="sr-only">Download PDF</span>
+                    </a>
+                  </li>
+                ))}
+              </ul>
+            </section>
+          ) : null}
+
+          {solution.faqs?.length ? (
+            <section className="px-6 min-[1440px]:px-[122px] py-10">
+              <Heading as="h2" size="h3Lg">
+                FAQs — {solution.name}
+              </Heading>
+              <div className="mt-6 max-w-4xl">
+                {solution.faqs.map((f) => (
+                  <details key={f.q} className="py-4" style={{ borderTop: "1px solid rgba(0,0,0,0.12)" }}>
+                    <summary
+                      className="cursor-pointer"
+                      style={{ fontSize: "var(--fs-body)", fontWeight: 700, color: "var(--text-primary)" }}
+                    >
+                      {f.q}
+                    </summary>
+                    <Text size="bodyXs" tone="muted" className="mt-3">
+                      {f.a}
+                    </Text>
+                  </details>
+                ))}
+              </div>
+            </section>
+          ) : null}
+
+          {related.length > 0 && (
+            <section className="px-6 min-[1440px]:px-[122px] py-10">
+              <Heading as="h2" size="itemHeading" weight={700}>
+                Other solutions
+              </Heading>
+              <ul className="mt-4 flex flex-wrap gap-x-8 gap-y-3">
+                {related.map((r) => (
+                  <li key={r.slug}>
+                    <Link href={`/${r.slug}`} style={{ color: "var(--brand-red)", fontSize: "var(--fs-body-xs)", fontWeight: 600 }}>
+                      {r.name}
+                    </Link>
+                  </li>
+                ))}
+              </ul>
+            </section>
+          )}
+        </Frame>
+
+        <ProductEnquiry productName={solution.name} />
+      </main>
+    </>
+  );
+}
+
+export default async function DetailPage({ params }: { params: Promise<{ slug: string }> }) {
+  const { slug } = await params;
+
+  const product = getProduct(slug);
+  if (product) {
+    return (
+      <>
+        <Header />
+        <ProductDetail product={product} />
+        <Footer />
+      </>
+    );
+  }
+
+  const solution = getSolution(slug);
+  if (solution && solution.detail) {
+    return (
+      <>
+        <Header />
+        <SolutionDetail solution={solution} />
+        <Footer />
+      </>
+    );
+  }
+
+  notFound();
 }

@@ -38,7 +38,8 @@ export default function ProductCard({
   /** First card above the fold — see ProductGrid, which sets this on the very first card only. */
   priority?: boolean;
 }) {
-  const href = `/products/${product.slug}`;
+  // Flat, root-level URL — see the note atop src/app/[slug]/page.tsx.
+  const href = `/${product.slug}`;
   const title = product.name.replace(/\n/g, " ");
 
   const ctaStyle = {
