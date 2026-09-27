@@ -46,7 +46,7 @@ export default function ContactForm() {
       `}</style>
       <section className="py-14 px-6 min-[1440px]:px-0 contact-form-grid">
         <form
-          className="flex flex-col md:flex-row gap-10 md:gap-16"
+          className="flex flex-col lg:flex-row gap-10 lg:gap-16"
           onSubmit={(e) => {
             e.preventDefault();
             // See lib/useBotGuard.ts. This form has no backend yet — once one
