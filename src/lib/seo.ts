@@ -8,7 +8,7 @@ import { companyInfo } from "./data";
  * domain before going live — see README/handoff notes.
  */
 export const SITE_URL = (
-  process.env.NEXT_PUBLIC_SITE_URL || "https://www.networktoll.com"
+  process.env.NEXT_PUBLIC_SITE_URL || "https://networktoll.com"
 ).replace(/\/$/, "");
 
 export const SITE_NAME = "Network Toll Solution";

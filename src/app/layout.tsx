@@ -1,5 +1,6 @@
 import type { Metadata, Viewport } from "next";
 import localFont from "next/font/local";
+import Script from "next/script";
 import JsonLd from "@/components/JsonLd";
 import FloatingContact from "@/components/FloatingContact";
 import CopyGuard from "@/components/CopyGuard";
@@ -85,6 +86,13 @@ export const viewport: Viewport = {
   themeColor: "#F7FCFE",
 };
 
+/**
+ * Google Analytics 4 measurement ID of the existing networktoll.com property
+ * — kept so the new site reports into the same property (and its history)
+ * as the old WordPress one.
+ */
+const GA_MEASUREMENT_ID = "G-P78XZ1LV1V";
+
 export default function RootLayout({
   children,
 }: Readonly<{
@@ -93,6 +101,25 @@ export default function RootLayout({
   return (
     <html lang="en" className={manrope.variable}>
       <body className="antialiased">
+        {/* GA4 on every page (this is the root layout). Production builds
+            only, so `npm run dev` on localhost doesn't send hits to the live
+            property. The loader URL is Google's own — NOT the
+            web.archive.org snapshot URL that appears in the old page's
+            source when viewed through the Wayback Machine. */}
+        {process.env.NODE_ENV === "production" && (
+          <>
+            <Script
+              src={`https://www.googletagmanager.com/gtag/js?id=${GA_MEASUREMENT_ID}`}
+              strategy="afterInteractive"
+            />
+            <Script id="ga4-init" strategy="afterInteractive">
+              {`window.dataLayer = window.dataLayer || [];
+function gtag(){dataLayer.push(arguments);}
+gtag('js', new Date());
+gtag('config', '${GA_MEASUREMENT_ID}');`}
+            </Script>
+          </>
+        )}
         <JsonLd data={organizationJsonLd()} />
         <JsonLd data={websiteJsonLd()} />
         {children}
