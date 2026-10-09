@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import type { CSSProperties } from "react";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import ContactHero from "@/components/sections/ContactHero";
@@ -6,6 +7,7 @@ import ContactForm from "@/components/sections/ContactForm";
 import ContactFAQ from "@/components/sections/ContactFAQ";
 import Breadcrumbs from "@/components/ui/Breadcrumbs";
 import Frame from "@/components/ui/Frame";
+import { fx } from "@/lib/tokens";
 
 export const metadata: Metadata = {
   // `absolute` opts out of the root layout's title template — see the note
@@ -22,7 +24,7 @@ export default function ContactPage() {
       <Header />
       <main>
         <Frame>
-          <div className="px-6 min-[1440px]:pl-[281px] pt-6">
+          <div className="page-x fx-pl pt-6" style={{ "--pl": fx(281) } as CSSProperties}>
             <Breadcrumbs items={[{ name: "Contact", path: "/contact" }]} />
           </div>
         </Frame>
