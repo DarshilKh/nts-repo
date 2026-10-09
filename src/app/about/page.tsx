@@ -30,7 +30,7 @@ export default function AboutPage() {
       <Header />
       <main>
         <Frame>
-          <div className="px-6 min-[1440px]:pl-[122px] pt-6">
+          <div className="page-x pt-6">
             <Breadcrumbs items={[{ name: "About Us", path: "/about" }]} />
           </div>
         </Frame>

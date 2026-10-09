@@ -4,6 +4,7 @@ import AccentBar from "@/components/ui/AccentBar";
 import MediaSlot from "@/components/ui/MediaSlot";
 import Frame from "@/components/ui/Frame";
 import { aboutAssets } from "@/lib/assets";
+import { fx } from "@/lib/tokens";
 
 /**
  * §4.5 — illustration flush-left within a ~534px-wide zone (x:122–656),
@@ -16,13 +17,13 @@ export default function AboutIntro() {
   return (
     <Frame>
       <style>{`
-        @media (min-width: 1440px) {
-          .about-intro-section { padding-left: 122px; padding-right: 60px; }
-          .about-intro-text { padding-left: 48px; }
+        @media (min-width: 1024px) {
+          .about-intro-grid { grid-template-columns: ${fx(534)} minmax(0, 1fr); }
+          .about-intro-text { padding-left: ${fx(48)}; }
         }
       `}</style>
-      <section className="about-intro-section relative pt-14 md:pt-20 pb-16 px-6">
-        <div className="grid grid-cols-1 min-[1440px]:grid-cols-[534px_1fr] gap-10 items-center">
+      <section className="about-intro-section relative pt-14 md:pt-20 pb-16 page-x">
+        <div className="about-intro-grid grid grid-cols-1 md:grid-cols-2 gap-10 lg:gap-0 items-center">
           <div className="about-intro-img">
             <MediaSlot
               src={aboutAssets.intro.src}
@@ -32,7 +33,7 @@ export default function AboutIntro() {
               priority
             />
           </div>
-          <div className="about-intro-text">
+          <div className="about-intro-text min-w-0">
             <Heading as="h1" size="displayMd">
               About Us
             </Heading>
@@ -45,8 +46,10 @@ export default function AboutIntro() {
           </div>
         </div>
         <AccentBar
-          className="hidden min-[1440px]:block absolute"
-          style={{ left: 631, top: 0, height: 193 }}
+          className="hidden lg:block absolute"
+          // Sits on the illustration's top-right corner: page inset + the
+          // (proportionally scaled) 534px image column, less the bar's own 25px.
+          style={{ left: `calc(var(--page-x) + ${fx(534)} - 25px)`, top: 0, height: 193 }}
         />
       </section>
     </Frame>
