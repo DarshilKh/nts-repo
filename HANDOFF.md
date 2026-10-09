@@ -357,3 +357,55 @@ directly for every fix above: the corrected aspect ratio, all three NT-Pulse
 gallery images, the RFID Integrated Reader's new photo, both new solution
 photos, and all 5 certification links (each with the real PDF href,
 `target="_blank"`, `rel="noopener noreferrer"`).
+
+## 13. Responsive layout overhaul (read before touching spacing)
+
+**The problem.** The site was measured on a 1440px design canvas, and almost
+every section hard-coded its measured insets/columns inside
+`@media (min-width: 1440px)`. Below 1440px each section fell back to a flat
+`px-6`, so the layout *snapped* between two different designs at exactly
+1440px: text hugged the left edge on laptops but sat inset on large
+monitors, the footer lost its red dividers, About Us stayed single-column,
+and the hero heading wrapped differently per screen.
+
+**The fix — one proportional scale, no 1440px snap.**
+- `--u` (globals.css) = 1% of the frame width, capped at the 1440px frame.
+  `fx(px)` in `src/lib/tokens.ts` returns `calc(var(--u) * px/14.4)`: exactly
+  `px` at a 1440px frame, scaling linearly below. **Use `fx()` for any
+  measured inset/column width; do not add `min-width: 1440px` media blocks.**
+- `.page-x` (globals.css) is the shared horizontal inset — fluid 24px (phone)
+  to 122px (1440px). Header, breadcrumbs and detail-page content all use it,
+  so they line up at every width. It's in `@layer components`, so a Tailwind
+  utility (`lg:px-0`) can still override it.
+- `.fx-pl` / `.fx-pr` apply a per-element `--pl` / `--pr` (set with `fx()`)
+  from `lg` up; below `lg` layouts are stacked and use `.page-x`.
+- Image/text column splits are `fr` ratios of the 1440px frame
+  (`minmax(0, 921fr) minmax(0, 519fr)`), not fixed-px columns.
+- **Breakpoints:** stacked below 1024px (`lg`), proportional two-column from
+  1024px. Header nav → hamburger below 1024px. Contact form is 2 columns
+  below 1280px, 3 above.
+- Headings that must not re-wrap are sized from their own column with
+  container-query units (`containerType: inline-size` + `cqw`): the Home hero
+  H1 and the CTA "Ready to Automate…" heading. Viewport-based sizing was what
+  let them wrap to different line counts per screen.
+
+**Also fixed along the way:** footer dividers + 1/2/3-column layout below
+1440px, floating call/WhatsApp buttons covering the last footer links, Products
+page double inset (24+51px) that pushed the fixed 3×435px grid past the frame,
+product-card text padding too wide at 1024–1439px, ContactForm's fixed
+263+263+388px row overflowing below ~1250px.
+
+**Verified:** `tsc` clean, `next build` succeeds, and a DevTools-driven check
+of `/`, `/solution`, `/products`, `/contact`, `/about`, a solution detail page
+and a product page at 360/390/768/900/1024/1180/1272/1440/1920px shows no
+horizontal overflow. Screenshots reviewed at 390, 768, 1024, 1272, 1440, 1920.
+
+**Follow-up (footer + hero polish):** the footer is now one symmetric layout
+on every page — an info column plus two *equal-width* link columns with the
+same padding on both sides (the old per-page "products" variant and the
+left-only padding made links sit unevenly between dividers; the prop and
+variant table are gone). Extra bottom padding that kept the floating buttons
+clear was removed (it left a large empty gap under the footer). The Solution
+and Contact hero H1s are sized on the same proportional `fx()` curve as the
+red accent bar beside them, so the bar can no longer overlap the heading text
+at mid-size widths.
