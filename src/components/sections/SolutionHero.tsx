@@ -3,6 +3,7 @@ import Heading from "@/components/ui/Heading";
 import Text from "@/components/ui/Text";
 import AccentBar from "@/components/ui/AccentBar";
 import Frame from "@/components/ui/Frame";
+import { fx } from "@/lib/tokens";
 
 /**
  * §4.2 — H1 measured left edge ~182px (two-line heading, slight per-line
@@ -17,20 +18,22 @@ export default function SolutionHero() {
   return (
     <Frame>
       <style>{`
-        @media (min-width: 1440px) {
-          .sol-hero-h1 { padding-left: 182px; }
-          .sol-hero-h1 > * { max-width: 620px; }
-          .sol-hero-body { padding-left: 653px; }
+        @media (min-width: 1024px) {
+          .sol-hero-h1 { padding-left: ${fx(182)}; }
+          .sol-hero-h1 > * { max-width: ${fx(620)}; }
+          /* Same proportional curve as the layout around it — see ContactHero. */
+          .sol-hero-h1 h1 { font-size: max(32px, ${fx(60)}) !important; }
+          .sol-hero-body { padding-left: ${fx(653)}; }
         }
       `}</style>
-      <section className="relative pt-14 md:pt-20 pb-16 px-6 min-[1440px]:px-0">
+      <section className="relative pt-14 md:pt-20 pb-16 page-x lg:px-0">
         <div className="sol-hero-h1">
           <Heading as="h1" size="displayMd">
             Intelligent RFID &amp; Automation Solution
           </Heading>
         </div>
-        <AccentBar className="hidden min-[1440px]:block absolute" style={{ left: 829, top: 0 }} />
-        <div className="sol-hero-body mt-8 min-[1440px]:mt-8">
+        <AccentBar className="hidden lg:block absolute" style={{ left: fx(829), top: 0 }} />
+        <div className="sol-hero-body mt-8">
           <Text size="body" tone="muted" className="max-w-md">
             End-to-end software and hardware solutions for tolling, parking,
             logistics, mining, access control, and fleet management.

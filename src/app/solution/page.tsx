@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import type { CSSProperties } from "react";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import SolutionHero from "@/components/sections/SolutionHero";
@@ -8,6 +9,7 @@ import CTASection from "@/components/sections/CTASection";
 import Breadcrumbs from "@/components/ui/Breadcrumbs";
 import Frame from "@/components/ui/Frame";
 import { solutionAssets } from "@/lib/assets";
+import { fx } from "@/lib/tokens";
 
 export const metadata: Metadata = {
   title: "RFID & Automation Solutions",
@@ -23,7 +25,7 @@ export default function SolutionPage() {
       <Header />
       <main>
         <Frame>
-          <div className="px-6 min-[1440px]:px-[182px] pt-6">
+          <div className="page-x fx-pl pt-6" style={{ "--pl": fx(182) } as CSSProperties}>
             <Breadcrumbs items={[{ name: "Solutions", path: "/solution" }]} />
           </div>
         </Frame>

@@ -4,7 +4,7 @@ import Text from "@/components/ui/Text";
 import MediaSlot from "@/components/ui/MediaSlot";
 import CornerMark from "@/components/ui/CornerMark";
 import Frame from "@/components/ui/Frame";
-import { card } from "@/lib/tokens";
+import { card, fx } from "@/lib/tokens";
 
 /**
  * §4.2 — Solution page rows. Each row's text inset and image width are
@@ -44,8 +44,13 @@ export default function SolutionRow({
 }) {
   const wrapClass = `sol-wrap-${styleId}`;
   const textClass = `sol-text-${styleId}`;
+  // Image/text split as fr ratios of the 1440px frame (not fixed px), so the
+  // proportions hold at every width from `lg` up instead of snapping at 1440.
+  const textColFr = 1440 - imageWidthPx;
   const gridCols =
-    imageSide === "left" ? `${imageWidthPx}px 1fr` : `1fr ${imageWidthPx}px`;
+    imageSide === "left"
+      ? `minmax(0, ${imageWidthPx}fr) minmax(0, ${textColFr}fr)`
+      : `minmax(0, ${textColFr}fr) minmax(0, ${imageWidthPx}fr)`;
   // For an image-left row, text is column 2 so its inset is relative to
   // the image column's right edge; for image-right, text is column 1 so
   // the inset is absolute from the frame edge.
@@ -54,9 +59,9 @@ export default function SolutionRow({
   return (
     <Frame>
       <style>{`
-        @media (min-width: 1440px) {
+        @media (min-width: 1024px) {
           .${wrapClass} { display: grid; grid-template-columns: ${gridCols}; }
-          .${textClass} { padding-left: ${textPad}px; }
+          .${textClass} { padding-left: ${fx(textPad)}; padding-right: ${fx(24)}; }
         }
       `}</style>
       <section
@@ -83,11 +88,11 @@ export default function SolutionRow({
           />
         </div>
         <div
-          // `!` forces the ≥1440px override to actually win over `md:px-14`
-          // — see MissionVisionRow.tsx for why a plain `min-[1440px]:px-0`
-          // loses that cascade in Tailwind v4 and silently adds 56px onto
-          // every row's `textPad` below.
-          className={`${imageSide === "right" ? "md:order-1" : "md:order-2"} flex flex-col justify-center px-6 py-10 md:px-14 min-[1440px]:px-0!`}
+          // `!` forces the ≥lg override to actually win over `md:px-14`
+          // — see MissionVisionRow.tsx for why a plain `lg:px-0` can lose
+          // that cascade in Tailwind v4 and silently adds 56px onto every
+          // row's text inset below.
+          className={`${imageSide === "right" ? "md:order-1" : "md:order-2"} flex flex-col justify-center px-6 py-10 md:px-14 lg:px-0!`}
         >
           <div className={textClass}>
             <Heading as="h2" size="h3Lg" className="whitespace-pre-line">
