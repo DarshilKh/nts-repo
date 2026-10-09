@@ -171,7 +171,7 @@ function ProductDetail({ product }: { product: Product }) {
       {product.faqs?.length ? <JsonLd data={productFaqJsonLd(product)} /> : null}
       <main>
         <Frame>
-          <div className="px-6 min-[1440px]:px-[122px] pt-6">
+          <div className="page-x pt-6">
             <Breadcrumbs
               items={[
                 { name: "Products", path: "/products" },
@@ -181,7 +181,7 @@ function ProductDetail({ product }: { product: Product }) {
           </div>
 
           {/* Hero: image left, headline + lead copy right. */}
-          <section className="px-6 min-[1440px]:px-[122px] pt-10 pb-4 grid grid-cols-1 md:grid-cols-2 gap-10 items-start">
+          <section className="page-x pt-10 pb-4 grid grid-cols-1 md:grid-cols-2 gap-10 items-start">
             <div style={{ boxShadow: card.shadow, background: "var(--bg)" }}>
               <MediaSlot
                 src={product.image.src}
@@ -210,7 +210,7 @@ function ProductDetail({ product }: { product: Product }) {
           </section>
 
           {product.gallery?.length ? (
-            <section className="px-6 min-[1440px]:px-[122px] py-6 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 items-start">
+            <section className="page-x py-6 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 items-start">
               {product.gallery.map((g) => (
                 <div key={g.src} style={{ boxShadow: card.shadow, background: "var(--bg)" }}>
                   <MediaSlot
@@ -227,7 +227,7 @@ function ProductDetail({ product }: { product: Product }) {
 
           {/* Models — each with its own photo, spec bullets and brochure. */}
           {product.models?.length ? (
-            <section className="px-6 min-[1440px]:px-[122px] pt-10 pb-4">
+            <section className="page-x pt-10 pb-4">
               <Heading as="h2" size="h3Lg">
                 Models &amp; specifications
               </Heading>
@@ -289,7 +289,7 @@ function ProductDetail({ product }: { product: Product }) {
 
           {/* Titled prose / bullet blocks — "Function", "Features", etc. */}
           {product.sections?.length ? (
-            <section className="px-6 min-[1440px]:px-[122px] py-6 space-y-10">
+            <section className="page-x py-6 space-y-10">
               {product.sections.map((s) => (
                 <div key={s.title}>
                   <Heading as="h2" size="itemHeading" weight={700}>
@@ -322,7 +322,7 @@ function ProductDetail({ product }: { product: Product }) {
           ) : null}
 
           {product.specTables?.length ? (
-            <div className="px-6 min-[1440px]:px-[122px] pb-6">
+            <div className="page-x pb-6">
               {product.specTables.map((t) => (
                 <SpecTable key={t.title ?? t.rows[0]?.[0]} table={t} />
               ))}
@@ -330,7 +330,7 @@ function ProductDetail({ product }: { product: Product }) {
           ) : null}
 
           {product.outro?.length ? (
-            <section className="px-6 min-[1440px]:px-[122px] py-6">
+            <section className="page-x py-6">
               {product.outro.map((para) => (
                 <Text key={para} size="body" tone="muted" className="max-w-4xl">
                   {para}
@@ -340,7 +340,7 @@ function ProductDetail({ product }: { product: Product }) {
           ) : null}
 
           {product.faqs?.length ? (
-            <section className="px-6 min-[1440px]:px-[122px] py-10">
+            <section className="page-x py-10">
               <Heading as="h2" size="h3Lg">
                 FAQs — {title}
               </Heading>
@@ -363,7 +363,7 @@ function ProductDetail({ product }: { product: Product }) {
           ) : null}
 
           {downloads.length > 0 && (
-            <section className="px-6 min-[1440px]:px-[122px] py-10">
+            <section className="page-x py-10">
               <Heading as="h2" size="h3Lg">
                 Downloads
               </Heading>
@@ -390,7 +390,7 @@ function ProductDetail({ product }: { product: Product }) {
           )}
 
           {related.length > 0 && (
-            <section className="px-6 min-[1440px]:px-[122px] py-10">
+            <section className="page-x py-10">
               <Heading as="h2" size="itemHeading" weight={700}>
                 Related products
               </Heading>
@@ -427,7 +427,7 @@ function SolutionDetail({ solution }: { solution: Solution }) {
       {solution.faqs?.length ? <JsonLd data={solutionFaqJsonLd(solution)} /> : null}
       <main>
         <Frame>
-          <div className="px-6 min-[1440px]:px-[122px] pt-6">
+          <div className="page-x pt-6">
             <Breadcrumbs
               items={[
                 { name: "Solution", path: "/solution" },
@@ -436,7 +436,7 @@ function SolutionDetail({ solution }: { solution: Solution }) {
             />
           </div>
 
-          <section className="px-6 min-[1440px]:px-[122px] pt-10 pb-4">
+          <section className="page-x pt-10 pb-4">
             <Heading as="h1" size="h2" className="max-w-4xl">
               {solution.heading ?? solution.name}
             </Heading>
@@ -453,7 +453,7 @@ function SolutionDetail({ solution }: { solution: Solution }) {
           </section>
 
           {solution.gallery?.length ? (
-            <section className="px-6 min-[1440px]:px-[122px] py-6 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+            <section className="page-x py-6 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
               {solution.gallery.map((g) => (
                 <div key={g.src} style={{ boxShadow: card.shadow, background: "var(--bg)" }}>
                   <MediaSlot
@@ -469,7 +469,7 @@ function SolutionDetail({ solution }: { solution: Solution }) {
           ) : null}
 
           {solution.sections?.length ? (
-            <section className="px-6 min-[1440px]:px-[122px] py-6 space-y-10">
+            <section className="page-x py-6 space-y-10">
               {solution.sections.map((s) => (
                 <div key={s.title}>
                   <Heading as="h2" size="itemHeading" weight={700}>
@@ -502,7 +502,7 @@ function SolutionDetail({ solution }: { solution: Solution }) {
           ) : null}
 
           {solution.video && (
-            <section className="px-6 min-[1440px]:px-[122px] py-8">
+            <section className="page-x py-8">
               <div className="relative w-full max-w-4xl" style={{ aspectRatio: "16 / 9", boxShadow: card.shadow }}>
                 <iframe
                   src={solution.video}
@@ -518,7 +518,7 @@ function SolutionDetail({ solution }: { solution: Solution }) {
           )}
 
           {solution.brochures?.length ? (
-            <section className="px-6 min-[1440px]:px-[122px] py-10">
+            <section className="page-x py-10">
               <Heading as="h2" size="h3Lg">
                 Downloads
               </Heading>
@@ -542,7 +542,7 @@ function SolutionDetail({ solution }: { solution: Solution }) {
           ) : null}
 
           {solution.faqs?.length ? (
-            <section className="px-6 min-[1440px]:px-[122px] py-10">
+            <section className="page-x py-10">
               <Heading as="h2" size="h3Lg">
                 FAQs — {solution.name}
               </Heading>
@@ -565,7 +565,7 @@ function SolutionDetail({ solution }: { solution: Solution }) {
           ) : null}
 
           {related.length > 0 && (
-            <section className="px-6 min-[1440px]:px-[122px] py-10">
+            <section className="page-x py-10">
               <Heading as="h2" size="itemHeading" weight={700}>
                 Other solutions
               </Heading>

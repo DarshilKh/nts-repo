@@ -20,7 +20,7 @@ export default function NotFound() {
       <Header />
       <main>
         <Frame>
-          <section className="px-6 min-[1440px]:px-[122px] py-24 md:py-32 text-center">
+          <section className="page-x py-24 md:py-32 text-center">
             <Text
               size="body"
               style={{ color: "var(--brand-red)", fontWeight: 700, letterSpacing: "0.04em" }}
