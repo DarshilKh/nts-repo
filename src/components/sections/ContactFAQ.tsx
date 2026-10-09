@@ -1,6 +1,7 @@
 import Heading from "@/components/ui/Heading";
 import Text from "@/components/ui/Text";
 import Frame from "@/components/ui/Frame";
+import { fx } from "@/lib/tokens";
 
 const faqs = [
   {
@@ -28,21 +29,21 @@ export default function ContactFAQ() {
   return (
     <Frame>
       <style>{`
-        @media (min-width: 1440px) {
-          .faq-eyebrow { padding-left: 122px; }
-          .faq-heading { padding-left: 189px; }
-          .faq-grid { grid-template-columns: 829px 1fr; padding-right: 60px; }
+        @media (min-width: 1024px) {
+          .faq-eyebrow { padding-left: ${fx(122)}; }
+          .faq-heading { padding-left: ${fx(189)}; }
+          .faq-grid { grid-template-columns: ${fx(829)} minmax(0, 1fr); padding-right: ${fx(60)}; }
           .faq-qa-inner { max-width: 380px; }
         }
       `}</style>
-      <section className="py-16 px-6 min-[1440px]:px-0">
+      <section className="py-16 page-x lg:px-0">
         <div className="faq-eyebrow">
           <Text size="body" style={{ color: "var(--brand-red)", fontSize: "var(--fs-eyebrow)", fontWeight: 700, textTransform: "uppercase", letterSpacing: "0.02em" }}>
             FAQ
           </Text>
         </div>
 
-        <div className="faq-grid mt-6 grid grid-cols-1 min-[1440px]:grid-cols-2 gap-10">
+        <div className="faq-grid mt-6 grid grid-cols-1 lg:grid-cols-2 gap-10">
           <div className="faq-heading">
             <Heading as="h2" size="displayXl" className="leading-[1.1]">
               Frequently

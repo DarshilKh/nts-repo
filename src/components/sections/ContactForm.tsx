@@ -3,7 +3,7 @@
 import { useState } from "react";
 import Frame from "@/components/ui/Frame";
 import Text from "@/components/ui/Text";
-import { button, parallelogramClipPath } from "@/lib/tokens";
+import { button, parallelogramClipPath, fx } from "@/lib/tokens";
 import { useBotGuard } from "@/lib/useBotGuard";
 
 const MESSAGE_CHAR_LIMIT = 100;
@@ -27,7 +27,10 @@ const MESSAGE_CHAR_LIMIT = 100;
  */
 const fieldStyle = {
   borderBottom: "3px solid var(--brand-red)",
-  width: 263,
+  // Fills its column. The 263px measured width is applied by the column
+  // track itself (see .contact-form below), so the fields scale with the
+  // frame instead of being a fixed width that overflows narrower screens.
+  width: "100%",
   paddingBottom: "0.6rem",
   fontSize: "var(--fs-body-xs)",
 };
@@ -40,13 +43,26 @@ export default function ContactForm() {
   return (
     <Frame>
       <style>{`
-        @media (min-width: 1440px) {
-          .contact-form-grid { padding-left: 189px; padding-right: 60px; }
+        /* Phone: one column. Tablet / small laptop: the two field columns side
+           by side with the message block full-width underneath. From xl: the
+           measured three-column row (263 / 263 / message), every width scaled
+           proportionally — a fixed 263+263+388px row plus its insets needs
+           ~1250px, so it can't start any earlier than that. */
+        .contact-form { display: grid; grid-template-columns: minmax(0, 1fr); gap: 40px; }
+        @media (min-width: 640px) {
+          .contact-form { grid-template-columns: repeat(2, minmax(0, 1fr)); column-gap: 40px; }
+          .contact-form-msg { grid-column: 1 / -1; }
+        }
+        @media (min-width: 1280px) {
+          .contact-form-grid { padding-left: ${fx(189)}; padding-right: ${fx(60)}; }
+          .contact-form { grid-template-columns: ${fx(263)} ${fx(263)} minmax(0, 1fr); column-gap: ${fx(64)}; }
+          .contact-form-msg { grid-column: auto; }
+          .contact-form-msg textarea, .contact-form-msg .contact-form-count { max-width: ${fx(388)}; }
         }
       `}</style>
-      <section className="py-14 px-6 min-[1440px]:px-0 contact-form-grid">
+      <section className="py-14 page-x contact-form-grid">
         <form
-          className="flex flex-col lg:flex-row gap-10 lg:gap-16"
+          className="contact-form"
           onSubmit={(e) => {
             e.preventDefault();
             // See lib/useBotGuard.ts. This form has no backend yet — once one
@@ -64,7 +80,7 @@ export default function ContactForm() {
               This submission looked automated and was not sent.
             </p>
           )}
-          <div className="flex flex-col gap-8 shrink-0">
+          <div className="flex flex-col gap-8 min-w-0">
             <label>
               <span className="sr-only">Name</span>
               <input type="text" placeholder="Name" style={fieldStyle} />
@@ -78,7 +94,7 @@ export default function ContactForm() {
               <input type="text" placeholder="City / State" style={fieldStyle} />
             </label>
           </div>
-          <div className="flex flex-col gap-8 shrink-0">
+          <div className="flex flex-col gap-8 min-w-0">
             <label>
               <span className="sr-only">Email Address</span>
               <input type="email" placeholder="Email Address" style={fieldStyle} />
@@ -109,7 +125,7 @@ export default function ContactForm() {
               </select>
             </label>
           </div>
-          <div className="flex flex-col flex-1 min-w-0">
+          <div className="contact-form-msg flex flex-col min-w-0">
             <label>
               <span className="sr-only">Message</span>
               <textarea
@@ -122,14 +138,13 @@ export default function ContactForm() {
                   border: "2px solid var(--brand-red)",
                   borderRadius: 0,
                   width: "100%",
-                  maxWidth: 388,
                   minHeight: 188,
                   padding: "0.9rem",
                   fontSize: "var(--fs-body-xs)",
                 }}
               />
             </label>
-            <Text size="bodyXs" tone="muted" className="mt-1" style={{ maxWidth: 388 }}>
+            <Text size="bodyXs" tone="muted" className="contact-form-count mt-1">
               {message.length}/{MESSAGE_CHAR_LIMIT} characters
             </Text>
             <button
