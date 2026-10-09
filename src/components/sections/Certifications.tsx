@@ -18,7 +18,7 @@ const CERTIFICATIONS = [
 export default function Certifications() {
   return (
     <Frame>
-      <section className="px-6 min-[1440px]:px-[122px] py-16 text-center">
+      <section className="page-x py-16 text-center">
         <Heading as="h2" size="h3Lg">
           Certifications
         </Heading>

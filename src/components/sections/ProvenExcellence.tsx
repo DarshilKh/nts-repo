@@ -4,6 +4,8 @@ import MediaSlot from "@/components/ui/MediaSlot";
 import AccentBar from "@/components/ui/AccentBar";
 import Frame from "@/components/ui/Frame";
 import { homeAssets } from "@/lib/assets";
+import { fx } from "@/lib/tokens";
+import type { CSSProperties } from "react";
 
 const projects = [
   {
@@ -66,12 +68,18 @@ const projects = [
 export default function ProvenExcellence() {
   return (
     <Frame>
-      <section className="relative pt-24 md:pt-32 pb-16 md:pb-20 px-6 min-[1440px]:pl-[89px] min-[1440px]:pr-[60px]">
+      <section
+        className="relative pt-24 md:pt-32 pb-16 md:pb-20 page-x fx-pl fx-pr"
+        style={{ "--pl": fx(89), "--pr": fx(60) } as CSSProperties}
+      >
         {/* The bar is pulled into the left gutter (negative margin) rather than
             sitting in flow, so the HEADING TEXT — not the bar — lands on the
             x=89 line shared with the project rows below. */}
-        <div className="flex items-start gap-6 md:gap-8 min-[1440px]:gap-0">
-          <AccentBar className="hidden min-[1440px]:block shrink-0 min-[1440px]:-ml-[57px] min-[1440px]:mr-[32px]" />
+        <div className="flex items-start gap-6 md:gap-8 lg:gap-0">
+          <AccentBar
+            className="hidden lg:block shrink-0"
+            style={{ marginLeft: `calc(${fx(57)} * -1)`, marginRight: fx(32) }}
+          />
           <div className="max-w-2xl">
             <Heading as="h2" size="h2Xl">
               Proven Excellence Backed by Experience and Results
@@ -86,16 +94,18 @@ export default function ProvenExcellence() {
       <div className="flex flex-col gap-14 md:gap-16">
         {projects.map((p) => {
           const wrapClass = `proj-wrap-${p.key}`;
-          const gridCols = `1fr ${p.imageWidthPx}px`;
+          // fr ratio of the 1440px frame, not a fixed-px image column.
+          const gridCols = `minmax(0, ${1440 - p.imageWidthPx}fr) minmax(0, ${p.imageWidthPx}fr)`;
           return (
             <div key={p.key}>
               <style>{`
-                @media (min-width: 1440px) {
-                  .${wrapClass} { display: grid; grid-template-columns: ${gridCols}; align-items: center; }
+                @media (min-width: 1024px) {
+                  .${wrapClass} { display: grid; grid-template-columns: ${gridCols}; align-items: center; column-gap: 0; }
+                  .${wrapClass}-text { padding-left: ${fx(89)}; padding-right: ${fx(56)}; }
                 }
               `}</style>
-              <div className={`${wrapClass} grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-14 items-center px-6 min-[1440px]:px-0`}>
-                <div className="min-[1440px]:pl-[89px]">
+              <div className={`${wrapClass} grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-14 items-center page-x lg:px-0`}>
+                <div className={`${wrapClass}-text`}>
                   <Heading as="h3" size="h2" className="whitespace-pre-line">
                     {p.title}
                   </Heading>
