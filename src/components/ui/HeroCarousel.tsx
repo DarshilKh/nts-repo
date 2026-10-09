@@ -104,7 +104,7 @@ export default function HeroCarousel({ slides }: { slides: Slide[] }) {
                 // next/image the box was far wider than it actually is,
                 // so it fetched an oversized source (measured ~30KB wasted
                 // per slide on mobile).
-                sizes="(min-width: 768px) 536px, calc(100vw - 72px)"
+                sizes="(min-width: 1024px) 476px, calc(100vw - 72px)"
                 style={{ objectFit: "contain", filter: "saturate(1.15) contrast(1.08)" }}
               />
             )}

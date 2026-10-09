@@ -26,7 +26,7 @@ import { homeAssets } from "@/lib/assets";
 export default function Hero() {
   return (
     <Frame>
-      <section className="pt-10 md:pt-14 pb-16 md:pb-20 px-6 min-[1440px]:pl-[122px] min-[1440px]:pr-[110px] min-[1440px]:pt-[90px]">
+      <section className="pt-10 md:pt-14 pb-16 md:pb-20 page-x lg:pt-[clamp(56px,6.25vw,90px)]">
         {/* The carousel column is a fixed 560px at the measured 1440px frame,
             but pinning that same 560px starting at the `md:` breakpoint
             (768px) leaves the text column too little room — its longest
@@ -37,9 +37,20 @@ export default function Hero() {
             narrower `md:` viewports and only reaches the full 560px once
             42vw would exceed it (~1333px), just under the 1440px frame
             where it's meant to be exactly 560. */}
-        <div className="grid grid-cols-1 md:grid-cols-[1fr_min(560px,42vw)] gap-10 md:gap-20 items-center">
-          <div>
-            <Heading as="h1" size="displayLg">
+        <div className="grid grid-cols-1 lg:grid-cols-[minmax(0,1fr)_min(500px,40vw)] gap-10 lg:gap-16 items-center">
+          {/* Container-query sizing: the heading is sized from the width of its
+              own column (cqw), not the viewport, so "Monitoring Platform"
+              always fits on one line — "Smart Fleet / Monitoring Platform" —
+              at every screen size. Viewport-based sizing let that line wrap
+              to three lines on wide screens, where the 1440px frame caps the
+              column but the viewport keeps growing. 9.6cqw keeps the longest
+              line (~9.8em wide) inside the column; 65px is the measured max. */}
+          <div className="min-w-0" style={{ containerType: "inline-size" }}>
+            <Heading
+              as="h1"
+              size="displayLg"
+              style={{ fontSize: "min(65px, 9.6cqw)" }}
+            >
               Smart Fleet
               <br />
               Monitoring Platform
