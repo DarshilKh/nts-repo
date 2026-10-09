@@ -244,10 +244,10 @@ export default function Header() {
             itself on this row's full width — spanning from the logo to the
             hamburger button — which is what "centered" means for this
             header rather than centering on just the nav links. */}
-        <div className="relative flex items-center justify-between py-7 px-6 min-[1440px]:px-[122px]">
+        <div className="relative flex items-center justify-between py-7 page-x">
           <Logo />
 
-          <nav className="hidden md:flex items-center gap-9">
+          <nav className="hidden lg:flex items-center gap-9">
             {navLinks.map((link) => {
               const active = pathname === link.href || pathname.startsWith(link.href + "/");
               const linkStyle = {
@@ -364,7 +364,7 @@ export default function Header() {
 
           <button
             aria-label="Toggle menu"
-            className="md:hidden flex flex-col gap-1.5 p-2"
+            className="lg:hidden flex flex-col gap-1.5 p-2"
             onClick={() => setOpen((o) => !o)}
           >
             <span className="w-6 h-0.5" style={{ background: "var(--text-primary)" }} />
@@ -374,7 +374,7 @@ export default function Header() {
         </div>
 
         {open && (
-          <div className="md:hidden overflow-y-auto" style={{ background: "var(--bg)", maxHeight: "calc(100vh - 96px)" }}>
+          <div className="lg:hidden overflow-y-auto" style={{ background: "var(--bg)", maxHeight: "calc(100vh - 96px)" }}>
             <div className="flex flex-col py-4 gap-1 px-6">
               {navLinks.map((link) => {
                 const active = pathname === link.href || pathname.startsWith(link.href + "/");
