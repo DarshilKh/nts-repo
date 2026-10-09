@@ -101,6 +101,36 @@
   }
 }
 
+/* Horizontal page inset shared by the header and every content section.
+   Scales smoothly from 24px (375px viewport) to the measured 122px (1440px
+   frame) instead of jumping from a flat 24px to 122px at exactly 1440px —
+   that jump is what made content hug the left edge on mid-size screens
+   while sitting inset on wide ones. Declared in @layer components so a
+   Tailwind utility (e.g. lg:px-0) can still override it. */
+@layer components {
+  .page-x {
+    padding-inline: var(--page-x);
+  }
+}
+
+/* Proportional layout scale. The design was measured on a 1440px canvas, so
+   every measured inset/column width is expressed as a multiple of --u (1% of
+   the frame width, capped at the 1440px frame). At 1440px+ `fx(122)` is
+   exactly 122px; below that the same value shrinks in proportion instead of
+   snapping to a different layout at the 1440px breakpoint. See `fx()` in
+   src/lib/tokens.ts. */
+:root {
+  --u: min(1vw, 14.4px);
+  --page-x: clamp(24px, 9.2019vw - 10.507px, 122px);
+}
+
+/* Left/right inset set per element via --pl / --pr (use fx()). Applies from
+   the `lg` breakpoint up; below it, layouts are stacked and use .page-x. */
+@media (min-width: 1024px) {
+  .fx-pl { padding-left: var(--pl); }
+  .fx-pr { padding-right: var(--pr); }
+}
+
 input, textarea, select {
   outline: none;
   background: transparent;

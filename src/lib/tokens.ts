@@ -68,6 +68,16 @@ export function headingFontSize(size: keyof typeof fontSize): string {
   return `clamp(${min}px, ${intercept.toFixed(3)}px + ${(slope * 100).toFixed(4)}vw, ${max}px)`;
 }
 
+/**
+ * Proportional layout unit. Every measured inset/column width in the design
+ * is a pixel value on the 1440px canvas; `fx(px)` returns a CSS length that
+ * equals exactly `px` at a 1440px frame and scales linearly below it (the
+ * frame is capped at 1440px, so it never grows past `px`). Use this instead
+ * of an `@media (min-width: 1440px)` block, which snaps between two layouts.
+ * Backed by `--u` in globals.css.
+ */
+export const fx = (px: number): string => `calc(var(--u) * ${(px / 14.4).toFixed(4)})`;
+
 /** §3.3 — measured card geometry. Radius is 0 on every card checked. */
 export const card = {
   radius: 0,
