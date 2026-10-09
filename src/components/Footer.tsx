@@ -12,16 +12,16 @@ import {
   companyInfo,
 } from "@/lib/data";
 import { solutionHref } from "@/lib/solutions";
+import { fx } from "@/lib/tokens";
 
 /**
- * §4 — footer measurements are identical on Home/Solution/Contact/About
- * (left inset 155, columns 370/343/512) but measurably DIFFERENT on
- * Products (columns 363/310/486). Rather than forcing one shared value,
- * this takes an explicit variant for the one outlier page. The two
- * divider gaps (pad2/pad3) are deliberately equal within each variant —
- * an earlier version copied slightly mismatched measured values (61/56
- * and 33/42) straight from the design file, which read as visibly uneven
- * spacing around the middle column once built.
+ * Layout: one symmetric scheme for every page. The three columns used to be
+ * the PDF's measured widths (370 / 512 / 512, and a separate set for the
+ * Products page) with padding only on each column's LEFT edge — so links
+ * started ~73px after one divider but ran to within ~16px of the next, and
+ * the columns read as unevenly spaced. Now the two link columns are exactly
+ * equal widths with the same padding on both sides, the info column is a
+ * little narrower, and the footer is identical on every page.
  */
 const rowPitch = { lineHeight: "30px" };
 
@@ -33,54 +33,30 @@ const rowPitch = { lineHeight: "30px" };
  */
 const labelStyle = { fontWeight: 700, color: "var(--text-primary)" } as const;
 
-// The middle (Solution) column's width was measured back when it was a
-// single list — 343/310px, both narrower than the last (Products) column
-// even though both are now the same 2-sub-column grid shape. Widened to
-// match Products' own width in each variant, so the two identically-
-// structured columns get identical room instead of Solution's links
-// visibly more cramped than Products' right next to it.
-const variants = {
-  default: { cols: "370px 512px 512px", pad2: 58, pad3: 58 },
-  products: { cols: "363px 486px 486px", pad2: 38, pad3: 38 },
-} as const;
-
-// The 1440px reference frame has no padding of its own (see Frame.tsx), so
-// the footer's own left/right inset has to add up to whatever's left after
-// the three measured columns. Splitting that remainder evenly keeps the
-// whole grid centered inside the frame instead of drifting toward one side
-// — with a fixed 155/60 split (this used to be hardcoded) the default
-// variant sat ~48px right of center and the products variant ~66px further
-// still, since its narrower columns left extra remainder unaccounted for.
-const FRAME_WIDTH = 1440;
-function sidePad(cols: string) {
-  const total = cols
-    .split(" ")
-    .reduce((sum, c) => sum + parseInt(c, 10), 0);
-  return Math.round((FRAME_WIDTH - total) / 2);
-}
-
-export default function Footer({
-  variant = "default",
-}: {
-  variant?: keyof typeof variants;
-}) {
-  const g = variants[variant];
-  const pad = sidePad(g.cols);
-
+export default function Footer() {
   return (
     <footer style={{ background: "var(--bg)" }}>
       <Frame>
         <style>{`
-          @media (min-width: 1440px) {
-            .footer-grid-${variant} { display: grid; grid-template-columns: ${g.cols}; padding-left: ${pad}px; padding-right: ${pad}px; }
-            .footer-col2-${variant} { padding-left: ${g.pad2}px; }
-            .footer-col3-${variant} { padding-left: ${g.pad3}px; }
+          /* Link sub-columns: 2 on phones (sm), 1 across the tablet/narrow-laptop
+             range where each footer column is too narrow for two, 2 again once
+             there's room. Plain CSS so the order is explicit rather than left to
+             Tailwind's variant sorting. */
+          @media (min-width: 640px) and (max-width: 767px) { .footer-sub { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+          @media (min-width: 1200px) { .footer-sub { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+          /* From lg up: info column + two EQUAL link columns, each link column
+             padded the same on both sides so the divider-to-text spacing is
+             identical left and right. Side inset is proportional (fx) so the
+             layout holds its shape at every width. */
+          @media (min-width: 1024px) {
+            .footer-grid { display: grid; grid-template-columns: minmax(0, 0.7fr) minmax(0, 1fr) minmax(0, 1fr); padding-left: ${fx(23)}; padding-right: ${fx(23)}; }
+            .footer-col2, .footer-col3 { padding-left: ${fx(32)}; padding-right: ${fx(32)}; }
           }
         `}</style>
         <div
-          className={`footer-grid-${variant} grid grid-cols-1 md:grid-cols-3 gap-x-8 gap-y-10 pt-14 pb-10 px-6 min-[1440px]:gap-x-0`}
+          className={`footer-grid grid grid-cols-1 md:grid-cols-2 gap-x-0 gap-y-10 pt-14 pb-10 px-6`}
         >
-          <div>
+          <div className="md:col-span-2 lg:col-span-1 lg:pr-8 min-w-0">
             <Logo />
             <div className="mt-6 flex flex-col gap-3" style={{ fontSize: "var(--fs-footer-link)", color: "var(--text-muted)" }}>
               <p style={rowPitch}>
@@ -117,7 +93,7 @@ export default function Footer({
             </div>
           </div>
 
-          <div className={`footer-col2-${variant} min-[1440px]:border-l-2`} style={{ borderColor: "var(--brand-red)" }}>
+          <div className="footer-col2 lg:border-l-2" style={{ borderColor: "var(--brand-red)" }}>
             {/* h2, not h4: every page's content headings top out at h2/h3, so an
                 h4 here skipped levels and failed axe's heading-order check.
                 The global h1-h4 rule styles h2 identically, so this is a
@@ -125,7 +101,7 @@ export default function Footer({
             <h2 style={{ fontSize: "var(--fs-footer-heading)", fontWeight: 800, marginBottom: "1rem", textAlign: "center" }}>
               Solution
             </h2>
-            <div className="grid grid-cols-2 gap-x-6">
+            <div className="footer-sub grid grid-cols-1 gap-x-6">
               <ul className="flex flex-col" style={{ fontSize: "var(--fs-footer-link)", color: "var(--text-muted)" }}>
                 {solutionLinksCol1.map((s) => {
                   const href = solutionLinkSlugs[s] ? solutionHref(solutionLinkSlugs[s]) : undefined;
@@ -161,11 +137,11 @@ export default function Footer({
             </div>
           </div>
 
-          <div className={`footer-col3-${variant} min-[1440px]:border-l-2`} style={{ borderColor: "var(--brand-red)" }}>
+          <div className="footer-col3 md:border-l-2 md:pl-8" style={{ borderColor: "var(--brand-red)" }}>
             <h2 style={{ fontSize: "var(--fs-footer-heading)", fontWeight: 800, marginBottom: "1rem", textAlign: "center" }}>
               Products
             </h2>
-            <div className="grid grid-cols-2 gap-x-6">
+            <div className="footer-sub grid grid-cols-1 gap-x-6">
               <ul className="flex flex-col" style={{ fontSize: "var(--fs-footer-link)", color: "var(--text-muted)" }}>
                 {productLinksCol1.map((p) => (
                   <li key={p} style={rowPitch}>
