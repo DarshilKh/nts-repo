@@ -21,7 +21,7 @@ export default function ProductEnquiry({ productName }: { productName: string })
   return (
     <Frame>
       <section
-        className="px-6 min-[1440px]:px-[122px] py-12 mt-6"
+        className="page-x py-12 mt-6"
         style={{ borderTop: "2px solid var(--brand-red)" }}
       >
         <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-6">
