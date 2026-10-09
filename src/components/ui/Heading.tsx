@@ -1,4 +1,4 @@
-import { ReactNode, ElementType } from "react";
+import { ReactNode, ElementType, CSSProperties } from "react";
 import { fontSize, headingFontSize } from "@/lib/tokens";
 
 type SizeKey = keyof typeof fontSize;
@@ -16,6 +16,7 @@ export default function Heading({
   weight = 800,
   color = "var(--text-primary)",
   className = "",
+  style,
   children,
 }: {
   as?: ElementType;
@@ -23,6 +24,7 @@ export default function Heading({
   weight?: 400 | 600 | 700 | 800;
   color?: string;
   className?: string;
+  style?: CSSProperties;
   children: ReactNode;
 }) {
   return (
@@ -34,6 +36,7 @@ export default function Heading({
         color,
         lineHeight: "var(--lh-display)",
         letterSpacing: "-0.01em",
+        ...style,
       }}
     >
       {children}

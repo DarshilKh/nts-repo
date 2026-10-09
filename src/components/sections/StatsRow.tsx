@@ -1,6 +1,7 @@
 import StatCard from "./StatCard";
 import Frame from "@/components/ui/Frame";
 import { homeAssets } from "@/lib/assets";
+import { fx } from "@/lib/tokens";
 
 const stats = [
   { icon: homeAssets.iconClients, value: "100+", label: "Satisfied clients" },
@@ -18,8 +19,11 @@ const stats = [
 export default function StatsRow() {
   return (
     <Frame>
-      <section className="pb-16 md:pb-20 px-6 min-[1440px]:pl-[60px] min-[1440px]:pr-[55px]">
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-[18.6px]">
+      <section
+        className="pb-16 md:pb-20"
+        style={{ paddingLeft: `max(24px, ${fx(60)})`, paddingRight: `max(24px, ${fx(55)})` }}
+      >
+        <div className="grid grid-cols-2 lg:grid-cols-4 gap-[18.6px]">
           {stats.map((s) => (
             <StatCard key={s.label} icon={s.icon} value={s.value} label={s.label} />
           ))}

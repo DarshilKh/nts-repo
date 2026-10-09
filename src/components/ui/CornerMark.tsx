@@ -17,7 +17,7 @@ export default function CornerMark({
 }) {
   return (
     <div
-      className={`hidden min-[1440px]:block absolute ${side === "left" ? "left-0" : "right-0"} ${className}`}
+      className={`hidden lg:block absolute ${side === "left" ? "left-0" : "right-0"} ${className}`}
       style={{ width: size, height: size, background: "var(--brand-red)" }}
       aria-hidden="true"
     />

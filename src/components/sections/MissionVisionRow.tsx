@@ -4,6 +4,7 @@ import Text from "@/components/ui/Text";
 import MediaSlot from "@/components/ui/MediaSlot";
 import Card from "@/components/ui/Card";
 import Frame from "@/components/ui/Frame";
+import { fx } from "@/lib/tokens";
 
 /**
  * Shared two-column row used by all three About-page cards — Mission,
@@ -61,19 +62,24 @@ export default function MissionVisionRow({
   const textClass = `mv-text-${styleId}`;
   const wrapClass = `mv-wrap-${styleId}`;
 
+  // fr ratios of the 1440px frame, not a fixed-px media column — keeps the
+  // media/text split proportional from `lg` up instead of snapping at 1440.
+  const textColFr = 1440 - mediaPanelWidthPx;
   const gridCols =
-    panelSide === "left" ? `${mediaPanelWidthPx}px 1fr` : `1fr ${mediaPanelWidthPx}px`;
+    panelSide === "left"
+      ? `minmax(0, ${mediaPanelWidthPx}fr) minmax(0, ${textColFr}fr)`
+      : `minmax(0, ${textColFr}fr) minmax(0, ${mediaPanelWidthPx}fr)`;
 
   return (
     <Frame>
       <style>{`
-        @media (min-width: 1440px) {
+        @media (min-width: 1024px) {
           .${wrapClass} { display: grid; grid-template-columns: ${gridCols}; gap: ${PANEL_GAP}px; }
-          .${textClass} { padding-left: ${textPaddingX}px; padding-right: ${textPaddingX}px; max-width: ${textMaxWidthPx + textPaddingX * 2}px; }
+          .${textClass} { padding-left: ${fx(textPaddingX)}; padding-right: ${fx(textPaddingX)}; max-width: ${fx(textMaxWidthPx + textPaddingX * 2)}; }
         }
       `}</style>
       <section
-        className={`${wrapClass} grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-5 items-stretch px-6 py-6 min-[1440px]:px-0 min-[1440px]:py-6`}
+        className={`${wrapClass} grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-5 items-stretch px-6 py-6 lg:px-0`}
       >
         <Card
           className={`flex items-center justify-center p-10 min-h-[280px] ${
@@ -90,12 +96,12 @@ export default function MissionVisionRow({
           />
         </Card>
         <Card
-          className={`relative flex flex-col justify-center px-6 py-12 md:px-14 min-[1440px]:px-0! min-h-[280px] ${
+          className={`relative flex flex-col justify-center px-6 py-12 md:px-14 lg:px-0! min-h-[280px] ${
             panelSide === "right" ? "md:order-1" : "md:order-2"
           }`}
         >
           <div
-            className="absolute -top-3 left-6 min-[1440px]:left-0 hidden md:block"
+            className="absolute -top-3 left-6 lg:left-0 hidden md:block"
             style={{ width: 25, height: 25, background: "var(--brand-red)" }}
             aria-hidden="true"
           />

@@ -2,7 +2,7 @@ import Heading from "@/components/ui/Heading";
 import Text from "@/components/ui/Text";
 import MediaSlot from "@/components/ui/MediaSlot";
 import Frame from "@/components/ui/Frame";
-import { card } from "@/lib/tokens";
+import { card, fx } from "@/lib/tokens";
 
 /**
  * §4.1 — these two rows are measured independently, not mirrored copies of
@@ -44,15 +44,20 @@ export default function ImageTextRow({
   const textClass = `row-text-${styleId}`;
   const wrapClass = `row-wrap-${styleId}`;
 
+  // fr ratios of the 1440px frame rather than a fixed-px image column, so the
+  // split holds proportionally from `lg` up instead of snapping at 1440px.
+  const textColFr = 1440 - imageWidthPx;
   const gridCols =
-    imageSide === "left" ? `${imageWidthPx}px 1fr` : `1fr ${imageWidthPx}px`;
+    imageSide === "left"
+      ? `minmax(0, ${imageWidthPx}fr) minmax(0, ${textColFr}fr)`
+      : `minmax(0, ${textColFr}fr) minmax(0, ${imageWidthPx}fr)`;
 
   return (
     <Frame>
       <style>{`
-        @media (min-width: 1440px) {
+        @media (min-width: 1024px) {
           .${wrapClass} { display: grid; grid-template-columns: ${gridCols}; }
-          .${textClass} { padding-left: ${textPaddingLeftPx}px; padding-right: 0; }
+          .${textClass} { padding-left: ${fx(textPaddingLeftPx)}; padding-right: ${fx(40)}; }
         }
       `}</style>
       <section
@@ -69,11 +74,11 @@ export default function ImageTextRow({
           />
         </div>
         <div
-          // `!` forces the ≥1440px override to actually win over `md:px-16`
-          // — see MissionVisionRow.tsx for why a plain `min-[1440px]:px-0`
-          // loses that cascade in Tailwind v4 and silently adds 64px onto
+          // `!` forces the ≥lg override to actually win over `md:px-16`
+          // — see MissionVisionRow.tsx for why a plain `lg:px-0` can lose
+          // that cascade in Tailwind v4 and silently adds 64px onto
           // `textPaddingLeftPx` below.
-          className={`${imageSide === "right" ? "md:order-1" : "md:order-2"} relative flex flex-col justify-center px-6 py-14 md:px-16 min-[1440px]:px-0!`}
+          className={`${imageSide === "right" ? "md:order-1" : "md:order-2"} relative flex flex-col justify-center px-6 py-14 md:px-16 lg:px-0!`}
         >
           <div className={textClass}>
             <Heading as="h2" size="h2" className="max-w-md">
