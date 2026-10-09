@@ -5,7 +5,7 @@ import Link from "next/link";
 import Heading from "@/components/ui/Heading";
 import Text from "@/components/ui/Text";
 import Frame from "@/components/ui/Frame";
-import { button, parallelogramClipPath } from "@/lib/tokens";
+import { button, parallelogramClipPath, fx, headingFontSize } from "@/lib/tokens";
 import { useBotGuard } from "@/lib/useBotGuard";
 
 const COMMENT_CHAR_LIMIT = 100;
@@ -31,14 +31,25 @@ export default function CTASection() {
   return (
     <Frame>
       <style>{`
-        @media (min-width: 1440px) {
-          .cta-grid { display: grid; grid-template-columns: 620px 1fr; gap: 80px; }
+        @media (min-width: 1024px) {
+          .cta-grid { grid-template-columns: ${fx(700)} minmax(0, 1fr); column-gap: ${fx(80)}; }
         }
       `}</style>
-      <section className="py-16 md:py-24 px-6">
-        <div className="cta-grid grid grid-cols-1 md:grid-cols-2 gap-12 md:gap-20 items-start mx-auto w-full max-w-[1320px]">
-          <div>
-            <Heading as="h2" size="displayXl">
+      {/* Side inset is the measured 60px (the old max-w-[1320px] centred in a
+          1440px frame) scaled proportionally, never below 24px — rather than a
+          flat 24px that jumped to 60px only once the viewport passed 1344px. */}
+      <section className="py-16 md:py-24" style={{ paddingInline: `max(24px, ${fx(60)})` }}>
+        <div className="cta-grid grid grid-cols-1 gap-12 lg:gap-20 items-start w-full">
+          {/* Sized from this column's own width (cqw) so the longest line,
+              "Ready to Automate" (~9.2em wide), always stays on one line —
+              viewport-based sizing let it wrap word-by-word on 1024-1439px
+              screens, where the column is narrower than the font assumes. */}
+          <div className="min-w-0" style={{ containerType: "inline-size" }}>
+            <Heading
+              as="h2"
+              size="displayXl"
+              style={{ fontSize: `min(${headingFontSize("displayXl")}, 10.2cqw)` }}
+            >
               Ready to Automate
               <br />
               Your Operations?
