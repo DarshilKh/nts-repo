@@ -68,7 +68,10 @@ export default function ProductCard({
         />
       </Link>
       <div className="pt-6 pb-6 flex flex-col flex-1">
-        <div className="px-[53px] flex flex-col flex-1">
+        {/* 53px is the measured inset at the 1440px frame; it scales down with
+            the viewport (3.68vw = 53px at 1440) so 3-up cards at 1024-1439px
+            aren't left with a sliver of text column. */}
+        <div className="flex flex-col flex-1" style={{ paddingInline: "clamp(20px, 3.68vw, 53px)" }}>
           <Heading as="h3" size="h3" className="whitespace-pre-line">
             <Link href={href} className="group-hover:underline underline-offset-4">
               {product.name}

@@ -5,6 +5,8 @@ import Heading from "@/components/ui/Heading";
 import Text from "@/components/ui/Text";
 import ProductCard from "@/components/sections/ProductCard";
 import { productGroupSectionId, type ProductCardData } from "@/lib/catalog";
+import { fx } from "@/lib/tokens";
+import type { CSSProperties } from "react";
 
 export type ProductGridGroup = {
   id: string;
@@ -47,6 +49,7 @@ export type ProductGridGroup = {
 export default function ProductGrid({ groups }: { groups: ProductGridGroup[] }) {
   const [query, setQuery] = useState("");
   const inputId = useId();
+  const insetVar = { "--inset": fx(51) } as CSSProperties;
 
   const q = query.trim().toLowerCase();
   const terms = useMemo(() => q.split(/\s+/).filter(Boolean), [q]);
@@ -65,15 +68,23 @@ export default function ProductGrid({ groups }: { groups: ProductGridGroup[] }) 
   return (
     <>
       <style>{`
-        @media (min-width: 1440px) {
-          .products-grid { display: grid; grid-template-columns: repeat(3, 435px); column-gap: 17px; }
-          .products-heading { padding-left: 51px; padding-right: 51px; }
-          .products-grid-wrap { padding-left: 51px; padding-right: 51px; }
+        /* One inset for the breadcrumb, search, section headings and card grid
+           so they all share a left edge: 24px on phones/tablets, then the
+           measured 51px scaled proportionally from lg up. (This used to be
+           split across a section-level px-6 plus a second 51px on inner
+           wrappers at >=1440px — 75px total — which pushed the fixed 3x435px
+           grid past the frame and left headings out of line with the
+           breadcrumb.) The 3 columns are equal fr tracks: at the 1440px frame
+           that is (1440 - 2*51 - 2*17) / 3 = 434.7px, i.e. the measured 435. */
+        .products-inset { padding-left: 24px; padding-right: 24px; }
+        @media (min-width: 1024px) {
+          .products-inset { padding-left: var(--inset); padding-right: var(--inset); }
+          .products-grid { gap: ${fx(17)}; }
         }
         .products-group-anchor { scroll-margin-top: 100px; }
       `}</style>
 
-      <section className="products-heading pt-10 pb-6 px-6">
+      <section className="products-inset pt-10 pb-6" style={insetVar}>
         <label htmlFor={inputId} className="relative block max-w-xl">
           <span className="sr-only">Search products</span>
           <svg
@@ -103,7 +114,7 @@ export default function ProductGrid({ groups }: { groups: ProductGridGroup[] }) 
       </section>
 
       {terms.length > 0 && total === 0 && (
-        <section className="products-heading px-6 pb-16">
+        <section className="products-inset pb-16" style={insetVar}>
           <Text size="body" tone="muted">
             No products match “{query}”. Try a model number, a chip name, or clear the search to
             browse the full range.
@@ -117,11 +128,12 @@ export default function ProductGrid({ groups }: { groups: ProductGridGroup[] }) 
             <section
               key={g.id}
               id={productGroupSectionId(g.id)}
-              className={`products-group-anchor px-6 ${i === 0 ? "pt-8" : "pt-4"} ${
+              className={`products-group-anchor products-inset ${i === 0 ? "pt-8" : "pt-4"} ${
                 i === visibleGroups.length - 1 ? "pb-16" : "pb-12"
               }`}
+              style={insetVar}
             >
-              <div className="products-heading">
+              <div>
                 <Heading as="h2" size="h3" className="inline">
                   {g.label}{" "}
                 </Heading>
@@ -129,12 +141,10 @@ export default function ProductGrid({ groups }: { groups: ProductGridGroup[] }) 
                   {g.blurb}
                 </Heading>
               </div>
-              <div className="products-grid-wrap">
-                <div className="products-grid mt-8 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-                  {g.products.map((p, j) => (
-                    <ProductCard key={p.slug} product={p} priority={i === 0 && j === 0} />
-                  ))}
-                </div>
+              <div className="products-grid mt-8 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+                {g.products.map((p, j) => (
+                  <ProductCard key={p.slug} product={p} priority={i === 0 && j === 0} />
+                ))}
               </div>
             </section>
           )

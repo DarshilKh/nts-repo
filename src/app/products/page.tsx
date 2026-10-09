@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import type { CSSProperties } from "react";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import Frame from "@/components/ui/Frame";
@@ -7,6 +8,7 @@ import ProductGrid from "@/components/sections/ProductGrid";
 import JsonLd from "@/components/JsonLd";
 import { products, productsByGroup, toCardData, productTitle } from "@/lib/catalog";
 import { absoluteUrl } from "@/lib/seo";
+import { fx } from "@/lib/tokens";
 
 export const metadata: Metadata = {
   title: "RFID Tags, Readers & Toll Automation Products",
@@ -24,9 +26,6 @@ export const metadata: Metadata = {
  * Products are grouped by `group` (Tags, Readers, Cameras, Radar, …) rather
  * than the coarse tags-vs-toll `category` split, matching the "Products"
  * nav dropdown so a visitor lands on the same section they clicked.
- *
- * Footer on this page measures differently from every other page —
- * variant="products".
  */
 const groups = productsByGroup().map((g) => ({ ...g, products: g.products.map(toCardData) }));
 
@@ -54,14 +53,14 @@ export default function ProductsPage() {
       <JsonLd data={catalogJsonLd()} />
       <main>
         <Frame>
-          <div className="px-6 min-[1440px]:px-[51px] pt-6">
+          <div className="products-inset pt-6" style={{ "--inset": fx(51) } as CSSProperties}>
             <Breadcrumbs items={[{ name: "Products", path: "/products" }]} />
           </div>
           <h1 className="sr-only">RFID Tags, Readers &amp; Toll Automation Products</h1>
           <ProductGrid groups={groups} />
         </Frame>
       </main>
-      <Footer variant="products" />
+      <Footer />
     </>
   );
 }
