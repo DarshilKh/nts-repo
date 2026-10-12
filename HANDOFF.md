@@ -409,3 +409,29 @@ clear was removed (it left a large empty gap under the footer). The Solution
 and Contact hero H1s are sized on the same proportional `fx()` curve as the
 red accent bar beside them, so the bar can no longer overlap the heading text
 at mid-size widths.
+
+## 14. Form submissions -> email (SMTP)
+
+Both forms (Contact page; the "Ready to Automate" CTA on Home/About/Solution)
+POST to `src/app/api/contact/route.ts`, which emails them to
+`sales@networktoll.com` via nodemailer. Client helper: `src/lib/submitEnquiry.ts`.
+
+**To turn it on you must set these environment variables** (see `.env.example`):
+`SMTP_HOST`, `SMTP_PORT`, `SMTP_SECURE`, `SMTP_USER`, `SMTP_PASS`, and
+optionally `MAIL_TO` (default `sales@networktoll.com`) and `MAIL_FROM`.
+- Local: copy `.env.example` to `.env.local` (git-ignored) and restart `npm run dev`.
+- Vercel: Project -> Settings -> Environment Variables (Production + Preview),
+  then **redeploy** — env vars only apply to new deployments.
+- Until they're set the API returns a friendly error and logs
+  `[contact] SMTP is not configured` server-side; nothing is lost silently.
+
+Behaviour: validates server-side (name required; email or phone required;
+email format; per-field length caps), flattens CR/LF in single-line fields,
+HTML-escapes the body, sets `Reply-To` to the visitor so "Reply" in the sales
+inbox answers them, drops honeypot hits silently, and throttles 5 requests / 10
+min / IP. The throttle is in-memory (per serverless instance) — add Cloudflare
+Turnstile / reCAPTCHA if spam appears.
+
+Tested end-to-end against a local SMTP server (delivery, Reply-To, honeypot,
+validation, rate limit, both forms in a real browser). Not tested against the
+real mail host — send one test submission after setting the variables.
