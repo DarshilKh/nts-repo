@@ -7,6 +7,7 @@ import Text from "@/components/ui/Text";
 import Frame from "@/components/ui/Frame";
 import { button, parallelogramClipPath, fx, headingFontSize } from "@/lib/tokens";
 import { useBotGuard } from "@/lib/useBotGuard";
+import { submitEnquiry } from "@/lib/submitEnquiry";
 
 const COMMENT_CHAR_LIMIT = 100;
 
@@ -27,6 +28,9 @@ export default function CTASection() {
   const { honeypotProps, isLikelyBot } = useBotGuard();
   const [blocked, setBlocked] = useState(false);
   const [comment, setComment] = useState("");
+  const [status, setStatus] = useState<
+    { kind: "idle" } | { kind: "sending" } | { kind: "success" } | { kind: "error"; message: string }
+  >({ kind: "idle" });
 
   return (
     <Frame>
@@ -70,13 +74,29 @@ export default function CTASection() {
 
           <form
             className="flex flex-col gap-10 pt-2"
-            onSubmit={(e) => {
+            onSubmit={async (e) => {
               e.preventDefault();
-              // See lib/useBotGuard.ts. No backend wired up yet — a real
-              // submit call belongs here, guarded by the same check.
-              if (isLikelyBot(e.currentTarget)) {
+              const form = e.currentTarget;
+              // See lib/useBotGuard.ts — client-side first filter; the API
+              // route re-checks the honeypot and validates every field.
+              if (isLikelyBot(form)) {
                 setBlocked(true);
                 return;
+              }
+              if (status.kind === "sending") return;
+              const f = new FormData(form);
+              const get = (k: string) => String(f.get(k) ?? "");
+              setStatus({ kind: "sending" });
+              const result = await submitEnquiry(
+                { name: get("name"), email: get("email"), phone: get("phone"), message: get("message") },
+                { source: "cta", honeypot: get(honeypotProps.name) }
+              );
+              if (result.ok) {
+                form.reset();
+                setComment("");
+                setStatus({ kind: "success" });
+              } else {
+                setStatus({ kind: "error", message: result.error });
               }
             }}
           >
@@ -86,12 +106,22 @@ export default function CTASection() {
                 This submission looked automated and was not sent.
               </p>
             )}
-            {["Name", "Mail", "Phone"].map((field) => (
-              <label key={field} className="flex flex-col">
-                <span className="sr-only">{field}</span>
+            {(
+              [
+                { label: "Name", name: "name", type: "text", autoComplete: "name" },
+                { label: "Mail", name: "email", type: "email", autoComplete: "email" },
+                { label: "Phone", name: "phone", type: "tel", autoComplete: "tel" },
+              ] as const
+            ).map((field) => (
+              <label key={field.name} className="flex flex-col">
+                <span className="sr-only">{field.label}</span>
                 <input
-                  type="text"
-                  placeholder={field}
+                  type={field.type}
+                  name={field.name}
+                  autoComplete={field.autoComplete}
+                  required={field.name === "name"}
+                  maxLength={field.name === "email" ? 200 : 100}
+                  placeholder={field.label}
                   style={{
                     width: "100%",
                     borderBottom: "1px solid var(--text-label)",
@@ -104,6 +134,7 @@ export default function CTASection() {
             <label className="flex flex-col">
               <span className="sr-only">Comment</span>
               <textarea
+                name="message"
                 placeholder="Comment"
                 rows={3}
                 maxLength={COMMENT_CHAR_LIMIT}
@@ -123,8 +154,10 @@ export default function CTASection() {
             </label>
             <button
               type="submit"
+              disabled={status.kind === "sending"}
               className="self-start mt-2"
               style={{
+                opacity: status.kind === "sending" ? 0.7 : 1,
                 width: 200,
                 height: 60,
                 clipPath: parallelogramClipPath(button.slantRatioSubmit, true),
@@ -135,8 +168,25 @@ export default function CTASection() {
                 paddingLeft: "1.2em",
               }}
             >
-              Submit
+              {status.kind === "sending" ? "Sending..." : "Submit"}
             </button>
+          {status.kind !== "idle" && (
+            <p
+              role={status.kind === "error" ? "alert" : "status"}
+              className="-mt-4"
+              style={{
+                fontSize: "var(--fs-body-xs)",
+                fontWeight: 600,
+                color: status.kind === "success" ? "#1a7f37" : "var(--brand-red)",
+              }}
+            >
+              {status.kind === "success"
+                ? "Thank you! Your message has been sent. We will get back to you shortly."
+                : status.kind === "error"
+                  ? status.message
+                  : null}
+            </p>
+          )}
           </form>
         </div>
       </section>

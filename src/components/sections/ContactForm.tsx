@@ -5,6 +5,7 @@ import Frame from "@/components/ui/Frame";
 import Text from "@/components/ui/Text";
 import { button, parallelogramClipPath, fx } from "@/lib/tokens";
 import { useBotGuard } from "@/lib/useBotGuard";
+import { submitEnquiry } from "@/lib/submitEnquiry";
 
 const MESSAGE_CHAR_LIMIT = 100;
 
@@ -39,6 +40,9 @@ export default function ContactForm() {
   const { honeypotProps, isLikelyBot } = useBotGuard();
   const [blocked, setBlocked] = useState(false);
   const [message, setMessage] = useState("");
+  const [status, setStatus] = useState<
+    { kind: "idle" } | { kind: "sending" } | { kind: "success" } | { kind: "error"; message: string }
+  >({ kind: "idle" });
 
   return (
     <Frame>
@@ -63,14 +67,37 @@ export default function ContactForm() {
       <section className="py-14 page-x contact-form-grid">
         <form
           className="contact-form"
-          onSubmit={(e) => {
+          onSubmit={async (e) => {
             e.preventDefault();
-            // See lib/useBotGuard.ts. This form has no backend yet — once one
-            // exists, its call belongs in the `else` branch below, guarded by
-            // this same check.
-            if (isLikelyBot(e.currentTarget)) {
+            const form = e.currentTarget;
+            // See lib/useBotGuard.ts — client-side first filter; the API
+            // route re-checks the honeypot and validates every field.
+            if (isLikelyBot(form)) {
               setBlocked(true);
               return;
+            }
+            if (status.kind === "sending") return;
+            const f = new FormData(form);
+            const get = (k: string) => String(f.get(k) ?? "");
+            setStatus({ kind: "sending" });
+            const result = await submitEnquiry(
+              {
+                name: get("name"),
+                phone: get("phone"),
+                city: get("city"),
+                email: get("email"),
+                company: get("company"),
+                service: get("service"),
+                message: get("message"),
+              },
+              { source: "contact", honeypot: get(honeypotProps.name) }
+            );
+            if (result.ok) {
+              form.reset();
+              setMessage("");
+              setStatus({ kind: "success" });
+            } else {
+              setStatus({ kind: "error", message: result.error });
             }
           }}
         >
@@ -83,29 +110,30 @@ export default function ContactForm() {
           <div className="flex flex-col gap-8 min-w-0">
             <label>
               <span className="sr-only">Name</span>
-              <input type="text" placeholder="Name" style={fieldStyle} />
+              <input type="text" name="name" placeholder="Name" required autoComplete="name" maxLength={100} style={fieldStyle} />
             </label>
             <label>
               <span className="sr-only">Phone Number</span>
-              <input type="tel" placeholder="Phone Number" style={fieldStyle} />
+              <input type="tel" name="phone" placeholder="Phone Number" autoComplete="tel" maxLength={30} style={fieldStyle} />
             </label>
             <label>
               <span className="sr-only">City / State</span>
-              <input type="text" placeholder="City / State" style={fieldStyle} />
+              <input type="text" name="city" placeholder="City / State" maxLength={100} style={fieldStyle} />
             </label>
           </div>
           <div className="flex flex-col gap-8 min-w-0">
             <label>
               <span className="sr-only">Email Address</span>
-              <input type="email" placeholder="Email Address" style={fieldStyle} />
+              <input type="email" name="email" placeholder="Email Address" autoComplete="email" maxLength={200} style={fieldStyle} />
             </label>
             <label>
               <span className="sr-only">Company Name</span>
-              <input type="text" placeholder="Company Name" style={fieldStyle} />
+              <input type="text" name="company" placeholder="Company Name" autoComplete="organization" maxLength={150} style={fieldStyle} />
             </label>
             <label>
               <span className="sr-only">Service Interested</span>
               <select
+                name="service"
                 defaultValue=""
                 style={{ ...fieldStyle, color: "var(--text-label)", appearance: "none" }}
               >
@@ -129,6 +157,7 @@ export default function ContactForm() {
             <label>
               <span className="sr-only">Message</span>
               <textarea
+                name="message"
                 placeholder="Message"
                 rows={5}
                 maxLength={MESSAGE_CHAR_LIMIT}
@@ -149,8 +178,10 @@ export default function ContactForm() {
             </Text>
             <button
               type="submit"
+              disabled={status.kind === "sending"}
               className="self-end mt-6"
               style={{
+                opacity: status.kind === "sending" ? 0.7 : 1,
                 width: "min(340px, 100%)",
                 height: 68,
                 clipPath: parallelogramClipPath(button.slantRatioSubmit, true),
@@ -161,8 +192,25 @@ export default function ContactForm() {
                 paddingLeft: "1.3em",
               }}
             >
-              Submit
+              {status.kind === "sending" ? "Sending..." : "Submit"}
             </button>
+          {status.kind !== "idle" && (
+            <p
+              role={status.kind === "error" ? "alert" : "status"}
+              className="mt-4"
+              style={{
+                fontSize: "var(--fs-body-xs)",
+                fontWeight: 600,
+                color: status.kind === "success" ? "#1a7f37" : "var(--brand-red)",
+              }}
+            >
+              {status.kind === "success"
+                ? "Thank you! Your message has been sent. We will get back to you shortly."
+                : status.kind === "error"
+                  ? status.message
+                  : null}
+            </p>
+          )}
           </div>
         </form>
       </section>
