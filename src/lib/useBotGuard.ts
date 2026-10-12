@@ -3,14 +3,14 @@
 import { useState } from "react";
 
 /**
- * Client-side deterrent for the site's two contact forms (neither posts to
- * a backend yet, so nothing to protect until one exists — this just has
- * the guard ready). Two checks: a honeypot field bots tend to fill but
- * humans never see, and a reject-if-submitted-too-fast timer.
+ * Client-side first filter for the site's two contact forms, which post to
+ * /api/contact (src/app/api/contact/route.ts). Two checks: a honeypot field
+ * bots tend to fill but humans never see, and a reject-if-submitted-too-fast
+ * timer. The API route repeats the honeypot check and validates every field.
  *
- * Not real protection — stops simple bots, not a targeted attacker. Still
- * needs server-side validation and a real CAPTCHA once this posts
- * somewhere. See HANDOFF.md.
+ * Not real protection — stops simple bots, not a targeted attacker. Add a
+ * CAPTCHA (e.g. Cloudflare Turnstile) if spam becomes a problem. See
+ * HANDOFF.md.
  */
 export function useBotGuard() {
   // useState's lazy initializer form runs exactly once, on mount — the
