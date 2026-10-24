@@ -1726,6 +1726,13 @@ export const products: Product[] = [
         ],
       },
     ],
+    brochures: [
+      {
+        label: "NT-Prime 3.0 user manual",
+        href: `${PDF}/nt-prime-user-manual.pdf`,
+        remote: "",
+      },
+    ],
     seo: {
       title: "NT-Prime Traffic Monitoring Radar",
       description:
