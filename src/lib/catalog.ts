@@ -3286,11 +3286,11 @@ export const products: Product[] = [
     heading: "Waste Management Tag",
     models: [
       {
-        name: "Waste Management Tag (Model: ETS-RT 14)",
+        name: "Waste Management Tag (Model: NTS-WT03)",
         image: {
           src: `${IMG}/waste-tag.jpg`,
           remote: "",
-          alt: "RFID waste bin tracking tag, model ETS-RT 14",
+          alt: "RFID waste bin tracking tag, model NTS-WT03",
           width: 500,
           height: 500,
         },
@@ -3304,7 +3304,7 @@ export const products: Product[] = [
         ],
         brochure: {
           label: "Waste Management Tag",
-          href: `${PDF}/waste-tag2.pdf`,
+          href: `${PDF}/waste-tag.pdf`,
           remote: "",
         },
       },
