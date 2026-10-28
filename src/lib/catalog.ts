@@ -3262,14 +3262,14 @@ export const products: Product[] = [
     // exact model number and dimensions with the client before launch.
     source: "https://networktoll.com/rfid-tags-supplier/",
   },
-  {
+{
     // Sourced from Eco Track Systems (ETS), a separate Delhi RFID
     // manufacturer, not networktoll.com. NTS's own RFID Tag product already
     // includes a waste-bin tag as one model (NTS-RT 62); this is a dedicated
     // product for the same application, kept separate at the client's
     // request rather than merged into that entry. ETS's own site
     // (etsrfid.com) has since been taken over by an unrelated third party;
-    // photo supplied directly by the client.
+    // photos and reference PDF supplied directly by the client.
     slug: "waste-tag",
     name: "Waste Tag",
     category: "tags",
@@ -3277,10 +3277,10 @@ export const products: Product[] = [
     desc: "IP67 outdoor tag for household and municipal waste bin tracking, scanned by collection vehicles or handheld readers.",
     bullets: ["IP67, outdoor rated", "Vehicle or handheld scanning", "Made in India"],
     image: {
-      src: `${IMG}/waste-tag.jpg`,
+      src: `${IMG}/waste-tag2.jpg`,
       remote: "",
       alt: "RFID waste bin tracking tag",
-      width: 500,
+      width: 785,
       height: 500,
     },
     heading: "Waste Management Tag",
@@ -3302,6 +3302,11 @@ export const products: Product[] = [
           { label: "Protection", value: "IP67, outdoor rated" },
           { label: "Read by", value: "Vehicle-mounted reader or handheld mobile device" },
         ],
+        brochure: {
+          label: "Waste Management Tag (ETS-RT 14)",
+          href: `${PDF}/waste-tag2.pdf`,
+          remote: "",
+        },
       },
     ],
     seo: {
