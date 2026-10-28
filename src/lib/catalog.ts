@@ -3303,7 +3303,7 @@ export const products: Product[] = [
           { label: "Read by", value: "Vehicle-mounted reader or handheld mobile device" },
         ],
         brochure: {
-          label: "Waste Management Tag (ETS-RT 14)",
+          label: "Waste Management Tag",
           href: `${PDF}/waste-tag2.pdf`,
           remote: "",
         },
