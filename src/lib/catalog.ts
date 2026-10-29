@@ -124,87 +124,196 @@ const WP = "https://networktoll.com/wp-content/uploads";
 export const products: Product[] = [
   // ---------------------------------------------------------------- toll
   {
-    slug: "rfid-integrated-reader",
-    name: "RFID Integrated\nReader",
+    slug: "nts-ir-05",
+    name: "UHF Reader\nNTS-IR-05",
     category: "toll",
     group: "reader",
-    desc: "Reader and antenna combined in one weatherproof unit for logistics, warehousing, access control and asset tracking.",
-    bullets: ["Impinj E510/E710 chipset", "Up to 6m read range", "IP66 die-cast housing"],
-    // Real product photo supplied directly by the client — a panel-style
-    // reader/antenna unit on a pole mount, replacing the NTS-IR-01 photo
-    // that was standing in here (see the note this replaces, still true of
-    // the NTS-IR-01 model entry below: that model still has no photo of its
-    // own product image, having reused this position as a placeholder).
+    desc: "Impinj E510 (E710 optional) UHF reader with built-in 9dBi circular antenna for toll ETC, e-parking, access control and more.",
+    bullets: ["15 m read range", "Impinj E510 / E710 chipset", "IP66 aluminium housing"],
     image: {
-      src: `${IMG}/rfid-integrated-reader-panel.jpg`,
+      src: `${IMG}/nts-ir-05-reader.png`,
       remote: "",
-      alt: "RFID integrated reader — panel antenna unit on pole mount",
-      width: 600,
-      height: 600,
+      alt: "NTS-IR-05 UHF integrated reader",
+      width: 369,
+      height: 379,
     },
-    heading: "Network Toll Solution: Offering the Best-in-Class RFID Integrated Reader",
+    heading: "UHF Reader for Toll ETC – Impinj E710 Module, Model NTS-IR-05",
+    tagline: "15 m read range · IP66 · Impinj E510 / E710",
     intro: [
-      "Network Toll Solution offers a range of high-performance RFID integrated readers designed to meet the diverse needs of various applications, including logistics, warehouse management, access control and asset tracking. These readers combine an RFID reader and antenna into a single unit, offering a compact and easy-to-deploy solution.",
-      "Introducing the Network Toll Solutions' RFID Integrated Reader Series. Our RFID-integrated readers have advanced features to ensure reliable and efficient data capture.",
+      "The NTS-IR-05 is a high-performance UHF integrated reader built on the Impinj IndyE510 chipset (E710 optional), with a read range of up to 15 metres depending on tag and environment.",
+      "Its aluminium-cast, waterproof housing suits all-weather industrial use, and it is widely deployed in e-parking, garbage and feeding vehicles, access control and toll ETC.",
     ],
-    models: [
+    sections: [
       {
-        name: "UHF Integrated Reader, Model-NTS-IR-05",
-        body: [
-          "Impinj IndyE510/E710 (Optional) chipset offer high performance Aluminum casting / waterproof housing apply to all weather industrial scenarios Various communication / software Interfaces helps faster application system Different developing languages SDK meet different developer needs Excellent communication protocol architecture support faster data processing algorithm",
-          "Integrated design supports better deploy /installation / engineering / wiring",
-          "Special application projects customized interfaces / data transferring prolongable",
+        title: "Key Features",
+        list: [
+          "Reading range: 15 m (depending on tag and environment)",
+          "Impinj IndyE510/E710 (optional) chipset offers high performance",
+          "Aluminium casting / waterproof housing for all-weather industrial scenarios",
+          "Various communication / software interfaces for faster application development",
+          "SDKs in multiple languages to meet different developer needs",
+          "Excellent communication protocol architecture supports faster data processing",
+          "Integrated design for easier deployment, installation, engineering and wiring",
+          "Customised interfaces / data transfer for special application projects",
           "Seamlessly compatible with RFID middleware for rapid implementation of large projects",
-          "Widely used in E-parking, garbage truck, feeding vehicle, access control and so on",
+          "Widely used in e-parking, garbage trucks, feeding vehicles, access control and more",
         ],
-        // Same swap as the product-level image above: the real NTS-IR-05
-        // photo (fetched as `remote`) got replaced on disk by this site's own
-        // logo placeholder due to a bug in fetch-assets.mjs (now fixed — see
-        // that file). No `image` field at all until a real photo exists —
-        // the model card renders text-only rather than a broken picture.
-        brochure: {
-          label: "NTS-IR-05 brochure",
-          href: `${PDF}/nts-ir-05.pdf`,
-          remote: `${WP}/2025/05/NTS-IR-05-2.pdf`,
-        },
-      },
-      {
-        name: "UHF Integrated Reader, Model-NTS-IR-01",
-        body: [
-          "NTS-IR 01 is a sleek and compact next generation RFID reader powered with 9 dbi linear polarized integrated antenna to facilitate fast and accurate tag identification process. It works on global UHF frequency (865-868MHz, 902-928 MHz) standards and has a read range of up to 6 meters. It is a cost-effective high-performance reader and is most widely used in applications like vehicle tracking in parking lots, access control for flap/ boom barriers, event management, projects related to R&D etc. where required read range is medium in nature. The product is IP 66 rated and has an inbuilt LED and buzzer for tag identification. It comes with mounting accessories, adapter and SDK for configuration and integration with third party software.",
-        ],
-        // Photo removed per client request — no image field, so the model
-        // card renders text-only (same pattern as NTS-IR-05 above).
-        brochure: {
-          label: "NTS-IR-01 brochure",
-          href: `${PDF}/nts-ir-01.pdf`,
-          remote: `${WP}/2025/08/UHF-Reader-NTS-IR-01.pdf`,
-        },
       },
     ],
-    outro: [
-      "RFID Integrated Readers by Network Toll Solutions offer a powerful and versatile solution for various applications. Reach out to us today to discuss your specific needs and choose the reader that best suits your requirements.",
+    specTables: [
+      {
+        title: "Technical Specification",
+        rows: [
+          ["Hardware, OS and Firmware Management"],
+          ["Firmware Upgrade", "Demo software / Telnet"],
+          ["API Support", "Windows – .NET, C++ and Java SDK; Android – Java; Linux – C and Java SDK"],
+          ["Physical Characteristics"],
+          ["Weight", "Main body 1.4 kg"],
+          ["Dimensions", "276 mm × 276 mm × 40 mm"],
+          ["Housing Material", "Aluminium plate / ABS cover"],
+          ["RFID Characteristics"],
+          ["Air Protocols", "ISO/IEC 18000-6B, 6C / EPC C1 Gen2"],
+          [
+            "Frequency",
+            "USA: 902–928 MHz (FCC part 15); EU: 865–868 MHz (ETSI EN 302208); CN: 920–925 MHz (CMIIT)",
+          ],
+          ["Chipset", "Impinj E510 (E710 optional)"],
+          [
+            "Programming Functions",
+            "Automatic reading / white list; breakpoint resume / match reading / data filter; customizable data format (PLC / Modbus compatible); RF Micron / EM temperature sensor custom services",
+          ],
+          ["Supportable / Optional", "Russia / Japan / Korea / Malaysia / Thailand / other customizable"],
+          ["Built-in Antenna", "Circular 9 dBi, VSWR ≤ 1.2:1"],
+          ["Output Power", "0–30 dBm (±1 dBm) adjustable"],
+          ["Channel Bandwidth", ">200 KHz"],
+          ["Reading Distance", "0–15 m (according to tag & environment)"],
+          ["Anti-collision", "RSSI / multi-tag / intensive inventory supported"],
+          ["Work Mode", "Fixed / hop frequency optional"],
+          ["Connectivity"],
+          ["Communications", "RJ45, RS-232, RS-485, Wiegand"],
+          [
+            "General Purpose I/O",
+            "1 optocoupler input, 1 pair 5V output or Wiegand output (Wiegand output is shared with 5V output)",
+          ],
+          ["Power Supply", "DC 24V / 2.5A (DC 9V ~ 30V, 30W)"],
+          ["Environmental"],
+          ["Operating Temperature", "-30 to +70°C"],
+          ["Storage Temperature", "-40 to +85°C"],
+          ["Humidity", "5–90% non-condensing (+25°C)"],
+          ["Sealing", "IP66"],
+        ],
+      },
     ],
-    faqs: [
+    brochures: [
       {
-        q: "What is an RFID Integrated Reader and how does it function in toll plazas?",
-        a: "An RFID Integrated Reader is a compact device that combines both the reader and antenna to automatically identify vehicles via FASTag RFID tags. As a vehicle approaches, the reader captures the tag data for seamless toll deduction without requiring a stop.",
-      },
-      {
-        q: "What are the key advantages of using RFID Integrated Readers in tolling systems?",
-        a: "Network Toll's RFID Integrated Readers offer high-speed tag detection, robust performance in outdoor environments, and compatibility with national ETC standards. They reduce manual intervention, ensure faster vehicle throughput, and enhance toll plaza efficiency.",
-      },
-      {
-        q: "Can RFID Integrated Readers be easily installed and integrated with existing systems?",
-        a: "Yes, these readers are designed for plug-and-play integration with existing Toll Management Systems (TMS). Their compact design and standard communication protocols make them easy to deploy across new and existing toll lane infrastructure.",
+        label: "NTS-IR-05 brochure",
+        href: `${PDF}/nts-ir-05-real.pdf`,
+        remote: "",
       },
     ],
     seo: {
-      title: "RFID Integrated Reader Price Delhi, India - Network Toll Solutions",
+      title: "NTS-IR-05 UHF Reader for Toll ETC - Network Toll Solutions",
       description:
-        "Network Toll Solutions offers premium quality RFID Integrated Readers in Delhi at reasonable price. For Any inquiry call us or mail now.",
+        "NTS-IR-05 UHF integrated reader with Impinj E510/E710 chipset, 15 m read range, 9dBi circular antenna and IP66 aluminium housing.",
     },
-    source: "https://networktoll.com/rfid-integrated-reader/",
+  },
+  {
+    slug: "nts-ir-01",
+    name: "UHF Reader\nNTS-IR-01",
+    category: "toll",
+    group: "reader",
+    desc: "Sleek, compact UHF integrated reader with 9dBi antenna, LED and buzzer for parking, boom-barrier access control and event management.",
+    bullets: ["12 m read range", "865–928 MHz UHF", "IP66 outdoor use"],
+    image: {
+      src: `${IMG}/nts-ir-01-front-new-logo.png`,
+      remote: "",
+      alt: "NTS-IR-01 UHF integrated reader, front view",
+      width: 720,
+      height: 709,
+    },
+    heading: "RFID UHF Mid-Range Integrated Reader, Model NTS-IR-01",
+    tagline: "12 m read range · IP66 · LAN, RS232, RS485",
+    intro: [
+      "NTS-IR-01 is a sleek and compact next-generation RFID reader with a 9 dBi integrated antenna for fast and accurate tag identification. It works on global UHF frequency standards (865–868 MHz, 902–928 MHz) with a read range of up to 12 metres.",
+      "A cost-effective, high-performance reader, it is widely used for vehicle tracking in parking lots, access control for flap / boom barriers, event management and R&D projects. It is IP66 rated, has an inbuilt LED and buzzer for tag identification, and ships with mounting accessories, an adapter and an SDK for integration with third-party software.",
+    ],
+    sections: [
+      {
+        title: "Highlights",
+        list: [
+          "Reading range: 12 m (tag and environment dependent)",
+          "UHF 865–928 MHz",
+          "9 dBi antenna",
+          "LAN, RS232, RS485",
+          "LED & buzzer, inbuilt relay",
+          "Compact design, IP66 outdoor use",
+          "SDK, demo software, password mode",
+        ],
+      },
+      {
+        title: "Application Areas",
+        list: [
+          "Parking",
+          "Vehicle access control",
+          "Attendance tracking",
+          "R & D projects",
+          "Production line management",
+          "Warehouse management",
+        ],
+      },
+    ],
+    specTables: [
+      {
+        title: "Specification",
+        rows: [
+          ["Physical Characteristics"],
+          ["Dimensions", "180 mm × 180 mm × 47 mm"],
+          ["Weight", "Approx. 900 g without adapter and mounting clamp"],
+          ["Power Supply", "100–240V, DC +12V (adapter)"],
+          ["Power Consumption", "<1 W"],
+          ["Power Type", "Adapter power"],
+          ["Outer Body", "ABS plastic"],
+          ["Reading Notification", "Integrated LED (red and green) and buzzer"],
+          ["UHF"],
+          ["Protocol", "ISO 18000-6B, EPC Class 1 Gen2 (ISO 18000-6C)"],
+          ["Operating Frequency", "865–868 MHz (India and EU); 902–928 MHz (US)"],
+          ["Frequency Hopping", "FHSS"],
+          ["Antenna Gain", "Integrated 9 dBi linear / circular antenna"],
+          ["RF Power", "0–30 dBm (software adjustable)"],
+          ["Receiving Sensitivity", "-85 dBm"],
+          ["Operating Mode", "Active mode, answer mode, triggered mode"],
+          ["Read Range", "Up to 12 m (tag and environment dependent)"],
+          ["Read Rate", "100 tags / millisecond"],
+          ["Communication"],
+          ["Interface", "RJ45 (TCP/IP), RS232 (serial port), RS485, Wiegand 26/34"],
+          ["Relay", "Inbuilt"],
+          ["Environmental Specification"],
+          ["Operating Temperature", "-10°C to +55°C"],
+          ["Storage Temperature", "-20°C to +75°C"],
+          ["Humidity", "5% RH to 95% RH non-condensing"],
+          ["IP Protection Class", "IP66"],
+          ["Usage Type", "Outdoor use"],
+          ["Developing Platform"],
+          ["Demo Software", "Free demo software for configuration, read & write functions"],
+          ["SDK", "C#, VC, VB, Java, Linux, Delphi"],
+          ["Expansion", "Supports up to 128 GB Micro SD card"],
+          ["Accessories"],
+          ["Inclusion", "Power adapter, mounting clamp"],
+        ],
+      },
+    ],
+    brochures: [
+      {
+        label: "NTS-IR-01 brochure",
+        href: `${PDF}/nts-ir-01-real.pdf`,
+        remote: "",
+      },
+    ],
+    seo: {
+      title: "NTS-IR-01 UHF Integrated Reader - Network Toll Solutions",
+      description:
+        "NTS-IR-01 compact UHF integrated reader with 9dBi antenna, 12 m read range, LED & buzzer and IP66 rating for parking and access control.",
+    },
   },
   {
     slug: "rfid-desktop-reader",
@@ -1401,6 +1510,89 @@ export const products: Product[] = [
         "UHF Mobile Device UHF Mobile Device Android Device Chainway C72 is an Android rugged mobile computer. It features powerful processor, 8000mAh battery and superb UHF RFID capability. It can be equipped with R2000 linearly or circularly polarized antenna. That it can read tags in bulk from long distance enables it to be deployed in asset",
     },
     source: "https://networktoll.com/uhf-mobile-device/",
+  },
+  {
+    slug: "rfid-integrated-reader",
+    name: "RFID Integrated\nReader",
+    category: "toll",
+    group: "reader",
+    desc: "Reader and antenna combined in one weatherproof unit for logistics, warehousing, access control and asset tracking.",
+    bullets: ["Impinj E510/E710 chipset", "Up to 6m read range", "IP66 die-cast housing"],
+    // Real product photo supplied directly by the client — a panel-style
+    // reader/antenna unit on a pole mount, replacing the NTS-IR-01 photo
+    // that was standing in here (see the note this replaces, still true of
+    // the NTS-IR-01 model entry below: that model still has no photo of its
+    // own product image, having reused this position as a placeholder).
+    image: {
+      src: `${IMG}/rfid-integrated-reader-panel.jpg`,
+      remote: "",
+      alt: "RFID integrated reader — panel antenna unit on pole mount",
+      width: 600,
+      height: 600,
+    },
+    heading: "Network Toll Solution: Offering the Best-in-Class RFID Integrated Reader",
+    intro: [
+      "Network Toll Solution offers a range of high-performance RFID integrated readers designed to meet the diverse needs of various applications, including logistics, warehouse management, access control and asset tracking. These readers combine an RFID reader and antenna into a single unit, offering a compact and easy-to-deploy solution.",
+      "Introducing the Network Toll Solutions' RFID Integrated Reader Series. Our RFID-integrated readers have advanced features to ensure reliable and efficient data capture.",
+    ],
+    models: [
+      {
+        name: "UHF Integrated Reader, Model-NTS-IR-05",
+        body: [
+          "Impinj IndyE510/E710 (Optional) chipset offer high performance Aluminum casting / waterproof housing apply to all weather industrial scenarios Various communication / software Interfaces helps faster application system Different developing languages SDK meet different developer needs Excellent communication protocol architecture support faster data processing algorithm",
+          "Integrated design supports better deploy /installation / engineering / wiring",
+          "Special application projects customized interfaces / data transferring prolongable",
+          "Seamlessly compatible with RFID middleware for rapid implementation of large projects",
+          "Widely used in E-parking, garbage truck, feeding vehicle, access control and so on",
+        ],
+        // Same swap as the product-level image above: the real NTS-IR-05
+        // photo (fetched as `remote`) got replaced on disk by this site's own
+        // logo placeholder due to a bug in fetch-assets.mjs (now fixed — see
+        // that file). No `image` field at all until a real photo exists —
+        // the model card renders text-only rather than a broken picture.
+        brochure: {
+          label: "NTS-IR-05 brochure",
+          href: `${PDF}/nts-ir-05.pdf`,
+          remote: `${WP}/2025/05/NTS-IR-05-2.pdf`,
+        },
+      },
+      {
+        name: "UHF Integrated Reader, Model-NTS-IR-01",
+        body: [
+          "NTS-IR 01 is a sleek and compact next generation RFID reader powered with 9 dbi linear polarized integrated antenna to facilitate fast and accurate tag identification process. It works on global UHF frequency (865-868MHz, 902-928 MHz) standards and has a read range of up to 6 meters. It is a cost-effective high-performance reader and is most widely used in applications like vehicle tracking in parking lots, access control for flap/ boom barriers, event management, projects related to R&D etc. where required read range is medium in nature. The product is IP 66 rated and has an inbuilt LED and buzzer for tag identification. It comes with mounting accessories, adapter and SDK for configuration and integration with third party software.",
+        ],
+        // Photo removed per client request — no image field, so the model
+        // card renders text-only (same pattern as NTS-IR-05 above).
+        brochure: {
+          label: "NTS-IR-01 brochure",
+          href: `${PDF}/nts-ir-01.pdf`,
+          remote: `${WP}/2025/08/UHF-Reader-NTS-IR-01.pdf`,
+        },
+      },
+    ],
+    outro: [
+      "RFID Integrated Readers by Network Toll Solutions offer a powerful and versatile solution for various applications. Reach out to us today to discuss your specific needs and choose the reader that best suits your requirements.",
+    ],
+    faqs: [
+      {
+        q: "What is an RFID Integrated Reader and how does it function in toll plazas?",
+        a: "An RFID Integrated Reader is a compact device that combines both the reader and antenna to automatically identify vehicles via FASTag RFID tags. As a vehicle approaches, the reader captures the tag data for seamless toll deduction without requiring a stop.",
+      },
+      {
+        q: "What are the key advantages of using RFID Integrated Readers in tolling systems?",
+        a: "Network Toll's RFID Integrated Readers offer high-speed tag detection, robust performance in outdoor environments, and compatibility with national ETC standards. They reduce manual intervention, ensure faster vehicle throughput, and enhance toll plaza efficiency.",
+      },
+      {
+        q: "Can RFID Integrated Readers be easily installed and integrated with existing systems?",
+        a: "Yes, these readers are designed for plug-and-play integration with existing Toll Management Systems (TMS). Their compact design and standard communication protocols make them easy to deploy across new and existing toll lane infrastructure.",
+      },
+    ],
+    seo: {
+      title: "RFID Integrated Reader Price Delhi, India - Network Toll Solutions",
+      description:
+        "Network Toll Solutions offers premium quality RFID Integrated Readers in Delhi at reasonable price. For Any inquiry call us or mail now.",
+    },
+    source: "https://networktoll.com/rfid-integrated-reader/",
   },
   {
     slug: "nt-pulse",
