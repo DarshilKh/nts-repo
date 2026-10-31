@@ -99,7 +99,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className={manrope.variable}>
+    <html lang="en" className={manrope.variable} data-scroll-behavior="smooth">
       <body className="antialiased">
         {/* GA4 on every page (this is the root layout). Production builds
             only, so `npm run dev` on localhost doesn't send hits to the live
