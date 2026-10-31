@@ -315,7 +315,95 @@ export const products: Product[] = [
         "NTS-IR-01 compact UHF integrated reader with 9dBi antenna, 12 m read range, LED & buzzer and IP66 rating for parking and access control.",
     },
   },
+
   {
+    slug: "nts-ir-02",
+    name: "UHF Reader\nNTS-IR-02",
+    category: "toll",
+    group: "reader",
+    desc: "All-weather long-range UHF integrated reader with 12dBi antenna for gate automation, parking, personnel and asset tracking.",
+    bullets: ["Up to 15 m read range", "12 dBi integrated antenna", "IP65, RS232 / RS485 / Wiegand / TCP-IP"],
+    // Photo taken from the supplied datasheet PDF.
+    image: {
+      src: `${IMG}/nts-ir-02-ntslogo.jpg`,
+      remote: "",
+      alt: "NTS-IR-02 UHF integrated reader",
+      width: 1052,
+      height: 1056,
+    },
+    heading: "RFID UHF Long-Range Integrated Reader, Model NTS-IR-02",
+    tagline: "15 m read range · IP65 · RS232, RS485, Wiegand, TCP/IP",
+    intro: [
+      "NTS-IR 02 is one of the most powerful all-weather, ruggedized integrated RFID readers, designed with an advanced digital signal processing algorithm to support high and accurate read-write operation. It works on global UHF frequency standards (865-868 MHz, 902-928 MHz) and has a read range of up to 15 m (adjustable), making it an ideal and widely used long-range UHF reader for gate automation, parking management, personnel tracking and material asset identification.",
+      "It comes with a 12 dBi integrated antenna that gives an excellent tag identification rate even in harsh environments. The reader supports RS232, RS485, Wiegand and TCP/IP (RJ45) interfaces, is IP65 rated and has a built-in LED and buzzer. It comes with mounting accessories, adapter and SDK for configuration and integration with third-party software.",
+    ],
+    models: [
+      {
+        name: "Model NTS-IR 02",
+        specs: [{ label: "Interface", value: "RS232, RS485 and Wiegand" }],
+      },
+      {
+        name: "Model NTS-IR 02T",
+        specs: [{ label: "Interface", value: "RS232, RS485, TCP/IP (LAN)" }],
+      },
+    ],
+    sections: [
+      {
+        title: "Application Areas",
+        list: [
+          "Vehicle tracking and gate automation with boom barrier",
+          "Asset and inventory tracking in warehouse and manufacturing",
+          "Automated attendance management in school / university and corporate office",
+          "Livestock movement tracking",
+          "Marathon and race time tracking",
+          "Logistics",
+        ],
+      },
+    ],
+    specTables: [
+      {
+        title: "Specification",
+        rows: [
+          ["Model Number", "NTS-IR 02"],
+          ["Protocol", "ISO 18000-6B, EPC Class 1 Gen2 (ISO 18000-6C)"],
+          ["Frequency", "Global 865 – 868 MHz and 902 – 928 MHz"],
+          ["Protection Grade", "IP 65"],
+          ["Frequency Hopping", "FHSS software programmable or fixed frequency"],
+          ["RF Power Output", "0-30 dBm, software adjustable"],
+          ["Antenna", "12 dBi built-in antenna"],
+          ["Communication Port", "RS232, RS485, Wiegand, TCP/IP (LAN)"],
+          ["Operating Mode", "Auto-running, interactive and trigger-activating work mode"],
+          ["Read Range", "Up to 15 metres"],
+          ["Write Range", "0-6 metres"],
+          ["Reading Clue", "LED, buzzer / beep"],
+          ["Reading Speed", "Software programmable, average reading per 64 bits <10 ms"],
+          ["Input Power Supply", "100-240V, DC +9V (power adapter)"],
+          ["Power Consumption", "1 watt"],
+          ["Mounting", "Wall / pole mounting"],
+          ["Dimension", "44 cm x 44 cm x 5 cm"],
+          ["Weight", "2.4 kg"],
+          ["Operating Temperature", "-20°C to +60°C"],
+          ["Storage Temperature", "-20°C to +75°C"],
+          ["Humidity", "10 - 95%"],
+          ["Compliance", "SDK for configuration and development"],
+          ["Additional", "Comes with adapter, mounting clamp, reader cover, user manual"],
+          ["Warranty", "1 year. Can be extended."],
+        ],
+      },
+    ],
+    brochures: [
+      {
+        label: "NTS-IR-02 data sheet",
+        href: `${PDF}/nts-ir-02.pdf`,
+        remote: "",
+      },
+    ],
+    seo: {
+      title: "NTS-IR-02 UHF Long Range Integrated Reader - Network Toll Solutions",
+      description:
+        "NTS-IR-02 all-weather UHF integrated reader with 12dBi antenna, 15 m read range and IP65 rating for gate automation, parking and asset tracking.",
+    },
+  },  {
     slug: "rfid-desktop-reader",
     name: "RFID Desktop\nReader",
     category: "toll",
@@ -450,6 +538,13 @@ export const products: Product[] = [
       {
         q: "How does the RFID Desktop Reader enhance toll management efficiency?",
         a: "By enabling quick tag verification and backend processing, the RFID Desktop Reader supports smooth FASTag issuance, troubleshooting, and validation. It reduces lane-side delays by handling pre-verification and administrative tasks more effectively.",
+      },
+    ],
+    brochures: [
+      {
+        label: "UHF desktop reader NTS-RD 01 data sheet",
+        href: `${PDF}/uhf-desktop-reader-nts-rd-01.pdf`,
+        remote: "",
       },
     ],
     seo: {
@@ -814,7 +909,7 @@ export const products: Product[] = [
       {
         label: "Boom barrier data sheet",
         href: `${PDF}/boom-barrier.pdf`,
-        remote: `${WP}/2025/06/boom-barrier.pdf`,
+        remote: "",
       },
     ],
     faqs: [
@@ -909,7 +1004,7 @@ export const products: Product[] = [
       {
         label: "User fare display data sheet",
         href: `${PDF}/user-fare-display.pdf`,
-        remote: `${WP}/2025/06/user-fare-display.pdf`,
+        remote: "",
       },
     ],
     seo: {
@@ -982,7 +1077,7 @@ export const products: Product[] = [
       {
         label: "Toll lane controller data sheet",
         href: `${PDF}/toll-lane-controller.pdf`,
-        remote: `${WP}/2025/06/Toll-lane-controller.pdf`,
+        remote: "",
       },
     ],
     seo: {
@@ -1048,7 +1143,12 @@ export const products: Product[] = [
       {
         label: "Traffic light data sheet",
         href: `${PDF}/traffic-light.pdf`,
-        remote: `${WP}/2025/06/Traffic-Light.pdf`,
+        remote: "",
+      },
+      {
+        label: "Traffic light NTS-TL 04 data sheet",
+        href: `${PDF}/traffic-light-nts-tl-04.pdf`,
+        remote: "",
       },
     ],
     seo: {
@@ -1116,7 +1216,7 @@ export const products: Product[] = [
       {
         label: "Overhead lane signal data sheet",
         href: `${PDF}/ohls.pdf`,
-        remote: `${WP}/2025/06/Overhead-Lane-signal-ohls.pdf`,
+        remote: "",
       },
     ],
     seo: {
@@ -1169,7 +1269,27 @@ export const products: Product[] = [
       {
         label: "2D profiler based AVC data sheet",
         href: `${PDF}/automatic-vehicle-classifier.pdf`,
-        remote: `${WP}/2025/06/2D-Profiler-Based-Automatic-Vehicle.pdf`,
+        remote: "",
+      },
+      {
+        label: "IR sensor based AVC data sheet",
+        href: `${PDF}/avc-ir-sensor-based.pdf`,
+        remote: "",
+      },
+      {
+        label: "IR AVC communication protocol",
+        href: `${PDF}/avc-ir-protocol.pdf`,
+        remote: "",
+      },
+      {
+        label: "AVC axle sensor connection diagram",
+        href: `${PDF}/avc-axle-sensor-connection-diagram.pdf`,
+        remote: "",
+      },
+      {
+        label: "AVC height sensor connection drawing",
+        href: `${PDF}/avc-height-sensor-connection-drawing.pdf`,
+        remote: "",
       },
     ],
     faqs: [
@@ -1342,7 +1462,7 @@ export const products: Product[] = [
       {
         label: "MS weigh-in-motion data sheet",
         href: `${PDF}/ms-weigh-in-motion.pdf`,
-        remote: `${WP}/2025/06/MSWeigh-in-Motion.pdf`,
+        remote: "",
       },
     ],
     faqs: [
@@ -1366,7 +1486,86 @@ export const products: Product[] = [
     },
     source: "https://networktoll.com/ms-weigh-in-motion/",
   },
+
   {
+    slug: "thermal-printer",
+    name: "Thermal Printer\nNTS-USB",
+    category: "toll",
+    group: "toll-plaza-equipment",
+    desc: "80 mm desktop thermal receipt printer with auto-cutter and USB/Bluetooth for toll, retail and queue-management receipting.",
+    bullets: ["Up to 200 mm/sec print speed", "80 mm paper, auto-cutter", "USB / Bluetooth, Windows & Android"],
+    // Photo taken from the supplied datasheet PDF.
+    image: {
+      src: `${IMG}/thermal-printer-nts-usb.jpg`,
+      remote: "",
+      alt: "THARMAL NTS-USB desktop thermal printer",
+      width: 644,
+      height: 504,
+    },
+    heading: "THARMAL NTS-USB Desktop Thermal Printer with Auto Cutter",
+    tagline: "3 inch / 80 mm · 200 mm/sec · Made in India",
+    intro: [
+      "THARMAL NTS-USB desktop thermal receipt printers are compact, durable and easy to set up, use and maintain. This high-speed, high-resolution printer, with cash drawer interface, is designed to keep up with demanding business needs, and suits applications that need continuous printing at retail outlets, restaurants, shopping malls, supermarkets, hospitals, petrol pumps, toll and queue management.",
+      "The POS receipt printer with auto-cutter is reliable and optimised for high-speed throughput, high-impact print and maximum efficiency. Robust, high-durability, high-speed printing enables swift billing and shorter queues.",
+    ],
+    sections: [
+      {
+        title: "Features",
+        list: [
+          "Suitable for retail, ticketing, shopping malls, supermarkets, hotels and restaurants",
+          "Built-in auto-cutter for easy tear",
+          "Printer head life of 100 km",
+          "No-hassle drop-in media loading with large paper capacity",
+          "Light weight, high print speed, low noise and low operating cost",
+          "High-quality image, barcode and QR code printing",
+          "Fast print speed: up to 200 mm/sec",
+          "Thermal technology — no ink or toner needed",
+          "BIS certified, made in India",
+        ],
+      },
+    ],
+    specTables: [
+      {
+        title: "Product Specification",
+        rows: [
+          ["Model Number", "THARMAL NTS-USB"],
+          ["Printing Method", "Thermal line printing"],
+          ["Print Fonts", "Calibri, Tahoma, Verdana, Normal, Multilingual text"],
+          ["Characters per Line", "48 CPL"],
+          ["Interface", "USB / Bluetooth"],
+          ["Data Buffer", "4,000 bytes"],
+          ["Printing Speed (max.)", "Up to 200 mm/sec"],
+          ["Resolution", "8 dots/mm, 576 dots/line, 203 DPI"],
+          ["Power", "24V power adapter, 2 A"],
+          ["Printer Mechanism Life", "150 km"],
+          ["Prints", "Text, 1D barcode (UPC-A, UPC-E, EAN-8, EAN-13, CODE 39, ITF, CODABAR, CODE128), 2D barcode (QR code, PDF417), raster image"],
+          ["Dimensions (L x B x H)", "193 mm x 142 mm x 143.3 mm"],
+          ["Operating / Storage Temperature", "0-50°C / 20-60°C"],
+          ["Operating Systems", "Android & Windows"],
+          ["Software", "Windows and Linux (Win 7 / 8 / 10 / 11)"],
+          ["Paper Width", "80 mm"],
+          ["Paper Roll Diameter", "80 mm"],
+          ["Sensors", "Auto cutter, paper sensor and platen sensor"],
+          ["Bar Code", "1D barcode / 2D barcode"],
+          ["Printer Language", "ESC/POS"],
+          ["Warranty", "Printer 1 year; printer head 100 km or 12 months"],
+          ["Accessories", "1 USB cable, 1 power adapter"],
+        ],
+      },
+    ],
+    brochures: [
+      {
+        label: "THARMAL NTS-USB thermal printer data sheet",
+        href: `${PDF}/thermal-printer-nts-usb.pdf`,
+        remote: "",
+      },
+    ],
+    seo: {
+      title: "NTS-USB Desktop Thermal Receipt Printer - Network Toll Solutions",
+      description:
+        "THARMAL NTS-USB 80 mm desktop thermal printer with auto-cutter, USB/Bluetooth and 200 mm/sec print speed for toll, retail and queue management.",
+    },
+  },  {
     slug: "uhf-mobile-device",
     name: "UHF Mobile Device",
     category: "toll",
@@ -1553,7 +1752,7 @@ export const products: Product[] = [
         brochure: {
           label: "NTS-IR-05 brochure",
           href: `${PDF}/nts-ir-05.pdf`,
-          remote: `${WP}/2025/05/NTS-IR-05-2.pdf`,
+          remote: "",
         },
       },
       {
@@ -1566,7 +1765,18 @@ export const products: Product[] = [
         brochure: {
           label: "NTS-IR-01 brochure",
           href: `${PDF}/nts-ir-01.pdf`,
-          remote: `${WP}/2025/08/UHF-Reader-NTS-IR-01.pdf`,
+          remote: "",
+        },
+      },
+      {
+        name: "UHF Integrated Reader, Model-NTS-IR-02",
+        body: [
+          "NTS-IR 02 is an all-weather ruggedized integrated RFID reader with a 12 dBi integrated antenna and a read range of up to 15 m (adjustable). It supports RS232, RS485, Wiegand and TCP/IP (RJ45) interfaces, is IP65 rated and has a built-in LED and buzzer, and is widely used for gate automation, parking management, personnel tracking and material asset identification.",
+        ],
+        brochure: {
+          label: "NTS-IR-02 data sheet",
+          href: `${PDF}/nts-ir-02.pdf`,
+          remote: "",
         },
       },
     ],
@@ -1971,7 +2181,7 @@ export const products: Product[] = [
         brochure: {
           label: "Anti metal tag NTS-RT 15",
           href: `${PDF}/anti-metal-tag-nts-rt-15.pdf`,
-          remote: `${WP}/2025/08/Anti-Metal-Tag-NTS-RT-15.pdf`,
+          remote: "",
         },
       },
       {
@@ -1997,7 +2207,7 @@ export const products: Product[] = [
         brochure: {
           label: "Reusable tag NTS-RT 40",
           href: `${PDF}/nts-rt-40-reusable-tag.pdf`,
-          remote: `${WP}/2025/08/NTS-RT-40-Reusabel-Tag.pdf`,
+          remote: "",
         },
       },
       {
@@ -2015,7 +2225,7 @@ export const products: Product[] = [
         brochure: {
           label: "Alien 9640 RFID label",
           href: `${PDF}/alien-9640-rfid.pdf`,
-          remote: `${WP}/2025/08/Alien-9640-RFID.pdf`,
+          remote: "",
         },
       },
       {
@@ -2415,7 +2625,7 @@ export const products: Product[] = [
       {
         label: "Library tag automation",
         href: `${PDF}/library-tag-automation.pdf`,
-        remote: `${WP}/2025/08/Library-tag-automation-1.pdf`,
+        remote: "",
       },
     ],
     faqs: [
@@ -2492,6 +2702,13 @@ export const products: Product[] = [
       {
         q: "Are Windshield Tags compliant with national FASTag standards?",
         a: "Yes, Network Toll's Windshield Tags are fully compliant with the National Electronic Toll Collection (NETC) FASTag specifications mandated by NHAI and NPCI, ensuring compatibility across all toll plazas in India.",
+      },
+    ],
+    brochures: [
+      {
+        label: "Windshield tag NTS-RT 01 data sheet",
+        href: `${PDF}/windshield-tag-nts-rt-01.pdf`,
+        remote: "",
       },
     ],
     seo: {
@@ -2610,7 +2827,7 @@ export const products: Product[] = [
         brochure: {
           label: "RFID proximity card",
           href: `${PDF}/rfid-proximity-card.pdf`,
-          remote: `${WP}/2025/08/RFID-Proximity-Card.pdf`,
+          remote: "",
         },
       },
       {
@@ -2667,6 +2884,13 @@ export const products: Product[] = [
       {
         q: "Can smart cards be recharged or monitored in real time?",
         a: "Yes, Network Toll's smart card system allows for easy recharge, balance tracking, and usage monitoring through integrated back-office systems or web portals. Real-time synchronization ensures accurate and secure toll transactions.",
+      },
+    ],
+    brochures: [
+      {
+        label: "UHF card NTS-RC 02 data sheet",
+        href: `${PDF}/rfid-uhf-card-nts-rc-02.pdf`,
+        remote: "",
       },
     ],
     seo: {
@@ -2840,6 +3064,28 @@ export const products: Product[] = [
           alt: "Soft metal RFID label, model NWS-RT 25",
           width: 1024,
           height: 1024,
+        },
+      },
+      {
+        name: "Soft Metal Tag (Model: NTS-RT 18 Series)",
+        body: [
+          "RFID Soft Metal Tags, also known as anti-metal label tags, are flexible and soft, meant for application on curved and flat surfaces. The chip and antenna are embedded inside specially designed soft PVC backed by foam and adhesive, giving excellent accuracy and read range on metal bodies. They suit applications where hard, bulky metal tags cannot be used, such as laptops and other IT assets, hospital assets, pipes and rods.",
+        ],
+        specs: [
+          { label: "Frequency", value: "UHF 865 – 867 MHz, EPC Class 1 Gen 2" },
+          { label: "Chip", value: "Impinj Monza R6-P / U Code" },
+          { label: "Read Range", value: "Up to 8 metres (depends on size)" },
+          { label: "Sizes & read range", value: "95 x 22 x 1.25 mm: 8 m | 65 x 35 x 1.25 mm: 6 m | 55 x 15 x 1.25 mm: 4 m | 30 x 15 x 1.25 mm: 0.7 m | 60 x 25 x 1 mm: 5 m | 70 x 30 x 1 mm: 6 m | 80 x 40 x 1 mm: 7 m" },
+          { label: "Material", value: "PVC, PP, foam with 3M adhesive on the back" },
+          { label: "Memory", value: "EPC 128 (96) bit, TID 48-bit, user 32 bit, 200,000 write cycles" },
+          { label: "Protection", value: "IP65, -40°C to 85°C" },
+          { label: "Printing", value: "Customised printing and encoding available" },
+          { label: "Warranty", value: "10 years except for physical intentional damage" },
+        ],
+        brochure: {
+          label: "Soft metal tag NTS-RT 18 series data sheet",
+          href: `${PDF}/soft-metal-tag-nts-rt-18.pdf`,
+          remote: "",
         },
       },
     ],
@@ -3431,7 +3677,7 @@ export const products: Product[] = [
         brochure: {
           label: "Alien 9640 RFID label",
           href: `${PDF}/alien-9640-rfid.pdf`,
-          remote: `${WP}/2025/08/Alien-9640-RFID.pdf`,
+          remote: "",
         },
       },
     ],
@@ -3454,7 +3700,61 @@ export const products: Product[] = [
     // exact model number and dimensions with the client before launch.
     source: "https://networktoll.com/rfid-tags-supplier/",
   },
-{
+
+  {
+    slug: "rfid-cylinder-tag",
+    name: "Cylinder Tag",
+    category: "tags",
+    group: "tag",
+    desc: "Waterproof anti-metal ABS UHF tag for gas cylinders, pressure vessels and other metal equipment, readable at 2–8 metres.",
+    bullets: ["2–8m read range", "Anti-metal ABS, sponge glue back", "62 x 32 x 8 mm or custom"],
+    image: {
+      src: `${IMG}/rfid-cylinder-tag.jpg`,
+      remote: "",
+      alt: "RFID cylinder tag, model NTS-RT 42",
+      width: 360,
+      height: 360,
+    },
+    heading: "RFID Cylinder Tag (Model: NTS-RT 42)",
+    models: [
+      {
+        name: "RFID Cylinder Tag (Model: NTS-RT 42)",
+        specs: [
+          { label: "Name", value: "Waterproof RFID UHF tag, anti-metal ABS, gas cylinder / gas tank sticker" },
+          { label: "Chip", value: "Impinj Monza 4E" },
+          { label: "Material", value: "ABS + sponge glue on the backside" },
+          { label: "Size", value: "62 x 32 x 8 mm or customised" },
+          { label: "Reading Range", value: "2-8 m" },
+          { label: "Protocol", value: "ISO 18000-6C, EPC global C1 Gen2" },
+          { label: "EPC / User Memory", value: "496 bit / 128 bit" },
+          { label: "Operating Temperature", value: "-25°C to +65°C" },
+          { label: "Working Frequency", value: "860-960 MHz" },
+          {
+            label: "Application",
+            value:
+              "Electronic equipment, automotive accessories, high-pressure steel furnaces, high-pressure vessels, lifting machinery, amusement facilities and other metal items and special equipment management",
+          },
+        ],
+        image: {
+          src: `${IMG}/rfid-cylinder-tag.jpg`,
+          remote: "",
+          alt: "RFID cylinder tag, model NTS-RT 42",
+          width: 360,
+          height: 360,
+        },
+        brochure: {
+          label: "Cylinder tag NTS-RT 42 data sheet",
+          href: `${PDF}/cylinder-tag-nts-rt-42.pdf`,
+          remote: "",
+        },
+      },
+    ],
+    seo: {
+      title: "RFID Cylinder Tag NTS-RT 42 - Network Toll Solutions",
+      description:
+        "NTS-RT 42 waterproof anti-metal UHF cylinder tag for gas cylinders, pressure vessels and metal equipment, with 2-8 m read range.",
+    },
+  },{
     // Sourced from Eco Track Systems (ETS), a separate Delhi RFID
     // manufacturer, not networktoll.com. NTS's own RFID Tag product already
     // includes a waste-bin tag as one model (NTS-RT 62); this is a dedicated
@@ -3655,18 +3955,23 @@ export type ProductCardData = {
 };
 
 export function toCardData(p: Product): ProductCardData {
+  // Only the fields a buyer would actually search by. The scraped SEO
+  // title/description blobs are left out: they are long keyword-stuffed
+  // paragraphs that made unrelated products match almost any query.
   const haystack = [
     p.name,
+    p.slug,
     p.desc,
-    p.seo.title,
-    p.seo.description,
     ...(p.bullets ?? []),
     ...(p.models?.map((m) => m.name) ?? []),
     ...(p.models?.flatMap((m) => m.specs?.map((s) => `${s.label ?? ""} ${s.value}`) ?? []) ?? []),
     ...(p.sections?.map((s) => s.title) ?? []),
   ]
     .join(" ")
-    .toLowerCase();
+    .toLowerCase()
+    // "NTS-IR-05", "nts ir 05" and "NTS_IR_05" all index as the same words.
+    .replace(/[^a-z0-9.]+/g, " ")
+    .trim();
 
   return {
     slug: p.slug,
