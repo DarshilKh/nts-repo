@@ -1,12 +1,25 @@
 "use client";
 
-import { useMemo, useState, useId } from "react";
+import { memo, useDeferredValue, useMemo, useState, useId } from "react";
 import Heading from "@/components/ui/Heading";
 import Text from "@/components/ui/Text";
 import ProductCard from "@/components/sections/ProductCard";
 import { productGroupSectionId, type ProductCardData } from "@/lib/catalog";
 import { fx } from "@/lib/tokens";
 import type { CSSProperties } from "react";
+
+// Cards are pure, so typing in the search box only re-renders the ones whose
+// props change, instead of every visible card on each keystroke.
+const MemoProductCard = memo(ProductCard);
+
+/** Lower-case words with punctuation removed: "NTS-IR-05" -> ["nts", "ir", "05"]. */
+function words(text: string) {
+  return text
+    .toLowerCase()
+    .replace(/[^a-z0-9.]+/g, " ")
+    .split(" ")
+    .filter(Boolean);
+}
 
 export type ProductGridGroup = {
   id: string;
@@ -51,18 +64,39 @@ export default function ProductGrid({ groups }: { groups: ProductGridGroup[] }) 
   const inputId = useId();
   const insetVar = { "--inset": fx(51) } as CSSProperties;
 
-  const q = query.trim().toLowerCase();
-  const terms = useMemo(() => q.split(/\s+/).filter(Boolean), [q]);
+  // The input stays instant; the grid re-filters on a deferred copy so typing
+  // never waits on rendering the cards.
+  const deferredQuery = useDeferredValue(query);
+  const terms = useMemo(() => words(deferredQuery), [deferredQuery]);
 
-  const match = useMemo(
-    () => (p: ProductCardData) => terms.every((t) => p.search.includes(t)),
-    [terms]
-  );
+  // Index each product once: its words, plus a space-less copy so
+  // "ntsir05" still finds "NTS-IR-05".
+  const index = useMemo(() => {
+    const m = new Map<string, { words: string[]; compact: string }>();
+    for (const g of groups)
+      for (const p of g.products) {
+        const w = p.search.split(" ").filter(Boolean);
+        m.set(p.slug, { words: w, compact: w.join("") });
+      }
+    return m;
+  }, [groups]);
 
-  const visibleGroups = groups.map((g) => ({
-    ...g,
-    products: terms.length ? g.products.filter(match) : g.products,
-  }));
+  // Every typed word must START a word of the product ("ir" finds "NTS-IR-05"
+  // but not mid-word accidents), or, for longer terms, appear in the
+  // space-less text.
+  const visibleGroups = useMemo(() => {
+    const match = (p: ProductCardData) => {
+      const e = index.get(p.slug);
+      if (!e) return false;
+      return terms.every(
+        (t) => e.words.some((w) => w.startsWith(t)) || (t.length >= 4 && e.compact.includes(t))
+      );
+    };
+    return groups.map((g) => ({
+      ...g,
+      products: terms.length ? g.products.filter(match) : g.products,
+    }));
+  }, [groups, terms, index]);
   const total = visibleGroups.reduce((sum, g) => sum + g.products.length, 0);
 
   return (
@@ -109,14 +143,14 @@ export default function ProductGrid({ groups }: { groups: ProductGridGroup[] }) 
           />
         </label>
         <p aria-live="polite" className="sr-only">
-          {terms.length ? `${total} products match ${query}` : `${total} products`}
+          {terms.length ? `${total} products match ${deferredQuery}` : `${total} products`}
         </p>
       </section>
 
       {terms.length > 0 && total === 0 && (
         <section className="products-inset pb-16" style={insetVar}>
           <Text size="body" tone="muted">
-            No products match “{query}”. Try a model number, a chip name, or clear the search to
+            No products match “{deferredQuery}”. Try a model number, a chip name, or clear the search to
             browse the full range.
           </Text>
         </section>
@@ -143,7 +177,7 @@ export default function ProductGrid({ groups }: { groups: ProductGridGroup[] }) 
               </div>
               <div className="products-grid mt-8 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
                 {g.products.map((p, j) => (
-                  <ProductCard key={p.slug} product={p} priority={i === 0 && j === 0} />
+                  <MemoProductCard key={p.slug} product={p} priority={i === 0 && j === 0} />
                 ))}
               </div>
             </section>
