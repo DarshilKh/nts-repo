@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Frame from "@/components/ui/Frame";
 import Text from "@/components/ui/Text";
 import { button, parallelogramClipPath, fx } from "@/lib/tokens";
@@ -8,6 +8,19 @@ import { useBotGuard } from "@/lib/useBotGuard";
 import { submitEnquiry } from "@/lib/submitEnquiry";
 
 const MESSAGE_CHAR_LIMIT = 100;
+
+const SERVICE_OPTIONS = [
+  "Toll Management",
+  "Smart Parking Management",
+  "Inventory Management",
+  "Fleet Monitoring",
+  "Personnel Management",
+  "ANPR Monitering",
+  "Plaza Center & Database Server",
+  "RFID Software System",
+  "Number Plate Detection",
+  "Face Attendance System",
+];
 
 /**
  * §4.4 — two label columns at x=189 (Name/Phone Number/City,State) and
@@ -40,6 +53,14 @@ export default function ContactForm() {
   const { honeypotProps, isLikelyBot } = useBotGuard();
   const [blocked, setBlocked] = useState(false);
   const [message, setMessage] = useState("");
+  const [service, setService] = useState("");
+
+  // Product pages link here with ?service=<product name>. Read it on mount
+  // (not via useSearchParams) so /contact stays statically prerendered.
+  useEffect(() => {
+    const s = new URLSearchParams(window.location.search).get("service");
+    if (s) setService(s.slice(0, 100));
+  }, []);
   const [status, setStatus] = useState<
     { kind: "idle" } | { kind: "sending" } | { kind: "success" } | { kind: "error"; message: string }
   >({ kind: "idle" });
@@ -95,6 +116,7 @@ export default function ContactForm() {
             if (result.ok) {
               form.reset();
               setMessage("");
+              setService("");
               setStatus({ kind: "success" });
             } else {
               setStatus({ kind: "error", message: result.error });
@@ -132,25 +154,24 @@ export default function ContactForm() {
             </label>
             <label>
               <span className="sr-only">Service Interested</span>
-              <select
+              {/* Free-text with suggestions: visitors can pick a service or type
+                  their own, and product pages prefill it via ?service=. */}
+              <input
+                type="text"
                 name="service"
-                defaultValue=""
-                style={{ ...fieldStyle, color: "var(--text-label)", appearance: "none" }}
-              >
-                <option value="" disabled>
-                  Service Interested
-                </option>
-                <option>Toll Management</option>
-                <option>Smart Parking Management</option>
-                <option>Inventory Management</option>
-                <option>Fleet Monitoring</option>
-                <option>Personnel Management</option>
-                <option>ANPR Monitering</option>
-                <option>Plaza Center &amp; Database Server</option>
-                <option>RFID Software System</option>
-                <option>Number Plate Detection</option>
-                <option>Face Attendance System</option>
-              </select>
+                list="service-options"
+                value={service}
+                onChange={(e) => setService(e.target.value)}
+                placeholder="Service Interested"
+                maxLength={100}
+                autoComplete="off"
+                style={fieldStyle}
+              />
+              <datalist id="service-options">
+                {SERVICE_OPTIONS.map((s) => (
+                  <option key={s} value={s} />
+                ))}
+              </datalist>
             </label>
           </div>
           <div className="contact-form-msg flex flex-col min-w-0">

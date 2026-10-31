@@ -36,7 +36,7 @@ export default function ProductEnquiry({ productName }: { productName: string })
           </div>
           <div className="flex flex-wrap items-center gap-4 shrink-0">
             <Link
-              href="/contact"
+              href={`/contact?service=${encodeURIComponent(productName)}`}
               className="px-6 py-3"
               style={{
                 background: "var(--brand-red)",
