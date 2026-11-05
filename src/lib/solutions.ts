@@ -1415,6 +1415,122 @@ export const solutions: Solution[] = [
         "UHF RFID chip timing for marathons, runs and endurance events. Bib-integrated tags, multi-checkpoint antenna gates, live tracking and automatic results — no manual stopwatch timing.",
     },
   },
+  {
+    slug: "rfid-kote-management-system",
+    rowId: "kote-management",
+    group: "rfid-facility",
+    name: "RFID Kote\nManagement System",
+    desc: "Every weapon and ammunition lot in the kote carries an RFID tag, so issue, return and stock-checks are logged by the system instead of a paper register — with a full audit trail for every shift.",
+    detail: true,
+    heading: "RFID Kote Management System for Armouries & Arms Stores",
+    tagline:
+      "Know exactly which weapon is where, who holds it and when it came back — without a single paper logbook.",
+    intro: [
+      "In a military or police unit, the kote is the armoury where arms and ammunition are kept, and it is one of the most closely watched rooms on the premises. Yet in many units it is still run on paper: handwritten registers, signed slips and a physical count at every shift change. It works, until a page goes missing, an entry is illegible or a handover takes an hour and still leaves a doubt about one rifle.",
+      "Network Toll Solution's RFID Kote Management System replaces that register with a live, tamper-evident record. Each weapon, magazine box and ammunition lot is tagged with a rugged UHF RFID tag and linked to its serial number, rack and category. When an item is issued or returned, a reader captures it against the authorised person's record, so the question of what is in the kote right now can be answered in seconds instead of by walking the racks with a clipboard.",
+      "The result is a kote that is faster to run, easier to audit and much harder to get wrong — built for armouries, arms stores, police lines, paramilitary units, training establishments and private security armouries that need accountability they can actually demonstrate.",
+    ],
+    sections: [
+      {
+        title: "Problems With Paper Logbooks We Solve",
+        body: [
+          "Manual armoury registers depend entirely on people writing the right thing at the right time, every time. Over months and years, small gaps add up.",
+        ],
+        list: [
+          "Tracking gaps: an issue entry without a matching return, or a weapon moved between racks without any record.",
+          "Slow shift changes: a full physical count by hand at every handover ties up the kote staff and the incoming duty team.",
+          "Misplacement: a weapon or ammunition box sitting on the wrong rack, or in the wrong store, until someone happens to look.",
+          "Illegible or altered entries: handwriting that cannot be read later, and pages that cannot be proven untouched.",
+          "Slow audits: inspections and surprise checks that take days because every figure has to be reconciled by hand.",
+          "No early warning: nobody knows an item has left the kote until the next manual count.",
+        ],
+      },
+      {
+        title: "How the RFID Kote System Works",
+        body: [
+          "The setup is straightforward and fits the way a kote already runs. There is no change to your procedures, only to how they are recorded.",
+        ],
+        list: [
+          "Tagging: each weapon, magazine box or ammunition lot is fitted with a durable RFID tag, and anti-metal tags are used where the item is metal, so reads stay reliable on steel surfaces.",
+          "Enrolment: the tag is linked once to the item's serial number, type, rack and unit in the central database.",
+          "Issue and return: the kote in-charge scans the item and the person drawing it, and the system logs who took what, when, and under which authority. The same happens on return.",
+          "Instant stock checks: a handheld reader sweeps a rack, a shelf or the whole kote and reconciles what it finds against what should be there, flagging anything missing or out of place.",
+          "Door and exit monitoring: an optional fixed reader at the kote entrance can raise an alert if a tagged item leaves without a recorded issue.",
+          "Reports and audit trail: every movement is time-stamped and stored, so a full history for any weapon, person or date is a search away.",
+        ],
+      },
+      {
+        title: "Key Features",
+        list: [
+          "Item-level tracking of arms, magazines, ammunition lots and related equipment, each against its own serial number.",
+          "Issue and return register with the person, purpose, time and authorising officer recorded for every transaction.",
+          "Fast shift handover: the outgoing and incoming teams reconcile the kote in minutes with a handheld reader instead of a manual count.",
+          "Rack and location mapping, so misplaced items are found and corrected straight away.",
+          "Alerts for unauthorised removal, overdue returns and items that fail a stock check.",
+          "Role-based access, so only authorised staff can issue, edit or approve, with every action logged under a user.",
+          "Tamper-evident, time-stamped history that supports inspections, inquiries and internal audits.",
+          "Exportable reports for stock position, issue history and discrepancies.",
+          "Can run entirely on the unit's own network, so sensitive data stays on premises.",
+        ],
+      },
+      {
+        title: "Who It Is Built For",
+        list: [
+          "Army, air force and naval unit armouries and kotes",
+          "Police lines, district armouries and training centres",
+          "Paramilitary and central armed police force units",
+          "Private security agencies and licensed arms stores",
+          "Ammunition depots and storage facilities",
+        ],
+      },
+      {
+        title: "Hardware and Integration",
+        body: [
+          "We supply the full stack for a kote deployment: RFID tags suited to metal and rugged handling, desktop readers at the issue counter, handheld UHF readers for stock-taking and optional fixed readers at the entrance, all running on our RFID software platform. We can also integrate with an existing personnel database or access-control system, and configure the workflow to match the way your unit already issues and accounts for stores.",
+        ],
+      },
+    ],
+    gallery: [
+      {
+        src: `${IMG}/kote-mgmt.png`,
+        remote: "",
+        alt: "Armoury officer checking tagged rifles on a rack using a tablet running the RFID kote management software",
+        width: 1698,
+        height: 926,
+      },
+    ],
+    faqs: [
+      {
+        q: "What is a kote, and why does it need a management system?",
+        a: "A kote is the armoury of a military or police unit, where weapons and ammunition are stored. Because every item must be accounted for at all times, a system that records each issue, return and stock position automatically is far more reliable than paper registers, which depend on manual entries and are slow to audit.",
+      },
+      {
+        q: "How does RFID help with weapon and ammunition tracking?",
+        a: "Each weapon, magazine box or ammunition lot carries an RFID tag linked to its serial number. A reader identifies the tag without line of sight, so issues, returns and stock checks are recorded in seconds, and a handheld reader can sweep a whole rack at once instead of checking each item by eye.",
+      },
+      {
+        q: "Will the tags work on metal weapons and steel racks?",
+        a: "Yes. Standard tags struggle on metal, so we use anti-metal RFID tags designed for metal surfaces, and we help choose the right tag type and placement for each class of item during the site survey.",
+      },
+      {
+        q: "Can it speed up shift handover?",
+        a: "That is one of the main benefits. Instead of a full manual count, the outgoing and incoming teams scan the kote with a handheld reader and the system reconciles the result against the register, highlighting anything missing or misplaced.",
+      },
+      {
+        q: "Is there a full audit trail we can use for inspections?",
+        a: "Yes. Every issue, return, edit and stock check is time-stamped and tied to a named user, so the complete history of any weapon, person or date can be pulled up and exported for inspections or inquiries.",
+      },
+      {
+        q: "Can the system work with our existing personnel records?",
+        a: "In most cases, yes. We can integrate with an existing personnel database or access-control system, or set up the user list from scratch, and configure approvals to match your unit's issue procedure.",
+      },
+    ],
+    seo: {
+      title: "RFID Kote Management System — Armoury & Arms Store Tracking",
+      description:
+        "RFID kote management system for military and police armouries. Track every weapon and ammunition lot, automate issue and return, speed up shift handover and keep a tamper-evident audit trail.",
+    },
+  },
 ];
 
 const bySlug = new Map(solutions.map((s) => [s.slug, s]));

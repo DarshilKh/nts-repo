@@ -345,6 +345,19 @@ export default function SolutionPage() {
           textInsetPx={85}
         />
 
+        {/* row 27 (added — client request, client-supplied photo) — text right x=964, image left 921px */}
+        <SolutionRow
+          styleId="kote-management"
+          learnMore={Boolean(solutionHref("kote-management"))}
+          learnMoreHref={solutionHref("kote-management")}
+          title={"RFID Kote\nManagement System"}
+          body="Tag every weapon and ammunition lot in the armoury so issue, return and stock checks are logged automatically — faster shift handovers, no lost entries and a full audit trail."
+          image={{ src: "/images/solutions/kote-mgmt.png", alt: "Armoury officer checking tagged rifles with the RFID kote management system", width: 1698, height: 926 }}
+          imageSide="left"
+          imageWidthPx={921}
+          textInsetPx={964}
+        />
+
         <CTASection />
       </main>
       <Footer />

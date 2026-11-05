@@ -23,6 +23,7 @@ export const solutionLinks = [
   "Fire & Smoke Detection",
   "Operator Presence & Perimeter Monitoring",
   "RFID Race Timing System",
+  "RFID Kote Management System",
 ];
 
 // Same entries as solutionLinks, split into two even columns — the
@@ -63,6 +64,7 @@ export const solutionLinkSlugs: Record<string, string> = {
   "Fire & Smoke Detection": "fire-detection",
   "Operator Presence & Perimeter Monitoring": "perimeter-monitoring",
   "RFID Race Timing System": "race-timing",
+  "RFID Kote Management System": "kote-management",
 };
 
 export const productLinksCol1 = [
