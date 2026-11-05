@@ -25,6 +25,10 @@ const oldSiteRedirects = [
   { source: "/service", destination: "/contact" },
   { source: "/hybrid-toll-management-system", destination: "/toll-management-software" },
   { source: "/toll-lane-solution-equipments", destination: "/products" },
+
+  // Old pages with a close equivalent on the rebuild.
+  { source: "/electronic-road-weigh-bridge", destination: "/ms-weigh-in-motion" },
+  { source: "/electronic-toll-collection-software", destination: "/toll-management-software" },
 ];
 
 const nextConfig: NextConfig = {
