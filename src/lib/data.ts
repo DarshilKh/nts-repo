@@ -24,6 +24,7 @@ export const solutionLinks = [
   "Operator Presence & Perimeter Monitoring",
   "RFID Race Timing System",
   "RFID Kote Management System",
+  "Multi Lane Free Flow (MLFF)",
 ];
 
 // Same entries as solutionLinks, split into two even columns — the
@@ -65,6 +66,7 @@ export const solutionLinkSlugs: Record<string, string> = {
   "Operator Presence & Perimeter Monitoring": "perimeter-monitoring",
   "RFID Race Timing System": "race-timing",
   "RFID Kote Management System": "kote-management",
+  "Multi Lane Free Flow (MLFF)": "mlff",
 };
 
 export const productLinksCol1 = [

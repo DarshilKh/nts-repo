@@ -1420,57 +1420,74 @@ export const solutions: Solution[] = [
     rowId: "kote-management",
     group: "rfid-facility",
     name: "RFID Kote\nManagement System",
-    desc: "Every weapon and ammunition lot in the kote carries an RFID tag, so issue, return and stock-checks are logged by the system instead of a paper register — with a full audit trail for every shift.",
+    desc: "Every weapon is tagged and every soldier carries a tag. Two scans at the counter log who took what and when, and the same record closes when the item comes back.",
     detail: true,
     heading: "RFID Kote Management System for Armouries & Arms Stores",
     tagline:
-      "Know exactly which weapon is where, who holds it and when it came back — without a single paper logbook.",
+      "Know which weapon is with which soldier, at any moment, without a paper logbook.",
     intro: [
-      "In a military or police unit, the kote is the armoury where arms and ammunition are kept, and it is one of the most closely watched rooms on the premises. Yet in many units it is still run on paper: handwritten registers, signed slips and a physical count at every shift change. It works, until a page goes missing, an entry is illegible or a handover takes an hour and still leaves a doubt about one rifle.",
-      "Network Toll Solution's RFID Kote Management System replaces that register with a live, tamper-evident record. Each weapon, magazine box and ammunition lot is tagged with a rugged UHF RFID tag and linked to its serial number, rack and category. When an item is issued or returned, a reader captures it against the authorised person's record, so the question of what is in the kote right now can be answered in seconds instead of by walking the racks with a clipboard.",
-      "The result is a kote that is faster to run, easier to audit and much harder to get wrong — built for armouries, arms stores, police lines, paramilitary units, training establishments and private security armouries that need accountability they can actually demonstrate.",
+      "In a military or police unit, the kote is the armoury where arms and equipment are kept, and it is one of the most closely watched rooms on the premises. Yet in many units it is still run on paper: handwritten registers, signed slips and a physical count at every shift change. It works, until a page goes missing, an entry is illegible or a handover takes an hour and still leaves a doubt about one rifle.",
+      "Network Toll Solution's RFID Kote Management System replaces the register with a live record. Every weapon or piece of equipment carries an RFID tag, and every soldier has one too. At the counter, the operator scans the item and then the soldier. The two are linked in a single transaction, so the system always knows who took what, and when.",
+      "When the item comes back, the same two scans close the record. Nothing leaves the kote without being tied to a named person, and anything still marked \"Not returned\" is still with that soldier.",
     ],
     sections: [
       {
         title: "Problems With Paper Logbooks We Solve",
         body: [
-          "Manual armoury registers depend entirely on people writing the right thing at the right time, every time. Over months and years, small gaps add up.",
+          "Manual armoury registers depend on people writing the right thing at the right time, every time. Over months and years, small gaps add up.",
         ],
         list: [
-          "Tracking gaps: an issue entry without a matching return, or a weapon moved between racks without any record.",
-          "Slow shift changes: a full physical count by hand at every handover ties up the kote staff and the incoming duty team.",
-          "Misplacement: a weapon or ammunition box sitting on the wrong rack, or in the wrong store, until someone happens to look.",
+          "Tracking gaps: an issue entry with no matching return, or a weapon that changed hands without a record.",
+          "Slow shift changes: a full count by hand at every handover ties up both teams.",
           "Illegible or altered entries: handwriting that cannot be read later, and pages that cannot be proven untouched.",
-          "Slow audits: inspections and surprise checks that take days because every figure has to be reconciled by hand.",
-          "No early warning: nobody knows an item has left the kote until the next manual count.",
+          "Slow audits: inspections take days because every figure is reconciled by hand.",
+          "No live view: you only know what is out of the kote when someone goes and counts.",
         ],
       },
       {
-        title: "How the RFID Kote System Works",
+        title: "What the System Is Made Of",
         body: [
-          "The setup is straightforward and fits the way a kote already runs. There is no change to your procedures, only to how they are recorded.",
+          "A kote deployment is small and simple. Five parts, all working together at the issue counter.",
         ],
         list: [
-          "Tagging: each weapon, magazine box or ammunition lot is fitted with a durable RFID tag, and anti-metal tags are used where the item is metal, so reads stay reliable on steel surfaces.",
-          "Enrolment: the tag is linked once to the item's serial number, type, rack and unit in the central database.",
-          "Issue and return: the kote in-charge scans the item and the person drawing it, and the system logs who took what, when, and under which authority. The same happens on return.",
-          "Instant stock checks: a handheld reader sweeps a rack, a shelf or the whole kote and reconciles what it finds against what should be there, flagging anything missing or out of place.",
-          "Door and exit monitoring: an optional fixed reader at the kote entrance can raise an alert if a tagged item leaves without a recorded issue.",
-          "Reports and audit trail: every movement is time-stamped and stored, so a full history for any weapon, person or date is a search away.",
+          "Soldier RFID tag: one per soldier, registered once on the server.",
+          "Equipment RFID tag: one per weapon or item, fixed on the item itself.",
+          "RFID reader: sits at the kote counter, connected to the computer, and reads both kinds of tag.",
+          "Control PC with the kote software: used by the operator to log in, issue and return.",
+          "Server: stores every registered tag and every issue and return record.",
         ],
       },
       {
-        title: "Key Features",
+        title: "Issuing a Weapon: Two Scans, One Record",
+        body: [
+          "Each time a soldier draws a weapon or equipment, the operator follows the same short routine.",
+        ],
         list: [
-          "Item-level tracking of arms, magazines, ammunition lots and related equipment, each against its own serial number.",
-          "Issue and return register with the person, purpose, time and authorising officer recorded for every transaction.",
-          "Fast shift handover: the outgoing and incoming teams reconcile the kote in minutes with a handheld reader instead of a manual count.",
-          "Rack and location mapping, so misplaced items are found and corrected straight away.",
-          "Alerts for unauthorised removal, overdue returns and items that fail a stock check.",
-          "Role-based access, so only authorised staff can issue, edit or approve, with every action logged under a user.",
-          "Tamper-evident, time-stamped history that supports inspections, inquiries and internal audits.",
-          "Exportable reports for stock position, issue history and discrepancies.",
-          "Can run entirely on the unit's own network, so sensitive data stays on premises.",
+          "The operator opens the Issue screen, already logged in, and scans the equipment tag. The system shows which item it is.",
+          "The software prompts for the soldier. The soldier shows their RFID tag to the reader and is identified.",
+          "Equipment and soldier are combined into one transaction, and the item is now issued to that person.",
+          "The soldier, equipment, date and time are saved on the server.",
+        ],
+      },
+      {
+        title: "Returning It: The Same Pair Closes the Record",
+        body: [
+          "After the exercise or competition, the process simply runs in reverse.",
+        ],
+        list: [
+          "The soldier returns to the kote with the equipment.",
+          "The operator scans the equipment tag, then the soldier tag. The system finds the open issue record for that item.",
+          "The system checks that the pair matches: the equipment must be coming back from the same soldier it was issued to.",
+          "The return date and time are saved against the original record, and the transaction is closed.",
+        ],
+      },
+      {
+        title: "A Clear Picture at a Glance",
+        list: [
+          "A Records screen lists every soldier, equipment item, issue time and return time.",
+          "Anything showing \"Not returned\" is still with that soldier.",
+          "Operator login protects the system: the main screen opens only after a successful sign-in.",
+          "Every transaction is time-stamped and stored on the server, ready for inspections and audits.",
         ],
       },
       {
@@ -1483,12 +1500,6 @@ export const solutions: Solution[] = [
           "Ammunition depots and storage facilities",
         ],
       },
-      {
-        title: "Hardware and Integration",
-        body: [
-          "We supply the full stack for a kote deployment: RFID tags suited to metal and rugged handling, desktop readers at the issue counter, handheld UHF readers for stock-taking and optional fixed readers at the entrance, all running on our RFID software platform. We can also integrate with an existing personnel database or access-control system, and configure the workflow to match the way your unit already issues and accounts for stores.",
-        ],
-      },
     ],
     gallery: [
       {
@@ -1499,36 +1510,158 @@ export const solutions: Solution[] = [
         height: 926,
       },
     ],
+    brochures: [
+      {
+        label: "Kote (armoury) system workflow",
+        href: `${PDF}/kote-management-system.pdf`,
+        remote: "",
+      },
+    ],
     faqs: [
       {
         q: "What is a kote, and why does it need a management system?",
-        a: "A kote is the armoury of a military or police unit, where weapons and ammunition are stored. Because every item must be accounted for at all times, a system that records each issue, return and stock position automatically is far more reliable than paper registers, which depend on manual entries and are slow to audit.",
+        a: "A kote is the armoury of a military or police unit, where weapons and equipment are stored. Every item has to be accounted for at all times, so a system that records each issue and return automatically is far more reliable than a paper register, which depends on manual entries and is slow to audit.",
       },
       {
-        q: "How does RFID help with weapon and ammunition tracking?",
-        a: "Each weapon, magazine box or ammunition lot carries an RFID tag linked to its serial number. A reader identifies the tag without line of sight, so issues, returns and stock checks are recorded in seconds, and a handheld reader can sweep a whole rack at once instead of checking each item by eye.",
+        q: "How does RFID link a weapon to a soldier?",
+        a: "Each weapon carries an equipment tag and each soldier carries a personal tag. At the counter the operator scans the item, then the soldier, and the software combines the two into one issue record with the date and time.",
       },
       {
-        q: "Will the tags work on metal weapons and steel racks?",
-        a: "Yes. Standard tags struggle on metal, so we use anti-metal RFID tags designed for metal surfaces, and we help choose the right tag type and placement for each class of item during the site survey.",
+        q: "What happens when the weapon is returned?",
+        a: "The operator scans the equipment tag and then the soldier's tag. The system finds the open issue record and checks that the item is coming back from the same soldier it was issued to. If it matches, the return is recorded and the transaction is closed.",
       },
       {
-        q: "Can it speed up shift handover?",
-        a: "That is one of the main benefits. Instead of a full manual count, the outgoing and incoming teams scan the kote with a handheld reader and the system reconciles the result against the register, highlighting anything missing or misplaced.",
+        q: "How do we see what is still out of the kote?",
+        a: "The Records screen shows every transaction with its issue and return time. Anything marked \"Not returned\" is still with the soldier it was issued to.",
       },
       {
-        q: "Is there a full audit trail we can use for inspections?",
-        a: "Yes. Every issue, return, edit and stock check is time-stamped and tied to a named user, so the complete history of any weapon, person or date can be pulled up and exported for inspections or inquiries.",
-      },
-      {
-        q: "Can the system work with our existing personnel records?",
-        a: "In most cases, yes. We can integrate with an existing personnel database or access-control system, or set up the user list from scratch, and configure approvals to match your unit's issue procedure.",
+        q: "What hardware do we need?",
+        a: "Soldier tags, equipment tags, an RFID reader at the kote counter, a PC running the kote software and a server that stores the records. We supply and set up the full system.",
       },
     ],
     seo: {
       title: "RFID Kote Management System — Armoury & Arms Store Tracking",
       description:
-        "RFID kote management system for military and police armouries. Track every weapon and ammunition lot, automate issue and return, speed up shift handover and keep a tamper-evident audit trail.",
+        "RFID kote management system for military and police armouries. Link every weapon to a soldier with two scans, record issue and return automatically and keep a clear audit trail.",
+    },
+  },
+  {
+    slug: "multi-lane-free-flow-mlff",
+    rowId: "mlff",
+    group: "toll-traffic",
+    name: "Multi Lane Free\nFlow (MLFF)",
+    desc: "Barrier-free tolling at highway speed. RFID and ANPR identify every vehicle, the toll is deducted from the FASTag automatically, and an e-Notice follows for the ones that can't pay.",
+    detail: true,
+    heading: "Multi Lane Free Flow (MLFF) Tolling Solution for Barrier-Free Highways",
+    tagline:
+      "Vehicles keep moving, tolls get collected, and violations are handled automatically.",
+    intro: [
+      "Multi Lane Free Flow (MLFF) tolling takes the barrier out of the toll plaza. Vehicles drive through at normal highway speed and the toll is collected from their FASTag automatically. No stopping, no queue, no waiting for a boom barrier to lift.",
+      "Network Toll Solution builds the roadside half of that system: RFID readers and ANPR cameras at the gantry, plaza software that talks to your acquirer bank and the NPCI NETC platform, and the e-Notice workflow for vehicles that cannot pay on the spot. It is designed around NPCI's MLFF specification, including the integration with the national e-Notice system.",
+    ],
+    sections: [
+      {
+        title: "How a Vehicle Is Tolled",
+        body: [
+          "From the moment a vehicle reaches the gantry, the whole journey runs without anyone touching a thing.",
+        ],
+        list: [
+          "Detect: an RFID reader reads the FASTag as the vehicle passes, while high-resolution cameras photograph the front and back and read the number plate. You decide which method leads at each plaza.",
+          "Identify: the system fetches the tag and vehicle details from NPCI's NETC mapper, using the tag ID, the TID or the number plate.",
+          "Price: the toll is calculated from the vehicle class.",
+          "Check: a balance check goes to the issuer bank to confirm the wallet can cover the toll.",
+          "Pay: the payment request travels through the acquirer bank and NETC, and the toll is deducted from the FASTag.",
+        ],
+      },
+      {
+        title: "When the FASTag Can't Pay: The e-Notice Flow",
+        body: [
+          "With no barrier to stop them, some vehicles will always pass without paying: low balance, a hotlisted, blacklisted or closed tag, an unregistered tag, or no FASTag at all. MLFF handles these with an e-Notice instead of a stop.",
+        ],
+        list: [
+          "Evidence first: the front and back images are uploaded to the national e-Notice document store before anything else happens.",
+          "Notice raised: the system registers a uniquely numbered e-Notice linked to the plaza, the lane and the exact time the vehicle was read.",
+          "Owner informed: the vehicle owner's details are fetched from Vahan and the owner is notified by SMS with a way to pay or raise a grievance.",
+          "Bank alerted: the issuer bank is told, and may flag the FASTag until pending notices are cleared.",
+          "Tracked to closure: each notice moves from issued to resolved when it is paid or a grievance is accepted, or to expired if nothing happens. Appeals are supported, and daily reports keep every party reconciled.",
+        ],
+      },
+      {
+        title: "Fair to Genuine Users",
+        body: [
+          "Exempted vehicles and those with a local, monthly or annual pass are handled as non-financial transactions. They pass freely and are never wrongly charged or sent a notice.",
+        ],
+      },
+      {
+        title: "What Network Toll Delivers",
+        list: [
+          "RFID readers and ANPR cameras set up for gantry-mounted, multi-lane capture",
+          "Automatic vehicle classification, with weigh-in-motion and traffic radar where your project needs them",
+          "Plaza software for tag lookup, balance check, payment, e-Notice creation, retries and status tracking",
+          "Integration with your acquirer bank and the NETC and e-Notice platforms",
+          "Evidence handling: the right images, linked to the right notice, every time",
+          "Daily end-of-day reports for reconciliation",
+          "Hybrid operation: MLFF lanes run alongside your existing barrier lanes on the same plaza",
+        ],
+      },
+      {
+        title: "Secure and Dependable by Design",
+        list: [
+          "Every message to the bank and NPCI is digitally signed and sent over a secure connection.",
+          "e-Notice data is encrypted end to end between NPCI and the e-Notice system.",
+          "Unique transaction and notice numbers prevent duplicates.",
+          "Requests are retried until they are acknowledged, and timeouts are handled without losing a transaction.",
+        ],
+      },
+      {
+        title: "Where It Fits",
+        list: [
+          "National highways and expressways",
+          "State highways and bridges",
+          "City entry points and urban corridors",
+          "Existing plazas moving gradually from barriers to free flow",
+        ],
+      },
+    ],
+    gallery: [
+      {
+        src: `${IMG}/anpr-toll-management.png`,
+        remote: "",
+        alt: "ANPR camera mounted over a multi-lane highway to read number plates as vehicles pass",
+        width: 520,
+        height: 300,
+      },
+    ],
+    faqs: [
+      {
+        q: "What is Multi Lane Free Flow (MLFF) tolling?",
+        a: "MLFF is a barrier-free way of collecting tolls. Vehicles pass through the toll point at normal highway speed while the toll is deducted automatically from their FASTag, so there are no booths, barriers or queues.",
+      },
+      {
+        q: "Do vehicles need to stop or slow down?",
+        a: "No. Readers and cameras at the gantry identify each vehicle as it passes at highway speed, and the payment is processed in the background.",
+      },
+      {
+        q: "What happens if the FASTag has low balance or the vehicle has no FASTag?",
+        a: "The system raises an e-Notice with front and back images of the vehicle. The owner is notified by SMS and can pay online or raise a grievance. The notice is tracked until it is resolved or expires.",
+      },
+      {
+        q: "Does MLFF use RFID, cameras or both?",
+        a: "Both. The RFID reader reads the FASTag and the ANPR cameras read the number plate. You choose which method is primary at each plaza, and the other acts as backup and evidence.",
+      },
+      {
+        q: "Can MLFF run alongside our existing barrier lanes?",
+        a: "Yes. A plaza can run in hybrid mode, with MLFF lanes on their own merchant ID and normal lanes on the existing one, until you are ready to move fully to free flow.",
+      },
+      {
+        q: "Who is this solution for?",
+        a: "Toll operators, concessionaires, system integrators and authorities running national, state or city toll plazas that want to move to barrier-free collection.",
+      },
+    ],
+    seo: {
+      title: "Multi Lane Free Flow (MLFF) Tolling Solution — Barrier-Free Toll Collection",
+      description:
+        "Barrier-free MLFF tolling with FASTag RFID and ANPR. Automatic toll deduction at highway speed, e-Notice for violations and NPCI NETC integration.",
     },
   },
 ];

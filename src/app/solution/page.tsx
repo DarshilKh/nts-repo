@@ -351,11 +351,24 @@ export default function SolutionPage() {
           learnMore={Boolean(solutionHref("kote-management"))}
           learnMoreHref={solutionHref("kote-management")}
           title={"RFID Kote\nManagement System"}
-          body="Tag every weapon and ammunition lot in the armoury so issue, return and stock checks are logged automatically — faster shift handovers, no lost entries and a full audit trail."
+          body="Tag every weapon and every soldier. Two scans at the counter log who took what and when, and the same record closes on return — no paper register, no lost entries."
           image={{ src: "/images/solutions/kote-mgmt.png", alt: "Armoury officer checking tagged rifles with the RFID kote management system", width: 1698, height: 926 }}
           imageSide="left"
           imageWidthPx={921}
           textInsetPx={964}
+        />
+
+        {/* row 28 (added — client request, NPCI MLFF spec) — text left x=85, image right 921px */}
+        <SolutionRow
+          styleId="mlff"
+          learnMore={Boolean(solutionHref("mlff"))}
+          learnMoreHref={solutionHref("mlff")}
+          title={"Multi Lane Free\nFlow (MLFF)"}
+          body="Barrier-free tolling at highway speed. RFID and ANPR identify every vehicle, the FASTag is charged automatically, and an e-Notice follows for the ones that can't pay."
+          image={{ src: "/images/solutions/anpr-toll-management.png", alt: "ANPR camera mounted over a multi-lane highway for free-flow tolling", width: 520, height: 300 }}
+          imageSide="right"
+          imageWidthPx={921}
+          textInsetPx={85}
         />
 
         <CTASection />
