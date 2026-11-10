@@ -496,6 +496,7 @@ function SolutionDetail({ solution }: { solution: Solution }) {
                       ))}
                     </ul>
                   )}
+                  {s.table && <SpecTable table={s.table} />}
                 </div>
               ))}
             </section>

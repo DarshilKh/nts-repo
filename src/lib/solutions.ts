@@ -1550,40 +1550,138 @@ export const solutions: Solution[] = [
     rowId: "mlff",
     group: "toll-traffic",
     name: "Multi Lane Free\nFlow (MLFF)",
-    desc: "Barrier-free tolling at highway speed. RFID and ANPR identify every vehicle, the toll is deducted from the FASTag automatically, and an e-Notice follows for the ones that can't pay.",
+    desc: "Barrier-free tolling at highway speed. RFID, ANPR, radar and LiDAR on the gantry identify every vehicle, the toll is deducted from the FASTag, and an e-Notice follows for the ones that can't pay.",
     detail: true,
-    heading: "Multi Lane Free Flow (MLFF) Tolling Solution for Barrier-Free Highways",
+    heading: "Multi Lane Free Flow (MLFF) Tolling Solution: Gantry Hardware, Software and e-Notice",
     tagline:
-      "Vehicles keep moving, tolls get collected, and violations are handled automatically.",
+      "Vehicles keep moving at highway speed. The gantry reads, classifies, charges and records every one of them.",
     intro: [
-      "Multi Lane Free Flow (MLFF) tolling takes the barrier out of the toll plaza. Vehicles drive through at normal highway speed and the toll is collected from their FASTag automatically. No stopping, no queue, no waiting for a boom barrier to lift.",
-      "Network Toll Solution builds the roadside half of that system: RFID readers and ANPR cameras at the gantry, plaza software that talks to your acquirer bank and the NPCI NETC platform, and the e-Notice workflow for vehicles that cannot pay on the spot. It is designed around NPCI's MLFF specification, including the integration with the national e-Notice system.",
+      "Multi Lane Free Flow (MLFF) tolling takes the barrier out of the toll plaza. Vehicles cross a gantry at normal highway speed, the system identifies each one, and the toll is deducted from its FASTag. No stopping, no queue, no boom barrier.",
+      "Network Toll Solution supplies the whole roadside system: the gantry hardware, the plaza servers and software, and the integration with your acquirer bank, NPCI NETC and the national e-Notice system. The equipment list below follows the minimum bill of quantity used in national MLFF tenders, so you can see exactly what goes where.",
+    ],
+    gallery: [
+      {
+        src: `${IMG}/mlff-gantry-overview.jpg`,
+        remote: "",
+        alt: "MLFF toll gantry over a multi-lane highway with RFID antennas, ANPR cameras, IR illuminator and field junction boxes mounted on the structure",
+        width: 1600,
+        height: 1200,
+      },
+      {
+        src: `${IMG}/mlff-gantry-hardware.jpg`,
+        remote: "",
+        alt: "Close-up of MLFF gantry hardware: UHF RFID antenna panel, ANPR camera in a weatherproof housing and an overhead detector sensor",
+        width: 1200,
+        height: 900,
+      },
+      {
+        src: `${IMG}/mlff-gantry-plaza-view.jpg`,
+        remote: "",
+        alt: "Free-flow gantry in front of a conventional toll plaza canopy, showing how MLFF lanes sit alongside existing barrier lanes",
+        width: 1600,
+        height: 1200,
+      },
     ],
     sections: [
       {
-        title: "How a Vehicle Is Tolled",
+        title: "How a Vehicle Is Tolled Without Stopping",
         body: [
-          "From the moment a vehicle reaches the gantry, the whole journey runs without anyone touching a thing.",
+          "From the moment a vehicle reaches the gantry, the journey runs without anyone touching a thing.",
         ],
         list: [
-          "Detect: an RFID reader reads the FASTag as the vehicle passes, while high-resolution cameras photograph the front and back and read the number plate. You decide which method leads at each plaza.",
-          "Identify: the system fetches the tag and vehicle details from NPCI's NETC mapper, using the tag ID, the TID or the number plate.",
-          "Price: the toll is calculated from the vehicle class.",
-          "Check: a balance check goes to the issuer bank to confirm the wallet can cover the toll.",
-          "Pay: the payment request travels through the acquirer bank and NETC, and the toll is deducted from the FASTag.",
+          "Sense: radar and LiDAR detect the vehicle, measure its speed and tell the other devices when it is under the gantry.",
+          "Read: the RFID reader picks up the FASTag while two ANPR cameras, one facing the front and one the back, capture the number plate day or night.",
+          "Identify: the plaza software fetches the tag and vehicle details from NPCI's NETC mapper using the tag ID, the TID or the number plate, and works out the toll from the vehicle class.",
+          "Charge: after a balance check with the issuer bank, the payment request travels through the acquirer bank and NETC, and the toll is deducted from the FASTag.",
+          "Record: images, video and the transaction are stored together, so every charge and every notice has evidence behind it.",
         ],
       },
       {
-        title: "When the FASTag Can't Pay: The e-Notice Flow",
+        title: "The Hardware on Every Gantry",
         body: [
-          "With no barrier to stop them, some vehicles will always pass without paying: low balance, a hotlisted, blacklisted or closed tag, an unregistered tag, or no FASTag at all. MLFF handles these with an e-Notice instead of a stop.",
+          "Each lane gets its own set of devices, so one lane never depends on another. RFID and ANPR work as a pair on purpose: the tag gives a quick, certain read, and the camera catches vehicles with no tag or one the reader cannot read.",
+        ],
+        table: {
+          headers: ["Equipment", "Quantity", "What it does"],
+          rows: [
+            ["RFID antenna", "1 per lane", "UHF 865-868 MHz, 10 dBi gain, IP65. Sends and receives the signal that wakes the FASTag."],
+            ["RFID reader", "1 per lane", "4-port UHF reader that works at 100 km/h or more, with up to 33 dBm output and a 10,00,000-transaction memory."],
+            ["Radar detector", "1 per lane", "Tracks up to 256 objects at once, up to 200 m away. One sensor can cover up to 4 lanes and measures speed within 1%."],
+            ["LiDAR detector", "Per lane, or as per solution", "Overhead infrared scanner for vehicle detection and classification. Detects 10 to 220 km/h, covers at least 2 lanes per unit, IP67. Mounted on the gantry only."],
+            ["ANPR cameras with housing, controller and pole or cantilever", "2 per lane (front and back)", "3 MP or better with global shutter. Reads plates at up to 150 km/h, retroreflective or not, day and night. Housing has a built-in heater and blower."],
+            ["Audit surveillance camera", "1 per direction", "2048 x 1536 overview of all lanes with 150 m infrared range. An independent record to cross-check disputed transactions."],
+            ["IR illuminator", "1 per lane", "Infrared light of at least 50 m, adjustable and IP66, so plates stay readable at night without dazzling drivers."],
+            ["Field junction box with surge protector", "1 per lane", "Sealed, lockable IP55 cabinet that houses the lane electronics and protects them from power surges."],
+            ["Edge switch", "1 per lane", "Managed outdoor industrial PoE switch that powers and connects the lane's cameras and devices."],
+            ["Layer 3 switch, 24-port, HA mode", "1 per direction", "Carries all gantry traffic back to the plaza, with a standby unit ready to take over."],
+            ["Additional components", "Lump sum", "Anything extra a site needs to hit the accuracy targets, such as thermal cameras."],
+          ],
+          notes: [
+            "Quantities are the indicative minimum per fee plaza. Final counts depend on the number of lanes and the site survey.",
+          ],
+        },
+      },
+      {
+        title: "At the Plaza and the Control Room",
+        body: [
+          "The gantry sends everything to the plaza, where redundant servers process it and operators watch it live.",
+        ],
+        table: {
+          headers: ["Equipment", "Quantity", "What it does"],
+          rows: [
+            ["MLFF local server, HA mode", "2", "Runs the MLFF system. Each server has two 12-core or better processors, 64 GB RAM or more and 30 TB of storage, with 7 days of data kept locally."],
+            ["Storage", "1, minimum 125 TB", "Holds the video and images, with 30 days of recording at 1080p, 25 fps."],
+            ["Workstations with 27-inch display", "5", "Operator desks for live monitoring, notices and reports."],
+            ["Server rack, 27U", "1", "Houses the servers, storage and network gear."],
+            ["Firewall with all licences", "1", "Guards the plaza network and the link to banks and NPCI."],
+            ["Surge protector", "1", "Protects the plaza equipment from power surges."],
+            ["Redundant internet, 1 Gbps leased line", "2", "Two links, so one failure does not stop transactions."],
+            ["PTZ cameras for plaza and gantry", "2", "Pan-tilt-zoom views of the plaza and the gantry."],
+            ["75-inch Full HD LED screen", "1 per fee plaza", "Live status display at each plaza (not needed at the common control centre)."],
+            ["Video wall and controller", "1, at the common control centre", "4 x 2 wall of 55-inch cubes, Full HD, built for 24x7 operation."],
+            ["Cabling and protection", "Lump sum", "Armoured optical fibre, electrical cable, Cat-6A with cable trays, earthing, lightning protection and network surge protection."],
+          ],
+        },
+      },
+      {
+        title: "The Software That Runs It",
+        body: [
+          "Hardware only collects signals. The software turns them into tolls, notices and reports. All licences are perpetual or open source.",
+        ],
+        table: {
+          rows: [
+            ["MLFF software with portal and dashboard", "The core application: lane events, transactions, notices, dashboards and reports."],
+            ["ANPR application", "One licence per ANPR camera. Reads the number plate and picks the best image."],
+            ["Video management software", "One base licence plus one channel licence per camera."],
+            ["Radar and LiDAR applications", "Turn detector data into vehicle events, speed and class."],
+            ["RFID reader and antenna application", "Manages the readers and passes tag reads to the core system."],
+            ["Video analytics", "One licence per camera."],
+            ["Enterprise management software (EMS)", "Monitors network and servers, runs the helpdesk and tracks every SLA. One master licence with 60 nodes, and reports in PDF, Excel and CSV."],
+            ["VAHAN integration", "Fetches vehicle and owner details for notices."],
+            ["MLFF TMCC integration", "Connects the plaza to the central control layer."],
+          ],
+        },
+      },
+      {
+        title: "When a FASTag Can't Pay",
+        body: [
+          "With no barrier to stop them, some vehicles will pass without paying. MLFF handles them with an e-Notice instead of a stop. A notice is raised when:",
         ],
         list: [
-          "Evidence first: the front and back images are uploaded to the national e-Notice document store before anything else happens.",
-          "Notice raised: the system registers a uniquely numbered e-Notice linked to the plaza, the lane and the exact time the vehicle was read.",
-          "Owner informed: the vehicle owner's details are fetched from Vahan and the owner is notified by SMS with a way to pay or raise a grievance.",
-          "Bank alerted: the issuer bank is told, and may flag the FASTag until pending notices are cleared.",
-          "Tracked to closure: each notice moves from issued to resolved when it is paid or a grievance is accepted, or to expired if nothing happens. Appeals are supported, and daily reports keep every party reconciled.",
+          "the FASTag is hotlisted or has low balance, or fails the balance check",
+          "the FASTag is blacklisted or closed, or already carries an e-Notice flag",
+          "the FASTag is not registered, or its bank code is not on the plaza's valid list",
+          "the vehicle has no FASTag at all",
+        ],
+      },
+      {
+        title: "What Happens Next: The e-Notice Flow",
+        list: [
+          "Evidence first: the front and back images are uploaded to the national e-Notice document store before the notice is raised.",
+          "Notice raised: a uniquely numbered e-Notice is registered against the vehicle, with the plaza, lane and time of the read.",
+          "Owner informed: the owner's details come from VAHAN, and the owner is told by SMS how to pay or raise a grievance.",
+          "Bank alerted: the issuer bank is notified and may flag the FASTag until the notice is cleared.",
+          "Tracked to closure: the notice moves from issued to resolved, or to expired, and end-of-day reports keep every party reconciled.",
         ],
       },
       {
@@ -1593,24 +1691,20 @@ export const solutions: Solution[] = [
         ],
       },
       {
-        title: "What Network Toll Delivers",
+        title: "Built for Highway Conditions",
         list: [
-          "RFID readers and ANPR cameras set up for gantry-mounted, multi-lane capture",
-          "Automatic vehicle classification, with weigh-in-motion and traffic radar where your project needs them",
-          "Plaza software for tag lookup, balance check, payment, e-Notice creation, retries and status tracking",
-          "Integration with your acquirer bank and the NETC and e-Notice platforms",
-          "Evidence handling: the right images, linked to the right notice, every time",
-          "Daily end-of-day reports for reconciliation",
-          "Hybrid operation: MLFF lanes run alongside your existing barrier lanes on the same plaza",
+          "Devices are specified for -10°C to +55°C, with IP65 to IP67 protection on the gantry equipment.",
+          "Lightning arrester on the structure and surge protection at every junction box.",
+          "Cameras keep a tamper-proof 24-hour recording on site, and the control centre holds 30 days of video.",
+          "The LiDAR has its own processing unit, so detection carries on if the network drops.",
+          "Redundant servers and two internet links keep the plaza running through a single failure.",
+          "Every message to the bank and NPCI is digitally signed and sent over a secure connection.",
         ],
       },
       {
-        title: "Secure and Dependable by Design",
-        list: [
-          "Every message to the bank and NPCI is digitally signed and sent over a secure connection.",
-          "e-Notice data is encrypted end to end between NPCI and the e-Notice system.",
-          "Unique transaction and notice numbers prevent duplicates.",
-          "Requests are retried until they are acknowledged, and timeouts are handled without losing a transaction.",
+        title: "Works Alongside Your Existing Lanes",
+        body: [
+          "A plaza can run in hybrid mode. Existing barrier lanes get the same RFID and ANPR kit, with vehicle classification from LiDAR or a camera-based counting and classification solution, while new MLFF lanes run on their own merchant ID. Plazas can move to free flow gradually.",
         ],
       },
       {
@@ -1619,39 +1713,38 @@ export const solutions: Solution[] = [
           "National highways and expressways",
           "State highways and bridges",
           "City entry points and urban corridors",
-          "Existing plazas moving gradually from barriers to free flow",
+          "Existing plazas moving from barriers to free flow",
         ],
-      },
-    ],
-    gallery: [
-      {
-        src: `${IMG}/anpr-toll-management.png`,
-        remote: "",
-        alt: "ANPR camera mounted over a multi-lane highway to read number plates as vehicles pass",
-        width: 520,
-        height: 300,
       },
     ],
     faqs: [
       {
         q: "What is Multi Lane Free Flow (MLFF) tolling?",
-        a: "MLFF is a barrier-free way of collecting tolls. Vehicles pass through the toll point at normal highway speed while the toll is deducted automatically from their FASTag, so there are no booths, barriers or queues.",
+        a: "MLFF is a barrier-free way of collecting tolls. Vehicles pass the toll point at normal highway speed while the toll is deducted automatically from their FASTag, so there are no booths, barriers or queues.",
       },
       {
-        q: "Do vehicles need to stop or slow down?",
-        a: "No. Readers and cameras at the gantry identify each vehicle as it passes at highway speed, and the payment is processed in the background.",
+        q: "What hardware is installed on an MLFF gantry?",
+        a: "Per lane: one RFID antenna and reader, one radar detector, a LiDAR detector as per the solution, two ANPR cameras (front and back), an IR illuminator, a field junction box with surge protection and an edge switch. Per direction: an audit surveillance camera and a 24-port Layer 3 switch.",
+      },
+      {
+        q: "Why does MLFF use both RFID and ANPR cameras?",
+        a: "The RFID reader reads the FASTag quickly and with certainty. The ANPR cameras read the number plate, which covers vehicles with no FASTag or an unreadable one and gives photographic evidence for any notice.",
+      },
+      {
+        q: "What do the radar and the LiDAR do?",
+        a: "They detect each vehicle, measure its speed and help classify it, so the system knows when to trigger the reader and cameras and which toll class applies. Radar tracks many objects over a long range, while LiDAR scans the vehicle from overhead.",
       },
       {
         q: "What happens if the FASTag has low balance or the vehicle has no FASTag?",
         a: "The system raises an e-Notice with front and back images of the vehicle. The owner is notified by SMS and can pay online or raise a grievance. The notice is tracked until it is resolved or expires.",
       },
       {
-        q: "Does MLFF use RFID, cameras or both?",
-        a: "Both. The RFID reader reads the FASTag and the ANPR cameras read the number plate. You choose which method is primary at each plaza, and the other acts as backup and evidence.",
-      },
-      {
         q: "Can MLFF run alongside our existing barrier lanes?",
         a: "Yes. A plaza can run in hybrid mode, with MLFF lanes on their own merchant ID and normal lanes on the existing one, until you are ready to move fully to free flow.",
+      },
+      {
+        q: "What keeps the system running if the network or a server fails?",
+        a: "The plaza runs two servers in high-availability mode with two internet links, the Layer 3 switch has a standby unit, and the LiDAR has its own processing unit so it keeps detecting during a network drop.",
       },
       {
         q: "Who is this solution for?",
@@ -1659,9 +1752,9 @@ export const solutions: Solution[] = [
       },
     ],
     seo: {
-      title: "Multi Lane Free Flow (MLFF) Tolling Solution — Barrier-Free Toll Collection",
+      title: "Multi Lane Free Flow (MLFF) Tolling: RFID, ANPR & Gantry Hardware",
       description:
-        "Barrier-free MLFF tolling with FASTag RFID and ANPR. Automatic toll deduction at highway speed, e-Notice for violations and NPCI NETC integration.",
+        "Barrier-free MLFF tolling with FASTag RFID, ANPR, radar and LiDAR on the gantry, plaza servers and software, and e-Notice integration with NPCI NETC.",
     },
   },
 ];

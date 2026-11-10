@@ -54,6 +54,8 @@ export type Section = {
   body?: string[];
   /** Bulleted lines. */
   list?: string[];
+  /** Optional spec table rendered under the body and list (solution pages). */
+  table?: SpecTable;
 };
 
 /**
