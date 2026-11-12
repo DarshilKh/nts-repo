@@ -1557,29 +1557,37 @@ export const solutions: Solution[] = [
       "Vehicles keep moving at highway speed. The gantry reads, classifies, charges and records every one of them.",
     intro: [
       "Multi Lane Free Flow (MLFF) tolling takes the barrier out of the toll plaza. Vehicles cross a gantry at normal highway speed, the system identifies each one, and the toll is deducted from its FASTag. No stopping, no queue, no boom barrier.",
-      "Network Toll Solution supplies the whole roadside system: the gantry hardware, the plaza servers and software, and the integration with your acquirer bank, NPCI NETC and the national e-Notice system. The equipment list below follows the minimum bill of quantity used in national MLFF tenders, so you can see exactly what goes where.",
+      "Network Toll Solution supplies the whole roadside system: the gantry hardware, the plaza servers with load balancing and backup, the software, and the integration with your acquirer bank, NPCI NETC and the national e-Notice system. The equipment lists below follow the minimum bill of quantity used in national MLFF tenders, so you can see exactly which hardware does what.",
     ],
     gallery: [
       {
-        src: `${IMG}/mlff-gantry-overview.jpg`,
+        src: `${IMG}/mlff-gantry-wide.jpg`,
         remote: "",
-        alt: "MLFF toll gantry over a multi-lane highway with RFID antennas, ANPR cameras, IR illuminator and field junction boxes mounted on the structure",
+        wide: true,
+        alt: "MLFF toll gantry spanning the highway with RFID antennas, ANPR cameras, IR illuminators and field junction boxes mounted on the structure",
         width: 1600,
-        height: 1200,
+        height: 900,
       },
       {
-        src: `${IMG}/mlff-gantry-hardware.jpg`,
+        src: `${IMG}/mlff-gantry-sensors.jpg`,
         remote: "",
-        alt: "Close-up of MLFF gantry hardware: UHF RFID antenna panel, ANPR camera in a weatherproof housing and an overhead detector sensor",
+        alt: "Close-up of MLFF gantry hardware: a radar detector, a UHF RFID antenna panel, an overhead LiDAR scanner and an ANPR camera in a weatherproof housing",
         width: 1200,
         height: 900,
       },
       {
-        src: `${IMG}/mlff-gantry-plaza-view.jpg`,
+        src: `${IMG}/mlff-gantry-lanes.jpg`,
         remote: "",
-        alt: "Free-flow gantry in front of a conventional toll plaza canopy, showing how MLFF lanes sit alongside existing barrier lanes",
-        width: 1600,
-        height: 1200,
+        alt: "Two lane sets on an MLFF gantry, each with RFID antennas, ANPR cameras and an IR illuminator, plus junction boxes on the upper frame",
+        width: 1200,
+        height: 900,
+      },
+      {
+        src: `${IMG}/mlff-control-room-rack.jpg`,
+        remote: "",
+        alt: "Control-room equipment rack with network and optical modules and patch cables that link the gantry to the plaza",
+        width: 1200,
+        height: 900,
       },
     ],
     sections: [
@@ -1590,11 +1598,60 @@ export const solutions: Solution[] = [
         ],
         list: [
           "Sense: radar and LiDAR detect the vehicle, measure its speed and tell the other devices when it is under the gantry.",
-          "Read: the RFID reader picks up the FASTag while two ANPR cameras, one facing the front and one the back, capture the number plate day or night.",
+          "Read: the RFID reader picks up the FASTag while ANPR cameras facing the front and the back capture the number plate, day or night.",
           "Identify: the plaza software fetches the tag and vehicle details from NPCI's NETC mapper using the tag ID, the TID or the number plate, and works out the toll from the vehicle class.",
           "Charge: after a balance check with the issuer bank, the payment request travels through the acquirer bank and NETC, and the toll is deducted from the FASTag.",
           "Record: images, video and the transaction are stored together, so every charge and every notice has evidence behind it.",
         ],
+      },
+      {
+        title: "How the Data Travels: From the Gantry to the Bank",
+        body: [
+          "Every vehicle sets off a short chain of events. This is the path the data takes, from the sensors on the gantry to your bank and back.",
+        ],
+        flow: {
+          zones: [
+            {
+              label: "1. On the gantry",
+              nodes: [
+                { title: "RFID reader and antenna", note: "Reads the FASTag" },
+                { title: "ANPR cameras", note: "Read the number plate, front and back" },
+                { title: "Radar and LiDAR", note: "Detect, time and classify the vehicle" },
+              ],
+            },
+            {
+              label: "2. At the plaza",
+              nodes: [
+                { title: "Load balancer", note: "Shares the lane traffic across the servers" },
+                { title: "MLFF servers in HA mode", note: "Match the vehicle, set its class and work out the toll" },
+                { title: "Storage", note: "Images, video and every transaction" },
+                { title: "Backup server", note: "Keeps a protected second copy of the records" },
+                { title: "Control room", note: "Workstations and video wall for live monitoring" },
+              ],
+            },
+            {
+              label: "3. Banks and NPCI",
+              chain: true,
+              nodes: [
+                { title: "Acquirer bank", note: "Receives the signed payment request" },
+                { title: "NPCI NETC", note: "Maps the tag and routes the request" },
+                { title: "Issuer bank", note: "Checks the balance and debits the FASTag" },
+              ],
+            },
+            {
+              label: "4. Back at the plaza",
+              nodes: [
+                { title: "Result recorded", note: "Stored with the images and video for reports and disputes" },
+                { title: "e-Notice if unpaid", note: "Raised automatically when the toll can't be collected" },
+              ],
+            },
+          ],
+          links: [
+            "Edge and Layer 3 switches carry the data over armoured fibre to the plaza",
+            "Firewall and redundant 1 Gbps links send a digitally signed payment request",
+            "The result travels back the same way",
+          ],
+        },
       },
       {
         title: "The Hardware on Every Gantry",
@@ -1602,24 +1659,39 @@ export const solutions: Solution[] = [
           "Each lane gets its own set of devices, so one lane never depends on another. RFID and ANPR work as a pair on purpose: the tag gives a quick, certain read, and the camera catches vehicles with no tag or one the reader cannot read.",
         ],
         table: {
-          headers: ["Equipment", "Quantity", "What it does"],
+          headers: ["Equipment", "What it does"],
           rows: [
-            ["RFID antenna", "1 per lane", "UHF 865-868 MHz, 10 dBi gain, IP65. Sends and receives the signal that wakes the FASTag."],
-            ["RFID reader", "1 per lane", "4-port UHF reader that works at 100 km/h or more, with up to 33 dBm output and a 10,00,000-transaction memory."],
-            ["Radar detector", "1 per lane", "Tracks up to 256 objects at once, up to 200 m away. One sensor can cover up to 4 lanes and measures speed within 1%."],
-            ["LiDAR detector", "Per lane, or as per solution", "Overhead infrared scanner for vehicle detection and classification. Detects 10 to 220 km/h, covers at least 2 lanes per unit, IP67. Mounted on the gantry only."],
-            ["ANPR cameras with housing, controller and pole or cantilever", "2 per lane (front and back)", "3 MP or better with global shutter. Reads plates at up to 150 km/h, retroreflective or not, day and night. Housing has a built-in heater and blower."],
-            ["Audit surveillance camera", "1 per direction", "2048 x 1536 overview of all lanes with 150 m infrared range. An independent record to cross-check disputed transactions."],
-            ["IR illuminator", "1 per lane", "Infrared light of at least 50 m, adjustable and IP66, so plates stay readable at night without dazzling drivers."],
-            ["Field junction box with surge protector", "1 per lane", "Sealed, lockable IP55 cabinet that houses the lane electronics and protects them from power surges."],
-            ["Edge switch", "1 per lane", "Managed outdoor industrial PoE switch that powers and connects the lane's cameras and devices."],
-            ["Layer 3 switch, 24-port, HA mode", "1 per direction", "Carries all gantry traffic back to the plaza, with a standby unit ready to take over."],
-            ["Additional components", "Lump sum", "Anything extra a site needs to hit the accuracy targets, such as thermal cameras."],
+            ["RFID antenna", "UHF 865-868 MHz, 10 dBi gain, IP65. Sends and receives the signal that wakes the FASTag."],
+            ["RFID reader", "4-port UHF reader that works at 100 km/h or more, with up to 33 dBm output and a 10,00,000-transaction memory."],
+            ["Radar detector", "Tracks up to 256 objects at once, up to 200 m away. One sensor can cover up to 4 lanes and measures speed within 1%."],
+            ["LiDAR detector", "Overhead infrared scanner for vehicle detection and classification. Detects 10 to 220 km/h, covers at least 2 lanes per unit, IP67. Mounted on the gantry only."],
+            ["ANPR cameras with housing, controller and pole or cantilever", "Front and back cameras, 3 MP or better with a global shutter. Read plates at up to 150 km/h, retroreflective or not, day and night. The housing has a built-in heater and blower."],
+            ["Audit surveillance camera", "2048 x 1536 overview of all lanes with 150 m infrared range. An independent record to cross-check disputed transactions."],
+            ["IR illuminator", "Infrared light of at least 50 m, adjustable and IP66, so plates stay readable at night without dazzling drivers."],
+            ["Field junction box with surge protector", "Sealed, lockable IP55 cabinet that houses the lane electronics and protects them from power surges."],
+            ["Edge switch", "Managed outdoor industrial PoE switch that powers and connects the lane's cameras and devices."],
+            ["Layer 3 switch, 24-port, HA mode", "Carries all gantry traffic back to the plaza, with a standby unit ready to take over."],
+            ["Additional components", "Anything extra a site needs to hit the accuracy targets, such as thermal cameras."],
           ],
           notes: [
-            "Quantities are the indicative minimum per fee plaza. Final counts depend on the number of lanes and the site survey.",
+            "The exact set for a site depends on the number of lanes and the site survey.",
           ],
         },
+      },
+      {
+        title: "Servers, Load Balancing and Backup",
+        body: [
+          "The plaza is built so that no single failure stops tolling. Servers, storage and network links are duplicated, and the work is shared between them.",
+        ],
+        list: [
+          "High-availability servers: rack-mounted, industrial-grade servers with two processors of 12 cores or more, at least 64 GB of RAM, dual 10 GbE ports and a dual redundant power supply. They run in HA mode, so a standby takes over if the main server fails.",
+          "Load balancing: incoming lane traffic is spread across the servers, so a busy hour does not slow transactions and a server can be taken out for maintenance without stopping tolling.",
+          "Backup server: a separate backup server keeps a protected copy of the database, transactions and images, so records can be restored after a fault.",
+          "Resilient storage: at least 125 TB usable, with RAID, two controllers working in active/active mode and protection against disk, fan and power-supply failure. Snapshots can be taken for backup.",
+          "Retention you can rely on: images are kept for 180 days and video for 30 days. Records tied to a dispute are held until the end of the contract.",
+          "Local first, cloud optional: servers sit at the plaza, and a redundant MeitY-empanelled cloud setup can be added for extra resilience.",
+          "Flexible hosting: the servers support Hyper-V, VMware and Citrix virtualization.",
+        ],
       },
       {
         title: "At the Plaza and the Control Room",
@@ -1627,19 +1699,19 @@ export const solutions: Solution[] = [
           "The gantry sends everything to the plaza, where redundant servers process it and operators watch it live.",
         ],
         table: {
-          headers: ["Equipment", "Quantity", "What it does"],
+          headers: ["Equipment", "What it does"],
           rows: [
-            ["MLFF local server, HA mode", "2", "Runs the MLFF system. Each server has two 12-core or better processors, 64 GB RAM or more and 30 TB of storage, with 7 days of data kept locally."],
-            ["Storage", "1, minimum 125 TB", "Holds the video and images, with 30 days of recording at 1080p, 25 fps."],
-            ["Workstations with 27-inch display", "5", "Operator desks for live monitoring, notices and reports."],
-            ["Server rack, 27U", "1", "Houses the servers, storage and network gear."],
-            ["Firewall with all licences", "1", "Guards the plaza network and the link to banks and NPCI."],
-            ["Surge protector", "1", "Protects the plaza equipment from power surges."],
-            ["Redundant internet, 1 Gbps leased line", "2", "Two links, so one failure does not stop transactions."],
-            ["PTZ cameras for plaza and gantry", "2", "Pan-tilt-zoom views of the plaza and the gantry."],
-            ["75-inch Full HD LED screen", "1 per fee plaza", "Live status display at each plaza (not needed at the common control centre)."],
-            ["Video wall and controller", "1, at the common control centre", "4 x 2 wall of 55-inch cubes, Full HD, built for 24x7 operation."],
-            ["Cabling and protection", "Lump sum", "Armoured optical fibre, electrical cable, Cat-6A with cable trays, earthing, lightning protection and network surge protection."],
+            ["MLFF local server, HA mode", "Runs the MLFF system. Two 12-core or better processors, 64 GB RAM or more and 30 TB of local storage, with 7 days of data kept on the server."],
+            ["Storage", "125 TB or more, usable after RAID. Holds all images and video for the retention period."],
+            ["Workstations with 27-inch display", "Operator desks for live monitoring, notices and reports."],
+            ["Server rack, 27U", "Houses the servers, storage and network gear."],
+            ["Firewall with all licences", "Guards the plaza network and the link to banks and NPCI."],
+            ["Surge protector", "Protects the plaza equipment from power surges."],
+            ["Redundant internet, 1 Gbps leased lines", "Two independent links, so one failure does not stop transactions."],
+            ["PTZ cameras for plaza and gantry", "Pan-tilt-zoom views of the plaza and the gantry."],
+            ["75-inch Full HD LED screen", "Live status display at each fee plaza (not needed at the common control centre)."],
+            ["Video wall and controller", "Multi-cube wall of 55-inch Full HD cubes at the common control centre, built for 24x7 operation."],
+            ["Cabling and protection", "Armoured optical fibre, electrical cable, Cat-6A with cable trays, earthing, lightning protection and network surge protection."],
           ],
         },
       },
@@ -1651,12 +1723,12 @@ export const solutions: Solution[] = [
         table: {
           rows: [
             ["MLFF software with portal and dashboard", "The core application: lane events, transactions, notices, dashboards and reports."],
-            ["ANPR application", "One licence per ANPR camera. Reads the number plate and picks the best image."],
-            ["Video management software", "One base licence plus one channel licence per camera."],
+            ["ANPR application", "Reads the number plate and picks the best image for each vehicle."],
+            ["Video management software", "Records, stores and plays back the camera feeds."],
             ["Radar and LiDAR applications", "Turn detector data into vehicle events, speed and class."],
             ["RFID reader and antenna application", "Manages the readers and passes tag reads to the core system."],
-            ["Video analytics", "One licence per camera."],
-            ["Enterprise management software (EMS)", "Monitors network and servers, runs the helpdesk and tracks every SLA. One master licence with 60 nodes, and reports in PDF, Excel and CSV."],
+            ["Video analytics", "Adds intelligence to the camera feeds."],
+            ["Enterprise management software (EMS)", "Monitors network and servers, runs the helpdesk and tracks every SLA, with reports in PDF, Excel and CSV."],
             ["VAHAN integration", "Fetches vehicle and owner details for notices."],
             ["MLFF TMCC integration", "Connects the plaza to the central control layer."],
           ],
@@ -1676,13 +1748,37 @@ export const solutions: Solution[] = [
       },
       {
         title: "What Happens Next: The e-Notice Flow",
-        list: [
-          "Evidence first: the front and back images are uploaded to the national e-Notice document store before the notice is raised.",
-          "Notice raised: a uniquely numbered e-Notice is registered against the vehicle, with the plaza, lane and time of the read.",
-          "Owner informed: the owner's details come from VAHAN, and the owner is told by SMS how to pay or raise a grievance.",
-          "Bank alerted: the issuer bank is notified and may flag the FASTag until the notice is cleared.",
-          "Tracked to closure: the notice moves from issued to resolved, or to expired, and end-of-day reports keep every party reconciled.",
+        body: [
+          "The notice is raised with evidence attached, and it is followed until it is closed.",
         ],
+        flow: {
+          zones: [
+            {
+              label: "1. The plaza system",
+              chain: true,
+              nodes: [
+                { title: "Evidence uploaded", note: "Front and back images go to the national e-Notice document store first" },
+                { title: "Notice raised", note: "A uniquely numbered e-Notice with the plaza, lane and time of the read" },
+                { title: "Owner found", note: "Owner details are fetched from VAHAN" },
+              ],
+            },
+            {
+              label: "2. The owner and the bank",
+              nodes: [
+                { title: "Owner informed by SMS", note: "How to pay, or how to raise a grievance" },
+                { title: "Issuer bank alerted", note: "May flag the FASTag until the notice is cleared" },
+              ],
+            },
+            {
+              label: "3. Closure",
+              nodes: [
+                { title: "Resolved or expired", note: "The notice is tracked until it is resolved or expires" },
+                { title: "End-of-day reports", note: "Keep every party reconciled" },
+              ],
+            },
+          ],
+          links: ["The owner and the issuer bank are informed", "Until the notice is closed"],
+        },
       },
       {
         title: "Fair to Genuine Users",
@@ -1697,7 +1793,7 @@ export const solutions: Solution[] = [
           "Lightning arrester on the structure and surge protection at every junction box.",
           "Cameras keep a tamper-proof 24-hour recording on site, and the control centre holds 30 days of video.",
           "The LiDAR has its own processing unit, so detection carries on if the network drops.",
-          "Redundant servers and two internet links keep the plaza running through a single failure.",
+          "Redundant servers with load balancing, a backup server and two internet links keep the plaza running through a single failure.",
           "Every message to the bank and NPCI is digitally signed and sent over a secure connection.",
         ],
       },
@@ -1724,7 +1820,7 @@ export const solutions: Solution[] = [
       },
       {
         q: "What hardware is installed on an MLFF gantry?",
-        a: "Per lane: one RFID antenna and reader, one radar detector, a LiDAR detector as per the solution, two ANPR cameras (front and back), an IR illuminator, a field junction box with surge protection and an edge switch. Per direction: an audit surveillance camera and a 24-port Layer 3 switch.",
+        a: "Each lane carries an RFID antenna and reader, a radar detector, a LiDAR detector as per the solution, ANPR cameras facing front and back, an IR illuminator, a field junction box with surge protection and an edge switch. Each direction adds an audit surveillance camera and a 24-port Layer 3 switch in HA mode.",
       },
       {
         q: "Why does MLFF use both RFID and ANPR cameras?",
@@ -1733,6 +1829,14 @@ export const solutions: Solution[] = [
       {
         q: "What do the radar and the LiDAR do?",
         a: "They detect each vehicle, measure its speed and help classify it, so the system knows when to trigger the reader and cameras and which toll class applies. Radar tracks many objects over a long range, while LiDAR scans the vehicle from overhead.",
+      },
+      {
+        q: "What servers and storage does an MLFF plaza need?",
+        a: "The plaza runs rack-mounted servers in high-availability mode, with load balancing across them and a separate backup server. Storage is at least 125 TB usable with RAID and two controllers, and keeps images for 180 days and video for 30 days.",
+      },
+      {
+        q: "How does the toll data reach the bank?",
+        a: "The gantry devices send their reads over the switches to the plaza servers. The servers identify the vehicle, work out the toll and send a digitally signed payment request through the acquirer bank and NPCI NETC to the issuer bank, which debits the FASTag. The result returns the same way and is stored with the images.",
       },
       {
         q: "What happens if the FASTag has low balance or the vehicle has no FASTag?",
@@ -1744,7 +1848,7 @@ export const solutions: Solution[] = [
       },
       {
         q: "What keeps the system running if the network or a server fails?",
-        a: "The plaza runs two servers in high-availability mode with two internet links, the Layer 3 switch has a standby unit, and the LiDAR has its own processing unit so it keeps detecting during a network drop.",
+        a: "The servers run in high-availability mode with load balancing and a backup server, the plaza has two internet links, the Layer 3 switch has a standby unit, and the LiDAR has its own processing unit so it keeps detecting during a network drop.",
       },
       {
         q: "Who is this solution for?",
@@ -1754,7 +1858,7 @@ export const solutions: Solution[] = [
     seo: {
       title: "Multi Lane Free Flow (MLFF) Tolling: RFID, ANPR & Gantry Hardware",
       description:
-        "Barrier-free MLFF tolling with FASTag RFID, ANPR, radar and LiDAR on the gantry, plaza servers and software, and e-Notice integration with NPCI NETC.",
+        "Barrier-free MLFF tolling with FASTag RFID, ANPR, radar and LiDAR on the gantry, HA servers with load balancing and backup, software and e-Notice with NPCI NETC.",
     },
   },
 ];

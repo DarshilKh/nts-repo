@@ -25,6 +25,8 @@ export type CatalogImage = {
   alt: string;
   width: number;
   height: number;
+  /** Solution galleries: span the full gallery width (use for a 16:9 hero shot). */
+  wide?: boolean;
 };
 
 export type Brochure = {
@@ -56,7 +58,24 @@ export type Section = {
   list?: string[];
   /** Optional spec table rendered under the body and list (solution pages). */
   table?: SpecTable;
+  /** Optional flow diagram rendered under the body and list (solution pages). */
+  flow?: FlowDiagram;
 };
+
+/** One box in a flow diagram. */
+export type FlowNode = { title: string; note?: string };
+
+/**
+ * A stage of a flow diagram. Nodes sit side by side as a grid; with `chain`
+ * they read left to right (top to bottom on phones) joined by arrows.
+ */
+export type FlowZone = { label: string; nodes: FlowNode[]; chain?: boolean };
+
+/**
+ * A top-to-bottom flow diagram built from zones. `links[i]` is the caption on
+ * the arrow between zone i and zone i + 1.
+ */
+export type FlowDiagram = { zones: FlowZone[]; links?: string[] };
 
 /**
  * A spec table. With `headers` it renders as a real multi-column table; without

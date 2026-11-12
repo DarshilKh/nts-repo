@@ -10,6 +10,7 @@ import Breadcrumbs from "@/components/ui/Breadcrumbs";
 import MediaSlot from "@/components/ui/MediaSlot";
 import ProductEnquiry from "@/components/sections/ProductEnquiry";
 import SpecTable from "@/components/sections/SpecTable";
+import FlowDiagram from "@/components/sections/FlowDiagram";
 import JsonLd from "@/components/JsonLd";
 import { products, getProduct, productTitle, PRODUCT_GROUPS, type Product } from "@/lib/catalog";
 import { solutionPages, getSolution, solutions, type Solution } from "@/lib/solutions";
@@ -455,13 +456,21 @@ function SolutionDetail({ solution }: { solution: Solution }) {
           {solution.gallery?.length ? (
             <section className="page-x py-6 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
               {solution.gallery.map((g) => (
-                <div key={g.src} style={{ boxShadow: card.shadow, background: "var(--bg)" }}>
+                <div
+                  key={g.src}
+                  className={g.wide ? "sm:col-span-2 lg:col-span-3" : undefined}
+                  style={{ boxShadow: card.shadow, background: "var(--bg)" }}
+                >
                   <MediaSlot
                     src={g.src}
                     alt={g.alt}
                     measuredWidth={g.width}
                     measuredHeight={g.height}
-                    sizes="(min-width: 1024px) 30vw, (min-width: 640px) 45vw, 100vw"
+                    sizes={
+                      g.wide
+                        ? "(min-width: 1440px) 1300px, 100vw"
+                        : "(min-width: 1024px) 30vw, (min-width: 640px) 45vw, 100vw"
+                    }
                   />
                 </div>
               ))}
@@ -496,6 +505,7 @@ function SolutionDetail({ solution }: { solution: Solution }) {
                       ))}
                     </ul>
                   )}
+                  {s.flow && <FlowDiagram diagram={s.flow} />}
                   {s.table && <SpecTable table={s.table} />}
                 </div>
               ))}
