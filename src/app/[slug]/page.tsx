@@ -16,6 +16,7 @@ import { products, getProduct, productTitle, PRODUCT_GROUPS, type Product } from
 import { solutionPages, getSolution, solutions, type Solution } from "@/lib/solutions";
 import { absoluteUrl, SITE_NAME } from "@/lib/seo";
 import { card } from "@/lib/tokens";
+import { companyInfo } from "@/lib/data";
 
 /**
  * Product and solution detail pages, merged into one flat, root-level route.
@@ -421,6 +422,9 @@ function ProductDetail({ product }: { product: Product }) {
 
 function SolutionDetail({ solution }: { solution: Solution }) {
   const related = solutions.filter((s) => s.detail && s.slug !== solution.slug);
+  // First non-wide photo becomes the hero image beside the intro; the rest stay in the gallery grid.
+  const heroImage = solution.intro?.length ? solution.gallery?.find((g) => !g.wide) : undefined;
+  const moreGallery = (solution.gallery ?? []).filter((g) => g !== heroImage);
 
   return (
     <>
@@ -437,25 +441,55 @@ function SolutionDetail({ solution }: { solution: Solution }) {
             />
           </div>
 
-          <section className="page-x pt-10 pb-4">
-            <Heading as="h1" size="h2" className="max-w-4xl">
+          {/* Hero: copy on the left, the first photo framed on the right (when
+              there is one), so the page uses its full width instead of
+              leaving the right third empty. */}
+          <section className="page-x pt-10 pb-6">
+            {/* Heading and tagline run the full width, so the title sits on one or two lines. */}
+            <Heading as="h1" size="h2">
               {solution.heading ?? solution.name}
             </Heading>
             {solution.tagline && (
-              <Text size="bodyLg" tone="brand" weight={600} className="mt-3">
+              <Text size="bodyLg" tone="brand" weight={600} className="mt-4">
                 {solution.tagline}
               </Text>
             )}
-            {solution.intro?.map((para) => (
-              <Text key={para} size="body" tone="muted" className="mt-5 max-w-4xl">
-                {para}
-              </Text>
-            ))}
+            <div
+              className={
+                heroImage
+                  ? "mt-6 grid grid-cols-1 lg:grid-cols-[minmax(0,1.15fr)_minmax(0,0.85fr)] gap-10 items-center"
+                  : "mt-6"
+              }
+            >
+              <div className={heroImage ? undefined : "max-w-5xl"}>
+                {solution.intro?.map((para, i) => (
+                  <Text key={para} size="body" tone="muted" className={i === 0 ? "" : "mt-5"}>
+                    {para}
+                  </Text>
+                ))}
+              </div>
+              {heroImage ? (
+                <div style={{ boxShadow: card.shadow, background: "var(--bg)" }}>
+                  <MediaSlot
+                    src={heroImage.src}
+                    alt={heroImage.alt}
+                    measuredWidth={heroImage.width}
+                    measuredHeight={heroImage.height}
+                    sizes="(min-width: 1024px) 40vw, 100vw"
+                    priority
+                  />
+                </div>
+              ) : null}
+            </div>
           </section>
 
-          {solution.gallery?.length ? (
-            <section className="page-x py-6 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-              {solution.gallery.map((g) => (
+          {moreGallery.length ? (
+            <section
+              className={`page-x py-6 grid grid-cols-1 gap-6 ${
+                moreGallery.length === 1 ? "max-w-4xl" : moreGallery.length === 2 ? "sm:grid-cols-2" : "sm:grid-cols-2 lg:grid-cols-3"
+              }`}
+            >
+              {moreGallery.map((g) => (
                 <div
                   key={g.src}
                   className={g.wide ? "sm:col-span-2 lg:col-span-3" : undefined}
@@ -469,7 +503,7 @@ function SolutionDetail({ solution }: { solution: Solution }) {
                     sizes={
                       g.wide
                         ? "(min-width: 1440px) 1300px, 100vw"
-                        : "(min-width: 1024px) 30vw, (min-width: 640px) 45vw, 100vw"
+                        : "(min-width: 1024px) 45vw, (min-width: 640px) 45vw, 100vw"
                     }
                   />
                 </div>
@@ -477,24 +511,30 @@ function SolutionDetail({ solution }: { solution: Solution }) {
             </section>
           ) : null}
 
-          {solution.sections?.length ? (
-            <section className="page-x py-6 space-y-10">
-              {solution.sections.map((s) => (
-                <div key={s.title}>
+          {/* Body: content cards in a readable column, with a sticky action
+              panel beside them on desktop. */}
+          <div className="page-x py-8 grid grid-cols-1 lg:grid-cols-[minmax(0,1fr)_330px] gap-10 items-start">
+            <div className="min-w-0 space-y-8">
+              {solution.sections?.map((s) => (
+                <section
+                  key={s.title}
+                  className="p-6 md:p-8"
+                  style={{ boxShadow: card.shadow, background: "var(--bg)", borderTop: "3px solid var(--brand-red)" }}
+                >
                   <Heading as="h2" size="itemHeading" weight={700}>
                     {s.title}
                   </Heading>
                   {s.body?.map((para) => (
-                    <Text key={para} size="bodyXs" tone="muted" className="mt-3 max-w-4xl">
+                    <Text key={para} size="bodyXs" tone="muted" className="mt-3">
                       {para}
                     </Text>
                   ))}
                   {s.list && (
-                    <ul className="mt-4 space-y-2 max-w-4xl">
+                    <ul className="mt-4 space-y-3">
                       {s.list.map((item) => (
                         <li
                           key={item}
-                          className="flex gap-2"
+                          className="flex gap-3"
                           style={{ fontSize: "var(--fs-body-xs)", color: "var(--text-muted)" }}
                         >
                           <span style={{ color: "var(--brand-red)" }} aria-hidden="true">
@@ -507,73 +547,96 @@ function SolutionDetail({ solution }: { solution: Solution }) {
                   )}
                   {s.flow && <FlowDiagram diagram={s.flow} />}
                   {s.table && <SpecTable table={s.table} />}
-                </div>
+                </section>
               ))}
-            </section>
-          ) : null}
 
-          {solution.video && (
-            <section className="page-x py-8">
-              <div className="relative w-full max-w-4xl" style={{ aspectRatio: "16 / 9", boxShadow: card.shadow }}>
-                <iframe
-                  src={solution.video}
-                  title={`${solution.name} — overview video`}
-                  loading="lazy"
-                  allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                  allowFullScreen
-                  className="absolute inset-0 w-full h-full"
-                  style={{ border: 0 }}
-                />
+              {solution.video && (
+                <div className="relative w-full" style={{ aspectRatio: "16 / 9", boxShadow: card.shadow }}>
+                  <iframe
+                    src={solution.video}
+                    title={`${solution.name} — overview video`}
+                    loading="lazy"
+                    allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                    allowFullScreen
+                    className="absolute inset-0 w-full h-full"
+                    style={{ border: 0 }}
+                  />
+                </div>
+              )}
+
+              {solution.faqs?.length ? (
+                <section>
+                  <Heading as="h2" size="h3Lg">
+                    FAQs — {solution.name}
+                  </Heading>
+                  <div className="mt-6">
+                    {solution.faqs.map((f) => (
+                      <details key={f.q} className="py-4" style={{ borderTop: "1px solid rgba(0,0,0,0.12)" }}>
+                        <summary
+                          className="cursor-pointer"
+                          style={{ fontSize: "var(--fs-body)", fontWeight: 700, color: "var(--text-primary)" }}
+                        >
+                          {f.q}
+                        </summary>
+                        <Text size="bodyXs" tone="muted" className="mt-3">
+                          {f.a}
+                        </Text>
+                      </details>
+                    ))}
+                  </div>
+                </section>
+              ) : null}
+            </div>
+
+            <aside className="lg:sticky lg:top-28 space-y-6">
+              <div
+                className="p-6"
+                style={{ boxShadow: card.shadow, background: "var(--bg)", borderTop: "3px solid var(--brand-red)" }}
+              >
+                <Heading as="h2" size="itemHeading" weight={700}>
+                  {solution.name.replace(/\n/g, " ")}
+                </Heading>
+                <Link
+                  href={`/contact?service=${encodeURIComponent(solution.name.replace(/\n/g, " "))}`}
+                  className="mt-5 block px-6 py-3 text-center"
+                  style={{ background: "var(--brand-red)", color: "var(--white)", fontSize: "var(--fs-body-xs)", fontWeight: 700 }}
+                >
+                  Request a quote
+                </Link>
+                <a
+                  href={`tel:${companyInfo.phone.replace(/\s/g, "")}`}
+                  className="mt-4 block text-center"
+                  style={{ color: "var(--brand-red)", fontSize: "var(--fs-body-xs)", fontWeight: 700 }}
+                >
+                  {companyInfo.phone}
+                </a>
               </div>
-            </section>
-          )}
 
-          {solution.brochures?.length ? (
-            <section className="page-x py-10">
-              <Heading as="h2" size="h3Lg">
-                Downloads
-              </Heading>
-              <ul className="mt-6 flex flex-col gap-3 max-w-2xl">
-                {solution.brochures.map((b) => (
-                  <li key={b.href}>
-                    <a
-                      href={b.href}
-                      download
-                      className="flex items-center justify-between gap-4 px-5 py-4"
-                      style={{ background: "var(--brand-red)", color: "var(--white)", fontSize: "var(--fs-body-xs)", fontWeight: 700 }}
-                    >
-                      <span>{b.label}</span>
-                      <span aria-hidden="true">PDF ↓</span>
-                      <span className="sr-only">Download PDF</span>
-                    </a>
-                  </li>
-                ))}
-              </ul>
-            </section>
-          ) : null}
-
-          {solution.faqs?.length ? (
-            <section className="page-x py-10">
-              <Heading as="h2" size="h3Lg">
-                FAQs — {solution.name}
-              </Heading>
-              <div className="mt-6 max-w-4xl">
-                {solution.faqs.map((f) => (
-                  <details key={f.q} className="py-4" style={{ borderTop: "1px solid rgba(0,0,0,0.12)" }}>
-                    <summary
-                      className="cursor-pointer"
-                      style={{ fontSize: "var(--fs-body)", fontWeight: 700, color: "var(--text-primary)" }}
-                    >
-                      {f.q}
-                    </summary>
-                    <Text size="bodyXs" tone="muted" className="mt-3">
-                      {f.a}
-                    </Text>
-                  </details>
-                ))}
-              </div>
-            </section>
-          ) : null}
+              {solution.brochures?.length ? (
+                <div className="p-6" style={{ boxShadow: card.shadow, background: "var(--bg)" }}>
+                  <Heading as="h2" size="itemHeading" weight={700}>
+                    Downloads
+                  </Heading>
+                  <ul className="mt-4 flex flex-col gap-3">
+                    {solution.brochures.map((b) => (
+                      <li key={b.href}>
+                        <a
+                          href={b.href}
+                          download
+                          className="flex items-center justify-between gap-4 px-5 py-4"
+                          style={{ background: "var(--brand-red)", color: "var(--white)", fontSize: "var(--fs-body-xs)", fontWeight: 700 }}
+                        >
+                          <span>{b.label}</span>
+                          <span aria-hidden="true">PDF ↓</span>
+                          <span className="sr-only">Download PDF</span>
+                        </a>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              ) : null}
+            </aside>
+          </div>
 
           {related.length > 0 && (
             <section className="page-x py-10">
