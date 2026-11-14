@@ -64,13 +64,13 @@ export default function ImageTextRow({
         className={`${wrapClass} grid grid-cols-1 md:grid-cols-2 items-stretch my-1`}
         style={{ boxShadow: card.shadow, background: "var(--bg)" }}
       >
-        <div className={`${imgClass} ${imageSide === "right" ? "md:order-2" : "md:order-1"}`}>
+        <div className={`${imgClass} relative min-h-[345px] ${imageSide === "right" ? "md:order-2" : "md:order-1"}`}>
           <MediaSlot
             src={image.src}
             alt={image.alt}
             measuredWidth={image.width}
             measuredHeight={image.height}
-            className="h-[345px]"
+            className="absolute inset-0 h-full"
           />
         </div>
         <div
@@ -78,14 +78,18 @@ export default function ImageTextRow({
           // — see MissionVisionRow.tsx for why a plain `lg:px-0` can lose
           // that cascade in Tailwind v4 and silently adds 64px onto
           // `textPaddingLeftPx` below.
-          className={`${imageSide === "right" ? "md:order-1" : "md:order-2"} relative flex flex-col justify-center px-6 py-14 md:px-16 lg:px-0!`}
+          className={`${imageSide === "right" ? "md:order-1" : "md:order-2"} relative flex flex-col justify-center px-6 py-12 md:px-16 lg:px-0!`}
         >
           <div className={textClass}>
-            <Heading as="h2" size="h2" className="max-w-md">
-              {heading}
-            </Heading>
-            <div className="mt-3 h-[3px] w-24" style={{ background: "var(--brand-red)" }} />
-            <Text size="bodySm" tone="muted" className="mt-6 max-w-sm">
+            {/* One line from lg up: the size scales with the viewport so the longest heading still fits its column. */}
+            {/* w-fit wrapper: the red rule spans the whole heading, however long it is. */}
+            <div className="w-fit max-w-full">
+              <Heading as="h2" size="h2" className="lg:whitespace-nowrap" style={{ fontSize: "clamp(22px, 2.6vw, 38px)" }}>
+                {heading}
+              </Heading>
+              <div className="mt-3 h-[3px] w-full" style={{ background: "var(--brand-red)" }} />
+            </div>
+            <Text size="bodySm" tone="muted" className="mt-6 max-w-2xl" style={{ fontSize: "clamp(17px, 1.8vw, 25px)" }}>
               {body}
             </Text>
           </div>

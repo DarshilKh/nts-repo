@@ -35,7 +35,7 @@ export default function Home() {
           image={homeAssets.operations}
           imageSide="left"
           imageWidthPx={517}
-          textPaddingLeftPx={140}
+          textPaddingLeftPx={130}
         />
 
         {/* §4.1 — text starts x=154, image flush-right (517px, x:924–1441) */}
@@ -46,7 +46,7 @@ export default function Home() {
           image={homeAssets.results}
           imageSide="right"
           imageWidthPx={517}
-          textPaddingLeftPx={154}
+          textPaddingLeftPx={96}
         />
 
         <ProvenExcellence />
