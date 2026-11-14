@@ -3575,14 +3575,33 @@ export const products: Product[] = [
     desc: "Disposable and reusable shoe, bib and sports timing tags for marathon, cycling and endurance events, read at up to 8m with 100% accuracy.",
     bullets: ["865–928 MHz, ISO 18000-6C", "3m (shoe) / 8m (bib) range", "One-time and reusable options"],
     image: {
-      src: `${IMG}/racing-tag-shoe.png`,
-      remote: `${WP}/2025/05/4-2.png`,
-      alt: "RFID shoe tag for race timing, model NWS-RT 08 B",
-      width: 1024,
-      height: 1024,
+      src: `${IMG}/resusable-sports-timing-tag.png`,
+      remote: "",
+      alt: "Reusable RFID sports timing tags numbered 1681 and 1682 for race events",
+      width: 1485,
+      height: 1059,
     },
     heading: "Racing & Sports Timing Tags — Shoe, Bib & Reusable",
     models: [
+      {
+        name: "Reusable Sports Timing Tag (Model: ETS-RT 08 B)",
+        body: [
+          "A reusable alternative to the disposable bib tag above. Worn on a lanyard around the neck or pinned to the T-shirt, it uses a Smartrac Dogbone inlay for high accuracy and reliability across marathon and race events. Built on UHF 865–928 MHz and fully compliant with ISO/IEC 18000-6C, the chip's anti-collision feature records multiple runners simultaneously at speed. Used with RFID readers positioned at checkpoints, it logs each participant's time in real time for live results, published rankings and certificates.",
+        ],
+        specs: [
+          { label: "Frequency", value: "UHF 865–928 MHz, ISO/IEC 18000-6C" },
+          { label: "Inlay", value: "Smartrac Dogbone" },
+          { label: "Wear", value: "Lanyard around neck, or pinned to T-shirt" },
+          { value: "Reusable across multiple events" },
+        ],
+        image: {
+          src: `${IMG}/resusable-sports-timing-tag.png`,
+          remote: "",
+          alt: "Reusable RFID sports timing tags numbered 1681 and 1682 for race events",
+          width: 1485,
+          height: 1059,
+        },
+      },
       {
         name: "RFID Shoe Tag (Model: NWS-RT 08 B)",
         specs: [
@@ -3637,24 +3656,6 @@ export const products: Product[] = [
           width: 1024,
           height: 1024,
         },
-      },
-      {
-        // Sourced from Eco Track Systems (ETS), a separate Delhi RFID
-        // manufacturer — not networktoll.com. ETS's own site (etsrfid.com)
-        // has been taken over by an unrelated third party since this was
-        // researched, so no photo could be pulled from it; content here
-        // comes from the product description as previously indexed by
-        // search engines, kept to what was actually stated.
-        name: "Reusable Sports Timing Tag (Model: ETS-RT 08 B)",
-        body: [
-          "A reusable alternative to the disposable bib tag above. Worn on a lanyard around the neck or pinned to the T-shirt, it uses a Smartrac Dogbone inlay for high accuracy and reliability across marathon and race events. Built on UHF 865–928 MHz and fully compliant with ISO/IEC 18000-6C, the chip's anti-collision feature records multiple runners simultaneously at speed. Used with RFID readers positioned at checkpoints, it logs each participant's time in real time for live results, published rankings and certificates.",
-        ],
-        specs: [
-          { label: "Frequency", value: "UHF 865–928 MHz, ISO/IEC 18000-6C" },
-          { label: "Inlay", value: "Smartrac Dogbone" },
-          { label: "Wear", value: "Lanyard around neck, or pinned to T-shirt" },
-          { value: "Reusable across multiple events" },
-        ],
       },
     ],
     seo: {
