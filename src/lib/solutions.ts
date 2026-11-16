@@ -1561,12 +1561,12 @@ export const solutions: Solution[] = [
     ],
     gallery: [
       {
-        src: `${IMG}/mlff-gantry-wide.jpg`,
+        src: `${IMG}/mlff-new.png`,
         remote: "",
         wide: true,
-        alt: "MLFF toll gantry spanning the highway with RFID antennas, ANPR cameras, IR illuminators and field junction boxes mounted on the structure",
-        width: 1600,
-        height: 900,
+        alt: "MLFF toll gantry spanning a multi-lane highway with RFID antennas, ANPR cameras and radar sensors mounted over each lane",
+        width: 1672,
+        height: 941,
       },
       {
         src: `${IMG}/mlff-gantry-sensors.jpg`,
