@@ -108,6 +108,7 @@ export const productLinksCol2 = [
   "PTZ Camera",
   "NT-Pulse Reader",
   "NT-Prime Reader",
+  "LiDAR Sensor",
 ];
 
 // Maps each footer product label to the matching <ProductCard id="..."> on
@@ -159,6 +160,7 @@ export const productLinkSlugs: Record<string, string> = {
   "PTZ Camera": "ptz-camera",
   "NT-Pulse Reader": "nt-pulse",
   "NT-Prime Reader": "traffic-monitoring-radar",
+  "LiDAR Sensor": "lidar-sensor",
 };
 
 export const navLinks = [
