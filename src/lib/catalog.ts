@@ -1253,38 +1253,157 @@ export const products: Product[] = [
     name: "Automatic Vehicle\nClassifier",
     category: "toll",
     group: "avc",
-    desc: "Profiler-based AVC that reads axle count, dimensions and weight to assign the correct toll class automatically.",
-    bullets: ["30mm / 60mm beam spacing", "12m range", "High environmental immunity"],
+    desc: "LiDAR and infrared AVC that measures height, axles and wheelbase to assign the correct toll class automatically.",
+    bullets: ["LiDAR or IR sensor options", "Height, axle and wheelbase detection", "Ethernet and RS-232 output"],
+    // Hero: field photo of the LiDAR sensor in its lane-side enclosure.
     image: {
-      src: `${IMG}/automatic-vehicle-classifier.jpg`,
-      remote: `${WP}/2025/05/automatic-vehicle-classifier.jpg`,
-      alt: "Automatic vehicle classifier profiler at a toll lane",
-      width: 1024,
-      height: 1024,
+      src: `${IMG}/avc-lidar-enclosure.jpg`,
+      remote: "",
+      alt: "Yellow LiDAR sensor of the automatic vehicle classifier mounted inside a sealed grey enclosure at a toll lane",
+      width: 900,
+      height: 900,
     },
-    heading: "Automatic Vehicle Classifier",
+    heading: "Automatic Vehicle Classifier (AVC) for Toll Lanes",
+    tagline: "The right toll class for every vehicle, decided at the lane without waiting for an operator.",
     intro: [
-      "An automatic vehicle classification may need to determine vehicle height, number of axles, presence of dual tires, and vehicle weight to distinguish between vehicles and assign the correct class.",
+      "A wrong vehicle class costs somebody money: the operator loses revenue, or the driver pays too much. Our Automatic Vehicle Classifier (AVC) takes the guesswork out. Sensors at the lane measure each vehicle as it passes, and the system assigns its class on the spot.",
+      "We build two types, so you can match the AVC to the lane and the budget: a LiDAR-based profiler that reads vehicle length, height and axle configuration, and an infrared-sensor AVC with axle sensors, inductive loops and height sensors. Both send the class to your toll system over Ethernet or RS-232.",
+    ],
+    gallery: [
+      {
+        src: `${IMG}/avc-lane-pole-lidar.jpg`,
+        remote: "",
+        alt: "LiDAR sensor of the AVC clamped high on a lane-side pole next to a boom barrier and its controller cabinet",
+        width: 720,
+        height: 900,
+      },
+      {
+        src: `${IMG}/avc-lane-pole-camera.jpg`,
+        remote: "",
+        alt: "AVC LiDAR sensor and junction box fixed on a pole beside a toll lane, with a camera and armoured cable below",
+        width: 720,
+        height: 900,
+      },
+      {
+        src: `${IMG}/avc-plaza-enclosure.jpg`,
+        remote: "",
+        alt: "Sealed AVC sensor enclosure on a pole under a toll plaza canopy, with its cable protected and tied off",
+        width: 720,
+        height: 900,
+      },
+    ],
+    models: [
+      {
+        name: "LiDAR (3D profiler) based AVC",
+        body: [
+          "A 905 nm laser scanner looks across the lane through a 320° view and profiles every vehicle that passes. From that profile the system picks up characteristics such as length, height and axle configuration, which makes it a good fit for high-precision, real-time classification. The sensor is compact, rated IP65 and sends its data over Ethernet. For the full specification, see our LiDAR Sensor page.",
+        ],
+        specs: [
+          { label: "Scan angle", value: "320°" },
+          { label: "Detection range", value: "up to 30 m (90% reflectivity)" },
+          { label: "Accuracy", value: "±20 mm" },
+          { label: "Scan rate", value: "10 Hz (20 Hz can be set)" },
+          { label: "Output", value: "Ethernet TCP/UDP" },
+          { label: "Protection", value: "IP65" },
+        ],
+        image: {
+          src: `${IMG}/lidar-sensor.jpg`,
+          remote: "",
+          alt: "Network Toll Solution LiDAR sensor with 320 degree scanning head",
+          width: 1000,
+          height: 1000,
+        },
+        brochure: {
+          label: "3D profiler based AVC data sheet",
+          href: `${PDF}/automatic-vehicle-classifier.pdf`,
+          remote: "",
+        },
+      },
+      {
+        name: "Infrared (IR) sensor based AVC",
+        body: [
+          "A non-intrusive infrared sensor matrix sits at the lane, working with a 32-bit microcontroller controller. It reads the axle sensors, inductive loops and height sensors, decides the class against pre-set rules, and stores the sensor and classification data in encrypted files before passing it to your system. A microcontroller design means it does not depend on a computer or an operating system.",
+        ],
+        specs: [
+          { label: "Sensors", value: "infrared axle sensors, inductive loops and height sensors" },
+          { label: "Beam spacing and range", value: "30 mm / 60 mm beam spacing, 12 m range" },
+          { label: "Controller", value: "32-bit microcontroller at 64 MHz, 1 ms I/O scanning, 16 I/O ports" },
+          { label: "Interfaces", value: "RS-232 and Ethernet 10/100 Mbps (RJ45)" },
+          { label: "Power", value: "10 to 30 VDC, 30 W" },
+          { label: "Operating temperature", value: "0 to 65°C" },
+          { label: "Accuracy", value: "up to 90% overall" },
+        ],
+        brochure: {
+          label: "IR sensor based AVC data sheet",
+          href: `${PDF}/avc-ir-sensor-based-combined.pdf`,
+          remote: "",
+        },
+      },
     ],
     sections: [
       {
-        title: "Determinants of vehicle class may include",
+        title: "How the AVC Classifies a Vehicle",
+        list: [
+          "Detect: the sensors notice a vehicle arriving at the lane.",
+          "Measure: the LiDAR profile, or the infrared beams and loops, capture the vehicle's height, axle count, wheelbase and direction of travel.",
+          "Decide: the controller compares those readings with your pre-defined class rules and picks the class.",
+          "Send: a class message goes to the toll system for every transaction, carrying the class, axle count, direction, wheelbase and transaction count.",
+          "Record: sensor and class data are kept in encrypted files, so a classification can be checked later.",
+        ],
+      },
+      {
+        title: "What Decides a Vehicle's Class",
+        body: [
+          "Depending on your tariff, a class can depend on one or more of these:",
+        ],
         list: [
           "Number of axles and/or tires of a vehicle.",
-          "Dimensions (e.g., height, length, wheelbase, height over first axle) of a vehicle.",
+          "Dimensions of a vehicle, such as height, length, wheelbase and height over the first axle.",
           "Weight of a vehicle.",
-          "Number of occupants in a vehicle (e.g., a special class assigned to commuter pools with a minimum number of occupants).",
+          "Number of occupants in a vehicle (for example, a special class for commuter pools with a minimum number of occupants).",
+        ],
+      },
+      {
+        title: "Installed Right at the Lane",
+        body: [
+          "The sensors mount on lane-side poles or inside sealed, lockable enclosures, with the cabling protected and tied off. The photos above show the LiDAR sensor in the field.",
         ],
       },
       {
         title: "Features",
         list: [
-          "Wide range of options",
+          "Choice of LiDAR profiler or infrared sensor matrix",
+          "Reads height, axle count, wheelbase and direction",
           "High immunity against environmental changes",
-          "Compact Housing",
-          "Beam spacing 30 mm / 60 mm",
-          "Range 12 m",
+          "Compact housing",
+          "Encrypted storage of sensor and classification data",
+          "Ethernet or RS-232 connection to the toll system",
+          "Works with both manual and ETC lanes",
         ],
+      },
+      {
+        title: "Where It Fits",
+        list: [
+          "Toll plazas on national and state highways",
+          "Urban roads and city entry points",
+          "Hybrid plazas that mix manual and electronic lanes",
+          "ITS (Intelligent Transportation Systems) environments",
+        ],
+      },
+    ],
+    specTables: [
+      {
+        title: "Vehicle classes recognised by the IR AVC",
+        headers: ["Vehicles", "Class"],
+        rows: [
+          ["Bike, auto, car, Tata Ace and Bolero", "Class 1"],
+          ["Tractor, LCV, mini bus and tractor with trolley", "Class 2"],
+          ["Medium truck, heavy truck and big bus", "Class 3"],
+          ["3-axle multi-axle vehicle", "Class 5"],
+          ["4 to 6-axle multi-axle vehicle", "Class 6"],
+          ["Above 6 axles", "Class 7"],
+        ],
+        notes: ["Overall accuracy of up to 90%. Class mapping can be set to match your tariff."],
       },
     ],
     brochures: [
@@ -1309,14 +1428,26 @@ export const products: Product[] = [
         a: "Network Toll's AVC system enhances operational accuracy by automating vehicle classification, reducing manual errors, and speeding up the tolling process. It integrates with the toll management system to ensure correct toll charges and real-time data reporting.",
       },
       {
+        q: "Should I choose the LiDAR or the infrared AVC?",
+        a: "The LiDAR profiler scans the vehicle's shape, so it reads length, height and axle configuration from one sensor. The infrared AVC uses a matrix of axle sensors, inductive loops and height sensors with a microcontroller controller. Tell us about your lanes and tariff, and we will recommend the better fit.",
+      },
+      {
+        q: "What does the AVC send to the toll system?",
+        a: "For every transaction the infrared AVC sends a class message with the vehicle class, axle count, direction (forward or reverse), wheelbase and a transaction count. It also sends a live message every few seconds while no vehicle is present, so the toll system knows the AVC is online.",
+      },
+      {
+        q: "How does the AVC connect to the toll system?",
+        a: "Over Ethernet or RS-232 serial. The infrared AVC controller has one port of each, so it can connect to your lane controller or toll software whichever way your system prefers.",
+      },
+      {
         q: "Is the AVC system compatible with both manual and ETC toll lanes?",
         a: "Yes, Network Toll's AVC system is fully compatible with both manual and Electronic Toll Collection (ETC) lanes. It can be seamlessly integrated into hybrid toll environments to support automated classification regardless of the payment method used.",
       },
     ],
     seo: {
-      title: "Automatic Vehicle Classifier - Network Toll Solution",
+      title: "Automatic Vehicle Classifier (AVC) for Toll Plazas: LiDAR and IR - Network Toll Solution",
       description:
-        "Network Toll Solution provides Automatic Vehicle Classifiers. For Any inquiry call or mail us.",
+        "Automatic vehicle classification for toll lanes. LiDAR profiler and infrared AVC that read height, axles and wheelbase to assign the correct toll class.",
     },
     source: "https://networktoll.com/automatic-vehicle-classifier/",
   },
