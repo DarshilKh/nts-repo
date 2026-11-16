@@ -94,6 +94,7 @@ export type ProductGroup =
   | "tag"
   | "card-wristband"
   | "reader"
+  | "avc"
   | "camera"
   | "radar"
   | "toll-plaza-equipment";
@@ -1251,7 +1252,7 @@ export const products: Product[] = [
     slug: "automatic-vehicle-classifier",
     name: "Automatic Vehicle\nClassifier",
     category: "toll",
-    group: "toll-plaza-equipment",
+    group: "avc",
     desc: "Profiler-based AVC that reads axle count, dimensions and weight to assign the correct toll class automatically.",
     bullets: ["30mm / 60mm beam spacing", "12m range", "High environmental immunity"],
     image: {
@@ -1288,28 +1289,13 @@ export const products: Product[] = [
     ],
     brochures: [
       {
-        label: "2D profiler based AVC data sheet",
-        href: `${PDF}/automatic-vehicle-classifier.pdf`,
-        remote: "",
-      },
-      {
         label: "IR sensor based AVC data sheet",
-        href: `${PDF}/avc-ir-sensor-based.pdf`,
+        href: `${PDF}/avc-ir-sensor-based-combined.pdf`,
         remote: "",
       },
       {
-        label: "IR AVC communication protocol",
-        href: `${PDF}/avc-ir-protocol.pdf`,
-        remote: "",
-      },
-      {
-        label: "AVC axle sensor connection diagram",
-        href: `${PDF}/avc-axle-sensor-connection-diagram.pdf`,
-        remote: "",
-      },
-      {
-        label: "AVC height sensor connection drawing",
-        href: `${PDF}/avc-height-sensor-connection-drawing.pdf`,
+        label: "3D profiler based AVC data sheet",
+        href: `${PDF}/automatic-vehicle-classifier.pdf`,
         remote: "",
       },
     ],
@@ -3903,12 +3889,13 @@ export const PRODUCT_GROUPS: { id: ProductGroup; label: string; blurb: string }[
   { id: "tag", label: "Tags", blurb: "RFID tags for vehicles, assets and access credentials." },
   { id: "card-wristband", label: "Cards & Wristbands", blurb: "Card and wearable-format RFID credentials." },
   { id: "reader", label: "Readers", blurb: "Fixed, desktop, mobile and Bluetooth RFID readers." },
+  { id: "avc", label: "AVC", blurb: "Automatic vehicle classification for correct toll classes." },
   { id: "camera", label: "Cameras", blurb: "ANPR and PTZ cameras for plaza surveillance." },
   { id: "radar", label: "Radar", blurb: "Radar sensors for traffic monitoring." },
   {
     id: "toll-plaza-equipment",
     label: "Toll Plaza Equipment",
-    blurb: "Boom barriers, displays, controllers, signals, classification and weigh-in-motion.",
+    blurb: "Boom barriers, displays, controllers, signals and weigh-in-motion.",
   },
 ];
 

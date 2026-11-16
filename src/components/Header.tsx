@@ -6,7 +6,7 @@ import { usePathname } from "next/navigation";
 import Logo from "./Logo";
 import Frame from "./ui/Frame";
 import { navLinks } from "@/lib/data";
-import { PRODUCT_GROUPS, productGroupSectionId } from "@/lib/catalog";
+import { PRODUCT_GROUPS, productGroupSectionId, products } from "@/lib/catalog";
 import { SOLUTION_GROUPS, solutionsByGroup } from "@/lib/solutions";
 
 /**
@@ -62,7 +62,11 @@ const DROPDOWNS: Record<string, DropdownConfig> = {
         {
           items: PRODUCT_GROUPS.map((g) => ({
             label: g.label,
-            href: `/products#${productGroupSectionId(g.id)}`,
+            // A group with a single product (e.g. AVC) opens that product page directly.
+            href: (() => {
+              const inGroup = products.filter((p) => p.group === g.id);
+              return inGroup.length === 1 ? `/${inGroup[0].slug}` : `/products#${productGroupSectionId(g.id)}`;
+            })(),
             blurb: g.blurb,
           })),
         },
